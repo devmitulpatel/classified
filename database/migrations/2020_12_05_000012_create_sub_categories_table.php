@@ -12,7 +12,6 @@ class CreateSubCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->longText('description')->nullable();
-            $table->string('img')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

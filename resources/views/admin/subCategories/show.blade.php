@@ -49,10 +49,14 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.subCategory.fields.img') }}
+                            {{ trans('cruds.subCategory.fields.sub_category_image') }}
                         </th>
                         <td>
-                            {{ $subCategory->img }}
+                            @if($subCategory->sub_category_image)
+                                <a href="{{ $subCategory->sub_category_image->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $subCategory->sub_category_image->getUrl('thumb') }}">
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 </tbody>

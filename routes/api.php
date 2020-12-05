@@ -15,6 +15,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('categories', 'CategoriesApiController');
 
     // Sub Categories
+    Route::post('sub-categories/media', 'SubCategoryApiController@storeMedia')->name('sub-categories.storeMedia');
     Route::apiResource('sub-categories', 'SubCategoryApiController');
 
     // Products

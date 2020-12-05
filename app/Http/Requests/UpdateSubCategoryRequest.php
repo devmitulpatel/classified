@@ -22,10 +22,6 @@ class UpdateSubCategoryRequest extends FormRequest
                 'required',
                 'unique:sub_categories,name,' . request()->route('sub_category')->id,
             ],
-            'img'  => [
-                'string',
-                'nullable',
-            ],
         ];
     }
 }
