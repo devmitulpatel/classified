@@ -44,14 +44,15 @@
                 <span class="help-block">{{ trans('cruds.subCategory.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="img">{{ trans('cruds.subCategory.fields.img') }}</label>
-                <input class="form-control {{ $errors->has('img') ? 'is-invalid' : '' }}" type="text" name="img" id="img" value="{{ old('img', '') }}">
-                @if($errors->has('img'))
+                <label for="sub_category_image">{{ trans('cruds.subCategory.fields.sub_category_image') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('sub_category_image') ? 'is-invalid' : '' }}" id="sub_category_image-dropzone">
+                </div>
+                @if($errors->has('sub_category_image'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('img') }}
+                        {{ $errors->first('sub_category_image') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.subCategory.fields.img_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.subCategory.fields.sub_category_image_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
@@ -64,4 +65,61 @@
 
 
 
+@endsection
+
+@section('scripts')
+<script>
+    Dropzone.options.subCategoryImageDropzone = {
+    url: '{{ route('admin.sub-categories.storeMedia') }}',
+    maxFilesize: 2, // MB
+    acceptedFiles: '.jpeg,.jpg,.png,.gif',
+    maxFiles: 1,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 2,
+      width: 4096,
+      height: 4096
+    },
+    success: function (file, response) {
+      $('form').find('input[name="sub_category_image"]').remove()
+      $('form').append('<input type="hidden" name="sub_category_image" value="' + response.name + '">')
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      if (file.status !== 'error') {
+        $('form').find('input[name="sub_category_image"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+      }
+    },
+    init: function () {
+@if(isset($subCategory) && $subCategory->sub_category_image)
+      var file = {!! json_encode($subCategory->sub_category_image) !!}
+          this.options.addedfile.call(this, file)
+      this.options.thumbnail.call(this, file, file.preview)
+      file.previewElement.classList.add('dz-complete')
+      $('form').append('<input type="hidden" name="sub_category_image" value="' + file.file_name + '">')
+      this.options.maxFiles = this.options.maxFiles - 1
+@endif
+    },
+    error: function (file, response) {
+        if ($.type(response) === 'string') {
+            var message = response //dropzone sends it's own error messages in string
+        } else {
+            var message = response.errors.file
+        }
+        file.previewElement.classList.add('dz-error')
+        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+        _results = []
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            node = _ref[_i]
+            _results.push(node.textContent = message)
+        }
+
+        return _results
+    }
+}
+</script>
 @endsection

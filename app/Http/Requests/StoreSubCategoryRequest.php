@@ -22,10 +22,6 @@ class StoreSubCategoryRequest extends FormRequest
                 'required',
                 'unique:sub_categories',
             ],
-            'img'  => [
-                'string',
-                'nullable',
-            ],
         ];
     }
 }
