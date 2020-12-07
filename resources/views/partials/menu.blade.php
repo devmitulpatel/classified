@@ -305,6 +305,88 @@
                 </ul>
             </li>
         @endcan
+        @can('website_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/top-navigations*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-sub-categories*") ? "c-show" : "" }} {{ request()->is("admin/client-reviews*") ? "c-show" : "" }} {{ request()->is("admin/articles*") ? "c-show" : "" }} {{ request()->is("admin/article-tags*") ? "c-show" : "" }} {{ request()->is("admin/website-settings*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fab fa-weebly c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.website.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('top_navigation_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.top-navigations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/top-navigations") || request()->is("admin/top-navigations/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-bars c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.topNavigation.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('highlighted_category_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.highlighted-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/highlighted-categories") || request()->is("admin/highlighted-categories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-code-branch c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.highlightedCategory.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('highlighted_sub_category_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.highlighted-sub-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/highlighted-sub-categories") || request()->is("admin/highlighted-sub-categories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-coins c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.highlightedSubCategory.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('client_review_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.client-reviews.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-reviews") || request()->is("admin/client-reviews/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-comments c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.clientReview.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('article_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.articles.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/articles") || request()->is("admin/articles/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-newspaper c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.article.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('article_tag_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.article-tags.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/article-tags") || request()->is("admin/article-tags/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-tags c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.articleTag.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('website_setting_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.website-settings.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/website-settings") || request()->is("admin/website-settings/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.websiteSetting.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
         @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
             @can('profile_password_edit')
                 <li class="c-sidebar-nav-item">
