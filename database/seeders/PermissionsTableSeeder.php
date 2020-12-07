@@ -332,6 +332,150 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 81,
+                'title' => 'website_access',
+            ],
+            [
+                'id'    => 82,
+                'title' => 'top_navigation_create',
+            ],
+            [
+                'id'    => 83,
+                'title' => 'top_navigation_edit',
+            ],
+            [
+                'id'    => 84,
+                'title' => 'top_navigation_show',
+            ],
+            [
+                'id'    => 85,
+                'title' => 'top_navigation_delete',
+            ],
+            [
+                'id'    => 86,
+                'title' => 'top_navigation_access',
+            ],
+            [
+                'id'    => 87,
+                'title' => 'highlighted_category_create',
+            ],
+            [
+                'id'    => 88,
+                'title' => 'highlighted_category_edit',
+            ],
+            [
+                'id'    => 89,
+                'title' => 'highlighted_category_show',
+            ],
+            [
+                'id'    => 90,
+                'title' => 'highlighted_category_delete',
+            ],
+            [
+                'id'    => 91,
+                'title' => 'highlighted_category_access',
+            ],
+            [
+                'id'    => 92,
+                'title' => 'highlighted_sub_category_create',
+            ],
+            [
+                'id'    => 93,
+                'title' => 'highlighted_sub_category_edit',
+            ],
+            [
+                'id'    => 94,
+                'title' => 'highlighted_sub_category_show',
+            ],
+            [
+                'id'    => 95,
+                'title' => 'highlighted_sub_category_delete',
+            ],
+            [
+                'id'    => 96,
+                'title' => 'highlighted_sub_category_access',
+            ],
+            [
+                'id'    => 97,
+                'title' => 'client_review_create',
+            ],
+            [
+                'id'    => 98,
+                'title' => 'client_review_edit',
+            ],
+            [
+                'id'    => 99,
+                'title' => 'client_review_show',
+            ],
+            [
+                'id'    => 100,
+                'title' => 'client_review_delete',
+            ],
+            [
+                'id'    => 101,
+                'title' => 'client_review_access',
+            ],
+            [
+                'id'    => 102,
+                'title' => 'article_create',
+            ],
+            [
+                'id'    => 103,
+                'title' => 'article_edit',
+            ],
+            [
+                'id'    => 104,
+                'title' => 'article_show',
+            ],
+            [
+                'id'    => 105,
+                'title' => 'article_delete',
+            ],
+            [
+                'id'    => 106,
+                'title' => 'article_access',
+            ],
+            [
+                'id'    => 107,
+                'title' => 'article_tag_create',
+            ],
+            [
+                'id'    => 108,
+                'title' => 'article_tag_edit',
+            ],
+            [
+                'id'    => 109,
+                'title' => 'article_tag_show',
+            ],
+            [
+                'id'    => 110,
+                'title' => 'article_tag_delete',
+            ],
+            [
+                'id'    => 111,
+                'title' => 'article_tag_access',
+            ],
+            [
+                'id'    => 112,
+                'title' => 'website_setting_create',
+            ],
+            [
+                'id'    => 113,
+                'title' => 'website_setting_edit',
+            ],
+            [
+                'id'    => 114,
+                'title' => 'website_setting_show',
+            ],
+            [
+                'id'    => 115,
+                'title' => 'website_setting_delete',
+            ],
+            [
+                'id'    => 116,
+                'title' => 'website_setting_access',
+            ],
+            [
+                'id'    => 117,
                 'title' => 'profile_password_edit',
             ],
         ];

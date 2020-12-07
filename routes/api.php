@@ -45,4 +45,27 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Sliders
     Route::post('sliders/media', 'SliderApiController@storeMedia')->name('sliders.storeMedia');
     Route::apiResource('sliders', 'SliderApiController');
+
+    // Top Navigations
+    Route::apiResource('top-navigations', 'TopNavigationApiController');
+
+    // Highlighted Categories
+    Route::apiResource('highlighted-categories', 'HighlightedCategoriesApiController');
+
+    // Highlighted Sub Categories
+    Route::apiResource('highlighted-sub-categories', 'HighlightedSubCategoriesApiController');
+
+    // Client Reviews
+    Route::post('client-reviews/media', 'ClientReviewApiController@storeMedia')->name('client-reviews.storeMedia');
+    Route::apiResource('client-reviews', 'ClientReviewApiController');
+
+    // Articles
+    Route::post('articles/media', 'ArticlesApiController@storeMedia')->name('articles.storeMedia');
+    Route::apiResource('articles', 'ArticlesApiController');
+
+    // Article Tags
+    Route::apiResource('article-tags', 'ArticleTagsApiController');
+
+    // Website Settings
+    Route::apiResource('website-settings', 'WebsiteSettingsApiController');
 });

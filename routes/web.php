@@ -106,6 +106,38 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Product To Approves
     Route::resource('product-to-approves', 'ProductToApproveController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // Top Navigations
+    Route::delete('top-navigations/destroy', 'TopNavigationController@massDestroy')->name('top-navigations.massDestroy');
+    Route::resource('top-navigations', 'TopNavigationController');
+
+    // Highlighted Categories
+    Route::delete('highlighted-categories/destroy', 'HighlightedCategoriesController@massDestroy')->name('highlighted-categories.massDestroy');
+    Route::resource('highlighted-categories', 'HighlightedCategoriesController');
+
+    // Highlighted Sub Categories
+    Route::delete('highlighted-sub-categories/destroy', 'HighlightedSubCategoriesController@massDestroy')->name('highlighted-sub-categories.massDestroy');
+    Route::resource('highlighted-sub-categories', 'HighlightedSubCategoriesController');
+
+    // Client Reviews
+    Route::delete('client-reviews/destroy', 'ClientReviewController@massDestroy')->name('client-reviews.massDestroy');
+    Route::post('client-reviews/media', 'ClientReviewController@storeMedia')->name('client-reviews.storeMedia');
+    Route::post('client-reviews/ckmedia', 'ClientReviewController@storeCKEditorImages')->name('client-reviews.storeCKEditorImages');
+    Route::resource('client-reviews', 'ClientReviewController');
+
+    // Articles
+    Route::delete('articles/destroy', 'ArticlesController@massDestroy')->name('articles.massDestroy');
+    Route::post('articles/media', 'ArticlesController@storeMedia')->name('articles.storeMedia');
+    Route::post('articles/ckmedia', 'ArticlesController@storeCKEditorImages')->name('articles.storeCKEditorImages');
+    Route::resource('articles', 'ArticlesController');
+
+    // Article Tags
+    Route::delete('article-tags/destroy', 'ArticleTagsController@massDestroy')->name('article-tags.massDestroy');
+    Route::resource('article-tags', 'ArticleTagsController');
+
+    // Website Settings
+    Route::delete('website-settings/destroy', 'WebsiteSettingsController@massDestroy')->name('website-settings.massDestroy');
+    Route::resource('website-settings', 'WebsiteSettingsController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password
