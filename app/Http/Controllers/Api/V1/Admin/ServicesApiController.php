@@ -20,7 +20,7 @@ class ServicesApiController extends Controller
     {
         abort_if(Gate::denies('service_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ServiceResource(Service::with(['approved_by', 'created_by'])->get());
+        return new ServiceResource(Service::with(['category', 'sub_category', 'approved_by', 'created_by'])->get());
     }
 
     public function store(StoreServiceRequest $request)
@@ -44,7 +44,7 @@ class ServicesApiController extends Controller
     {
         abort_if(Gate::denies('service_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ServiceResource($service->load(['approved_by', 'created_by']));
+        return new ServiceResource($service->load(['category', 'sub_category', 'approved_by', 'created_by']));
     }
 
     public function update(UpdateServiceRequest $request, Service $service)
