@@ -35,6 +35,12 @@
                             {{ trans('cruds.service.fields.videos') }}
                         </th>
                         <th>
+                            {{ trans('cruds.service.fields.category') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.service.fields.sub_category') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.service.fields.approved_by') }}
                         </th>
                         <th>
@@ -67,6 +73,12 @@
                                         {{ trans('global.view_file') }}
                                     </a>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $service->category->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $service->sub_category->name ?? '' }}
                             </td>
                             <td>
                                 {{ $service->approved_by->name ?? '' }}

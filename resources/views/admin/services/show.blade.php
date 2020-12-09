@@ -65,6 +65,22 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.service.fields.category') }}
+                        </th>
+                        <td>
+                            {{ $service->category->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.service.fields.sub_category') }}
+                        </th>
+                        <td>
+                            {{ $service->sub_category->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.service.fields.approved_by') }}
                         </th>
                         <td>

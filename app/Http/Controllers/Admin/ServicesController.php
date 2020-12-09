@@ -7,7 +7,9 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyServiceRequest;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
+use App\Models\Category;
 use App\Models\Service;
+use App\Models\SubCategory;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -21,7 +23,7 @@ class ServicesController extends Controller
     {
         abort_if(Gate::denies('service_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $services = Service::with(['approved_by', 'created_by', 'media'])->get();
+        $services = Service::with(['category', 'sub_category', 'approved_by', 'created_by', 'media'])->get();
 
         return view('admin.services.index', compact('services'));
     }
@@ -30,7 +32,11 @@ class ServicesController extends Controller
     {
         abort_if(Gate::denies('service_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.services.create');
+        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $sub_categories = SubCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.services.create', compact('categories', 'sub_categories'));
     }
 
     public function store(StoreServiceRequest $request)
@@ -56,9 +62,13 @@ class ServicesController extends Controller
     {
         abort_if(Gate::denies('service_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $service->load('approved_by', 'created_by');
+        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.services.edit', compact('service'));
+        $sub_categories = SubCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $service->load('category', 'sub_category', 'approved_by', 'created_by');
+
+        return view('admin.services.edit', compact('categories', 'sub_categories', 'service'));
     }
 
     public function update(UpdateServiceRequest $request, Service $service)
@@ -104,7 +114,7 @@ class ServicesController extends Controller
     {
         abort_if(Gate::denies('service_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $service->load('approved_by', 'created_by');
+        $service->load('category', 'sub_category', 'approved_by', 'created_by');
 
         return view('admin.services.show', compact('service'));
     }

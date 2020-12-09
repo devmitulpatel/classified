@@ -31,6 +31,8 @@ class Service extends Model implements HasMedia
     protected $fillable = [
         'name',
         'description',
+        'category_id',
+        'sub_category_id',
         'approved_by_id',
         'created_at',
         'updated_at',
@@ -64,6 +66,16 @@ class Service extends Model implements HasMedia
     public function getVideosAttribute()
     {
         return $this->getMedia('videos');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function sub_category()
+    {
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
 
     public function approved_by()
