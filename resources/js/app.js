@@ -29,5 +29,17 @@ import './components/partials/index';
 
 window.MainViewApp = new Vue({
     el: '#app',
+    data(){
+        return {
+            userLoggedIn:false,
+            user:{}
+        };
+    },
+    methods:{
+        userAuthStateChage(v,user){
+            this.userLoggedIn=v;
+            this.user=user;
+        }
+    }
 });
 

@@ -274,11 +274,16 @@
                     </ul>
                     <div class="header-customize justify-content-end align-items-center d-none d-xl-flex">
                         <div class="header-customize-item">
-                            <a href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
+                            <a v-cloak v-if="!userLoggedIn" href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
                                 <svg class="icon icon-user-circle-o">
                                     <use xlink:href="#icon-user-circle-o"></use>
                                 </svg>
                                 Log in</a>
+                            <a v-cloak v-if="userLoggedIn" href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
+                                <svg class="icon icon-user-circle-o">
+                                    <use xlink:href="#icon-user-circle-o"></use>
+                                </svg>
+                               My Profile</a>
                         </div>
                         <div class="header-customize-item button">
                             <a href="page-submit-listing.html" class="btn btn-primary btn-icon-right">Add
