@@ -1,10 +1,25 @@
-<script src="{{asset('vendors/jquery.min.js')}}"></script>
-<script src="{{asset('vendors/popper/popper.js')}}"></script>
-<script src="{{asset('vendors/bootstrap/js/bootstrap.js')}}"></script>
-<script src="{{asset('vendors/hc-sticky/hc-sticky.js')}}"></script>
-<script src="{{asset('vendors/isotope/isotope.pkgd.js')}}"></script>
-<script src="{{asset('vendors/magnific-popup/jquery.magnific-popup.js')}}"></script>
-<script src="{{asset('vendors/slick/slick.js')}}"></script>
-<script src="{{asset('vendors/waypoints/jquery.waypoints.js')}}"></script>
 
-<script src="{{asset('js/app.js')}}"></script>
+@php
+    $js=[
+
+        'vendors/jquery.min.js',
+        'vendors/popper/popper.js',
+        'vendors/bootstrap/js/bootstrap.js',
+        'vendors/hc-sticky/hc-sticky.js',
+        'vendors/isotope/isotope.pkgd.js',
+        'vendors/magnific-popup/jquery.magnific-popup.js',
+        'vendors/slick/slick.js',
+        'vendors/waypoints/jquery.waypoints.js',
+        'js/vendor.js',
+        'js/app.js',
+
+
+    ];
+
+@endphp
+
+
+
+@foreach($js as $url)
+    <script src="{{asset($url)}}"></script>
+@endforeach

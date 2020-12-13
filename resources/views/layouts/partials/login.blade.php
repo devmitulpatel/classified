@@ -1,4 +1,4 @@
-<div id="login-popup" class="mfp-hide">
+<login-section inline-template id="login-popup" class="mfp-hide">
     <div class="form-login-register">
         <div class="tabs mb-8">
             <ul class="nav nav-pills tab-style-01 text-capitalize justify-content-center" role="tablist">
@@ -13,16 +13,16 @@
         <div class="tab-content">
             <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                 <div class="form-login">
-                    <form>
+                    <form v-on:submit.prevent="submitForm('{{route('home')}}')">
                         <div class="font-size-md text-dark mb-5">Log In Your Account</div>
                         <div class="form-group mb-2">
                             <label for="username" class="sr-only">Username</label>
-                            <input id="username" type="text" class="form-control" placeholder="Username">
+                            <input id="username" v-model="input.username" type="text" class="form-control" placeholder="Username">
                         </div>
                         <div class="form-group mb-3">
                             <div class="input-group flex-nowrap align-items-center">
                                 <label for="password" class="sr-only">Password</label>
-                                <input id="password" type="text" class="form-control" placeholder="Password">
+                                <input id="password" v-model="input.password" type="password" class="form-control" placeholder="Password">
                                 <a href="#" class="input-group-append text-decoration-none">Forgot?</a>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                 <label class="custom-control-label text-dark" for="check">Remember</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block font-weight-bold text-uppercase font-size-lg rounded-sm mb-8">
+                        <button type="submit"  class="btn btn-primary btn-block font-weight-bold text-uppercase font-size-lg rounded-sm mb-8">
                             Log In
                         </button>
                     </form>
@@ -109,4 +109,4 @@
         <form>
         </form>
     </div>
-</div>
+</login-section>

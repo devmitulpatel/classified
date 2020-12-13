@@ -8,18 +8,18 @@
 </head>
 <body>
 
-<div id="site-wrapper" class="site-wrapper home-main">
+<div id="app">
+    <div id="site-wrapper" class="site-wrapper home-main">
 
-    @include('layouts/partials/header')
-    @include('layouts/partials/content')
-    @include('layouts/partials/footer')
+        @include('layouts/partials/header')
+        @include('layouts/partials/content')
+        @include('layouts/partials/footer')
 
+    </div>
+    @include('layouts/partials/login')
+    @include('layouts/partials/register')
 </div>
 
-
-
-@include('layouts/partials/login')
-@include('layouts/partials/register')
 @include('layouts/partials/js')
 @include('layouts/partials/icons')
 
