@@ -138,9 +138,9 @@
                     </div>
                     <div class="col-lg-5 mb-3 mb-lg-0">
                         <div>
-                            &copy; 2020 <a href="index-2.html" class="link-hover-dark-primary font-weight-semibold">The Dir.</a> All
+                            &copy; 2020 <a href="{{route('home')}}" class="link-hover-dark-primary font-weight-semibold">The Dir.</a> All
                             Rights Resevered. <br>
-                            <small class="text-center">Design
+                            <small class="text-center text-muted">Design
                                 by <a href="http://millionsllp.com/" class="link-hover-dark-primary font-weight-semibold">Million Solutions LLP</a></small>
                         </div>
                     </div>

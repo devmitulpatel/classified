@@ -3,7 +3,7 @@
 //Route::redirect('/', '/login');
 
 
-Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home']);
+Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
 
 
 Route::get('/home', function () {

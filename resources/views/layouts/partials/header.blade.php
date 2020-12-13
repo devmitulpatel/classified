@@ -6,20 +6,20 @@
                     <div class="navbar-toggler toggle-icon" data-toggle="collapse" data-target="#navbar-main-menu">
                         <span></span>
                     </div>
-                    <a class="navbar-brand navbar-brand-mobile" href="index-2.html">
+                    <a class="navbar-brand navbar-brand-mobile" href="{{route('home')}}">
                         <img src="images/logo.png" alt="TheDir">
                     </a>
                     <a class="mobile-button-search" href="#search-popup" data-gtf-mfp="true" data-mfp-options='{"type":"inline","mainClass":"mfp-move-from-top mfp-align-top search-popup-bg","closeOnBgClick":false,"showCloseBtn":false}'><i class="far fa-search"></i></a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-main-menu">
-                    <a class="navbar-brand d-none d-xl-block mr-auto" href="index-2.html">
+                    <a class="navbar-brand d-none d-xl-block mr-auto" href="{{route('home')}}">
                         <img src="images/logo.png" alt="TheDir">
                     </a>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="#">Demos <span class="caret"><i class="fas fa-angle-down"></i></span></a>
                             <ul class="sub-menu x-animated x-fadeInUp">
-                                <li class="nav-item"><a class="nav-link" href="index-2.html">main</a>
+                                <li class="nav-item"><a class="nav-link" href="{{route('home')}}">main</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="demo/automotive-service/home-automotive-services.html">
                                         automotive service</a></li>
