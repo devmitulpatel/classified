@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+[v-cloak] { display:none; }
 :root {
   --blue: #01b3ed;
   --indigo: #6610f2;
