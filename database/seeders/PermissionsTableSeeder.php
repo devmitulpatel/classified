@@ -76,406 +76,514 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 17,
-                'title' => 'category_create',
-            ],
-            [
-                'id'    => 18,
-                'title' => 'category_edit',
-            ],
-            [
-                'id'    => 19,
-                'title' => 'category_show',
-            ],
-            [
-                'id'    => 20,
-                'title' => 'category_delete',
-            ],
-            [
-                'id'    => 21,
-                'title' => 'category_access',
-            ],
-            [
-                'id'    => 22,
-                'title' => 'product_service_access',
-            ],
-            [
-                'id'    => 23,
-                'title' => 'sub_category_create',
-            ],
-            [
-                'id'    => 24,
-                'title' => 'sub_category_edit',
-            ],
-            [
-                'id'    => 25,
-                'title' => 'sub_category_show',
-            ],
-            [
-                'id'    => 26,
-                'title' => 'sub_category_delete',
-            ],
-            [
-                'id'    => 27,
-                'title' => 'sub_category_access',
-            ],
-            [
-                'id'    => 28,
-                'title' => 'product_create',
-            ],
-            [
-                'id'    => 29,
-                'title' => 'product_edit',
-            ],
-            [
-                'id'    => 30,
-                'title' => 'product_show',
-            ],
-            [
-                'id'    => 31,
-                'title' => 'product_delete',
-            ],
-            [
-                'id'    => 32,
-                'title' => 'product_access',
-            ],
-            [
-                'id'    => 33,
-                'title' => 'service_create',
-            ],
-            [
-                'id'    => 34,
-                'title' => 'service_edit',
-            ],
-            [
-                'id'    => 35,
-                'title' => 'service_show',
-            ],
-            [
-                'id'    => 36,
-                'title' => 'service_delete',
-            ],
-            [
-                'id'    => 37,
-                'title' => 'service_access',
-            ],
-            [
-                'id'    => 38,
-                'title' => 'premium_product_listing_create',
-            ],
-            [
-                'id'    => 39,
-                'title' => 'premium_product_listing_edit',
-            ],
-            [
-                'id'    => 40,
-                'title' => 'premium_product_listing_show',
-            ],
-            [
-                'id'    => 41,
-                'title' => 'premium_product_listing_delete',
-            ],
-            [
-                'id'    => 42,
-                'title' => 'premium_product_listing_access',
-            ],
-            [
-                'id'    => 43,
-                'title' => 'premium_service_listing_create',
-            ],
-            [
-                'id'    => 44,
-                'title' => 'premium_service_listing_edit',
-            ],
-            [
-                'id'    => 45,
-                'title' => 'premium_service_listing_show',
-            ],
-            [
-                'id'    => 46,
-                'title' => 'premium_service_listing_delete',
-            ],
-            [
-                'id'    => 47,
-                'title' => 'premium_service_listing_access',
-            ],
-            [
-                'id'    => 48,
                 'title' => 'message_box_create',
             ],
             [
-                'id'    => 49,
+                'id'    => 18,
                 'title' => 'message_box_edit',
             ],
             [
-                'id'    => 50,
+                'id'    => 19,
                 'title' => 'message_box_show',
             ],
             [
-                'id'    => 51,
+                'id'    => 20,
                 'title' => 'message_box_delete',
             ],
             [
-                'id'    => 52,
+                'id'    => 21,
                 'title' => 'message_box_access',
             ],
             [
-                'id'    => 53,
+                'id'    => 22,
                 'title' => 'admin_access',
             ],
             [
-                'id'    => 54,
+                'id'    => 23,
                 'title' => 'plan_create',
             ],
             [
-                'id'    => 55,
+                'id'    => 24,
                 'title' => 'plan_edit',
             ],
             [
-                'id'    => 56,
+                'id'    => 25,
                 'title' => 'plan_show',
             ],
             [
-                'id'    => 57,
+                'id'    => 26,
                 'title' => 'plan_delete',
             ],
             [
-                'id'    => 58,
+                'id'    => 27,
                 'title' => 'plan_access',
             ],
             [
-                'id'    => 59,
+                'id'    => 28,
                 'title' => 'ad_create',
             ],
             [
-                'id'    => 60,
+                'id'    => 29,
                 'title' => 'ad_edit',
             ],
             [
-                'id'    => 61,
+                'id'    => 30,
                 'title' => 'ad_show',
             ],
             [
-                'id'    => 62,
+                'id'    => 31,
                 'title' => 'ad_delete',
             ],
             [
-                'id'    => 63,
+                'id'    => 32,
                 'title' => 'ad_access',
             ],
             [
-                'id'    => 64,
-                'title' => 'payment_gateway_configuration_access',
-            ],
-            [
-                'id'    => 65,
-                'title' => 'email_configuration_access',
-            ],
-            [
-                'id'    => 66,
+                'id'    => 33,
                 'title' => 'slider_create',
             ],
             [
-                'id'    => 67,
+                'id'    => 34,
                 'title' => 'slider_edit',
             ],
             [
-                'id'    => 68,
+                'id'    => 35,
                 'title' => 'slider_show',
             ],
             [
-                'id'    => 69,
+                'id'    => 36,
                 'title' => 'slider_delete',
             ],
             [
-                'id'    => 70,
+                'id'    => 37,
                 'title' => 'slider_access',
             ],
             [
-                'id'    => 71,
-                'title' => 'moderator_menu_access',
-            ],
-            [
-                'id'    => 72,
+                'id'    => 38,
                 'title' => 'user_menu_access',
             ],
             [
-                'id'    => 73,
-                'title' => 'service_to_approve_access',
-            ],
-            [
-                'id'    => 74,
+                'id'    => 39,
                 'title' => 'services_for_user_access',
             ],
             [
-                'id'    => 75,
+                'id'    => 40,
                 'title' => 'products_for_user_access',
             ],
             [
-                'id'    => 76,
+                'id'    => 41,
                 'title' => 'massage_box_for_moderator_access',
             ],
             [
-                'id'    => 77,
+                'id'    => 42,
                 'title' => 'massage_box_for_user_access',
             ],
             [
-                'id'    => 78,
+                'id'    => 43,
                 'title' => 'profile_for_moderator_access',
             ],
             [
-                'id'    => 79,
+                'id'    => 44,
                 'title' => 'profile_for_user_access',
             ],
             [
-                'id'    => 80,
-                'title' => 'product_to_approve_access',
-            ],
-            [
-                'id'    => 81,
+                'id'    => 45,
                 'title' => 'website_access',
             ],
             [
-                'id'    => 82,
+                'id'    => 46,
                 'title' => 'top_navigation_create',
             ],
             [
-                'id'    => 83,
+                'id'    => 47,
                 'title' => 'top_navigation_edit',
             ],
             [
-                'id'    => 84,
+                'id'    => 48,
                 'title' => 'top_navigation_show',
             ],
             [
-                'id'    => 85,
+                'id'    => 49,
                 'title' => 'top_navigation_delete',
             ],
             [
-                'id'    => 86,
+                'id'    => 50,
                 'title' => 'top_navigation_access',
             ],
             [
-                'id'    => 87,
+                'id'    => 51,
                 'title' => 'highlighted_category_create',
             ],
             [
-                'id'    => 88,
+                'id'    => 52,
                 'title' => 'highlighted_category_edit',
             ],
             [
-                'id'    => 89,
+                'id'    => 53,
                 'title' => 'highlighted_category_show',
             ],
             [
-                'id'    => 90,
+                'id'    => 54,
                 'title' => 'highlighted_category_delete',
             ],
             [
-                'id'    => 91,
+                'id'    => 55,
                 'title' => 'highlighted_category_access',
             ],
             [
-                'id'    => 92,
+                'id'    => 56,
                 'title' => 'highlighted_sub_category_create',
             ],
             [
-                'id'    => 93,
+                'id'    => 57,
                 'title' => 'highlighted_sub_category_edit',
             ],
             [
-                'id'    => 94,
+                'id'    => 58,
                 'title' => 'highlighted_sub_category_show',
             ],
             [
-                'id'    => 95,
+                'id'    => 59,
                 'title' => 'highlighted_sub_category_delete',
             ],
             [
-                'id'    => 96,
+                'id'    => 60,
                 'title' => 'highlighted_sub_category_access',
             ],
             [
-                'id'    => 97,
+                'id'    => 61,
                 'title' => 'client_review_create',
             ],
             [
-                'id'    => 98,
+                'id'    => 62,
                 'title' => 'client_review_edit',
             ],
             [
-                'id'    => 99,
+                'id'    => 63,
                 'title' => 'client_review_show',
             ],
             [
-                'id'    => 100,
+                'id'    => 64,
                 'title' => 'client_review_delete',
             ],
             [
-                'id'    => 101,
+                'id'    => 65,
                 'title' => 'client_review_access',
             ],
             [
-                'id'    => 102,
+                'id'    => 66,
                 'title' => 'article_create',
             ],
             [
-                'id'    => 103,
+                'id'    => 67,
                 'title' => 'article_edit',
             ],
             [
-                'id'    => 104,
+                'id'    => 68,
                 'title' => 'article_show',
             ],
             [
-                'id'    => 105,
+                'id'    => 69,
                 'title' => 'article_delete',
             ],
             [
-                'id'    => 106,
+                'id'    => 70,
                 'title' => 'article_access',
             ],
             [
-                'id'    => 107,
+                'id'    => 71,
                 'title' => 'article_tag_create',
             ],
             [
-                'id'    => 108,
+                'id'    => 72,
                 'title' => 'article_tag_edit',
             ],
             [
-                'id'    => 109,
+                'id'    => 73,
                 'title' => 'article_tag_show',
             ],
             [
-                'id'    => 110,
+                'id'    => 74,
                 'title' => 'article_tag_delete',
             ],
             [
-                'id'    => 111,
+                'id'    => 75,
                 'title' => 'article_tag_access',
             ],
             [
-                'id'    => 112,
+                'id'    => 76,
                 'title' => 'website_setting_create',
             ],
             [
-                'id'    => 113,
+                'id'    => 77,
                 'title' => 'website_setting_edit',
             ],
             [
-                'id'    => 114,
+                'id'    => 78,
                 'title' => 'website_setting_show',
             ],
             [
-                'id'    => 115,
+                'id'    => 79,
                 'title' => 'website_setting_delete',
             ],
             [
-                'id'    => 116,
+                'id'    => 80,
                 'title' => 'website_setting_access',
             ],
             [
+                'id'    => 81,
+                'title' => 'categories_for_admin_create',
+            ],
+            [
+                'id'    => 82,
+                'title' => 'categories_for_admin_edit',
+            ],
+            [
+                'id'    => 83,
+                'title' => 'categories_for_admin_show',
+            ],
+            [
+                'id'    => 84,
+                'title' => 'categories_for_admin_delete',
+            ],
+            [
+                'id'    => 85,
+                'title' => 'categories_for_admin_access',
+            ],
+            [
+                'id'    => 86,
+                'title' => 'sub_category_for_admin_create',
+            ],
+            [
+                'id'    => 87,
+                'title' => 'sub_category_for_admin_edit',
+            ],
+            [
+                'id'    => 88,
+                'title' => 'sub_category_for_admin_show',
+            ],
+            [
+                'id'    => 89,
+                'title' => 'sub_category_for_admin_delete',
+            ],
+            [
+                'id'    => 90,
+                'title' => 'sub_category_for_admin_access',
+            ],
+            [
+                'id'    => 91,
+                'title' => 'product_for_vendor_create',
+            ],
+            [
+                'id'    => 92,
+                'title' => 'product_for_vendor_edit',
+            ],
+            [
+                'id'    => 93,
+                'title' => 'product_for_vendor_show',
+            ],
+            [
+                'id'    => 94,
+                'title' => 'product_for_vendor_delete',
+            ],
+            [
+                'id'    => 95,
+                'title' => 'product_for_vendor_access',
+            ],
+            [
+                'id'    => 96,
+                'title' => 'vendor_access',
+            ],
+            [
+                'id'    => 97,
+                'title' => 'service_for_vendor_create',
+            ],
+            [
+                'id'    => 98,
+                'title' => 'service_for_vendor_edit',
+            ],
+            [
+                'id'    => 99,
+                'title' => 'service_for_vendor_show',
+            ],
+            [
+                'id'    => 100,
+                'title' => 'service_for_vendor_delete',
+            ],
+            [
+                'id'    => 101,
+                'title' => 'service_for_vendor_access',
+            ],
+            [
+                'id'    => 102,
+                'title' => 'p_product_listing_for_vendor_create',
+            ],
+            [
+                'id'    => 103,
+                'title' => 'p_product_listing_for_vendor_edit',
+            ],
+            [
+                'id'    => 104,
+                'title' => 'p_product_listing_for_vendor_show',
+            ],
+            [
+                'id'    => 105,
+                'title' => 'p_product_listing_for_vendor_delete',
+            ],
+            [
+                'id'    => 106,
+                'title' => 'p_product_listing_for_vendor_access',
+            ],
+            [
+                'id'    => 107,
+                'title' => 'p_service_listing_for_vendor_create',
+            ],
+            [
+                'id'    => 108,
+                'title' => 'p_service_listing_for_vendor_edit',
+            ],
+            [
+                'id'    => 109,
+                'title' => 'p_service_listing_for_vendor_show',
+            ],
+            [
+                'id'    => 110,
+                'title' => 'p_service_listing_for_vendor_delete',
+            ],
+            [
+                'id'    => 111,
+                'title' => 'p_service_listing_for_vendor_access',
+            ],
+            [
+                'id'    => 112,
+                'title' => 'permission_group_for_admin_create',
+            ],
+            [
+                'id'    => 113,
+                'title' => 'permission_group_for_admin_edit',
+            ],
+            [
+                'id'    => 114,
+                'title' => 'permission_group_for_admin_show',
+            ],
+            [
+                'id'    => 115,
+                'title' => 'permission_group_for_admin_delete',
+            ],
+            [
+                'id'    => 116,
+                'title' => 'permission_group_for_admin_access',
+            ],
+            [
                 'id'    => 117,
+                'title' => 'feedback_for_admin_create',
+            ],
+            [
+                'id'    => 118,
+                'title' => 'feedback_for_admin_edit',
+            ],
+            [
+                'id'    => 119,
+                'title' => 'feedback_for_admin_show',
+            ],
+            [
+                'id'    => 120,
+                'title' => 'feedback_for_admin_delete',
+            ],
+            [
+                'id'    => 121,
+                'title' => 'feedback_for_admin_access',
+            ],
+            [
+                'id'    => 122,
+                'title' => 'query_from_website_for_admin_create',
+            ],
+            [
+                'id'    => 123,
+                'title' => 'query_from_website_for_admin_edit',
+            ],
+            [
+                'id'    => 124,
+                'title' => 'query_from_website_for_admin_show',
+            ],
+            [
+                'id'    => 125,
+                'title' => 'query_from_website_for_admin_delete',
+            ],
+            [
+                'id'    => 126,
+                'title' => 'query_from_website_for_admin_access',
+            ],
+            [
+                'id'    => 127,
+                'title' => 'p_to_approve_for_moderator_access',
+            ],
+            [
+                'id'    => 128,
+                'title' => 's_to_approve_for_moderator_access',
+            ],
+            [
+                'id'    => 129,
+                'title' => 'moderator_for_moderator_access',
+            ],
+            [
+                'id'    => 130,
+                'title' => 'to_approve_vendor_for_admin_access',
+            ],
+            [
+                'id'    => 131,
+                'title' => 'payment_gateway_for_admin_edit',
+            ],
+            [
+                'id'    => 132,
+                'title' => 'payment_gateway_for_admin_show',
+            ],
+            [
+                'id'    => 133,
+                'title' => 'payment_gateway_for_admin_access',
+            ],
+            [
+                'id'    => 134,
+                'title' => 'email_settings_for_admin_edit',
+            ],
+            [
+                'id'    => 135,
+                'title' => 'email_settings_for_admin_show',
+            ],
+            [
+                'id'    => 136,
+                'title' => 'email_settings_for_admin_access',
+            ],
+            [
+                'id'    => 137,
+                'title' => 'message_box_for_vendor_access',
+            ],
+            [
+                'id'    => 138,
+                'title' => 'profile_for_vendor_access',
+            ],
+            [
+                'id'    => 139,
+                'title' => 'highlighted_cities_for_admin_create',
+            ],
+            [
+                'id'    => 140,
+                'title' => 'highlighted_cities_for_admin_edit',
+            ],
+            [
+                'id'    => 141,
+                'title' => 'highlighted_cities_for_admin_show',
+            ],
+            [
+                'id'    => 142,
+                'title' => 'highlighted_cities_for_admin_delete',
+            ],
+            [
+                'id'    => 143,
+                'title' => 'highlighted_cities_for_admin_access',
+            ],
+            [
+                'id'    => 144,
                 'title' => 'profile_password_edit',
             ],
         ];

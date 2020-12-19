@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyHighlightedSubCategoryRequest;
 use App\Http\Requests\StoreHighlightedSubCategoryRequest;
 use App\Http\Requests\UpdateHighlightedSubCategoryRequest;
+use App\Models\CategoriesForAdmin;
 use App\Models\HighlightedSubCategory;
-use App\Models\SubCategory;
+use App\Models\SubCategoryForAdmin;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,7 @@ class HighlightedSubCategoriesController extends Controller
     {
         abort_if(Gate::denies('highlighted_sub_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $highlightedSubCategories = HighlightedSubCategory::with(['sub_categories'])->get();
+        $highlightedSubCategories = HighlightedSubCategory::with(['sub_categories', 'category'])->get();
 
         return view('admin.highlightedSubCategories.index', compact('highlightedSubCategories'));
     }
@@ -27,9 +28,11 @@ class HighlightedSubCategoriesController extends Controller
     {
         abort_if(Gate::denies('highlighted_sub_category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $sub_categories = SubCategory::all()->pluck('name', 'id');
+        $sub_categories = SubCategoryForAdmin::all()->pluck('name', 'id');
 
-        return view('admin.highlightedSubCategories.create', compact('sub_categories'));
+        $categories = CategoriesForAdmin::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.highlightedSubCategories.create', compact('sub_categories', 'categories'));
     }
 
     public function store(StoreHighlightedSubCategoryRequest $request)
@@ -44,11 +47,13 @@ class HighlightedSubCategoriesController extends Controller
     {
         abort_if(Gate::denies('highlighted_sub_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $sub_categories = SubCategory::all()->pluck('name', 'id');
+        $sub_categories = SubCategoryForAdmin::all()->pluck('name', 'id');
 
-        $highlightedSubCategory->load('sub_categories');
+        $categories = CategoriesForAdmin::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.highlightedSubCategories.edit', compact('sub_categories', 'highlightedSubCategory'));
+        $highlightedSubCategory->load('sub_categories', 'category');
+
+        return view('admin.highlightedSubCategories.edit', compact('sub_categories', 'categories', 'highlightedSubCategory'));
     }
 
     public function update(UpdateHighlightedSubCategoryRequest $request, HighlightedSubCategory $highlightedSubCategory)
@@ -63,7 +68,7 @@ class HighlightedSubCategoriesController extends Controller
     {
         abort_if(Gate::denies('highlighted_sub_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $highlightedSubCategory->load('sub_categories');
+        $highlightedSubCategory->load('sub_categories', 'category');
 
         return view('admin.highlightedSubCategories.show', compact('highlightedSubCategory'));
     }

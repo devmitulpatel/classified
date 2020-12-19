@@ -10,12 +10,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 use \DateTimeInterface;
 
 class User extends Authenticatable
 {
-    use SoftDeletes, Notifiable, HasApiTokens, HasFactory;
+    use SoftDeletes, Notifiable, HasFactory;
 
     public $table = 'users';
 
@@ -37,6 +36,14 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
+        'city',
+        'state',
+        'country',
+        'pincode',
+        'area',
+        'contact_no',
+        'digital_location',
+        'approved_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -77,5 +84,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function approved_by()
+    {
+        return $this->belongsTo(User::class, 'approved_by_id');
     }
 }

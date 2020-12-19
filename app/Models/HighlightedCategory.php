@@ -32,6 +32,6 @@ class HighlightedCategory extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(CategoriesForAdmin::class);
     }
 }

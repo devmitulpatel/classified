@@ -32,6 +32,9 @@
                             {{ trans('cruds.role.fields.permissions') }}
                         </th>
                         <th>
+                            {{ trans('cruds.role.fields.permission_group') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -51,6 +54,11 @@
                             <td>
                                 @foreach($role->permissions as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($role->permission_groups as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
                             </td>
                             <td>

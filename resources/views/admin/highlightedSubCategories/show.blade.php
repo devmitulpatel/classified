@@ -33,6 +33,14 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.highlightedSubCategory.fields.category') }}
+                        </th>
+                        <td>
+                            {{ $highlightedSubCategory->category->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

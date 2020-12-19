@@ -38,6 +38,27 @@
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.city') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.state') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.country') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.pincode') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.area') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.contact_no') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.approved_by') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -64,6 +85,27 @@
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $user->city ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->state ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->country ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->pincode ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->area ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->contact_no ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->approved_by->name ?? '' }}
                             </td>
                             <td>
                                 @can('user_show')
@@ -137,7 +179,7 @@
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
-    pageLength: 100,
+    pageLength: 10,
   });
   let table = $('.datatable-User:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){

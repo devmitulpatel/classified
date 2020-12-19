@@ -29,6 +29,9 @@
                             {{ trans('cruds.highlightedSubCategory.fields.sub_categories') }}
                         </th>
                         <th>
+                            {{ trans('cruds.highlightedSubCategory.fields.category') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -46,6 +49,9 @@
                                 @foreach($highlightedSubCategory->sub_categories as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $highlightedSubCategory->category->name ?? '' }}
                             </td>
                             <td>
                                 @can('highlighted_sub_category_show')

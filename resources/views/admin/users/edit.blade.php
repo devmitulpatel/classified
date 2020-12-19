@@ -59,6 +59,80 @@
                 <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="city">{{ trans('cruds.user.fields.city') }}</label>
+                <input class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" type="text" name="city" id="city" value="{{ old('city', $user->city) }}">
+                @if($errors->has('city'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('city') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.city_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="state">{{ trans('cruds.user.fields.state') }}</label>
+                <input class="form-control {{ $errors->has('state') ? 'is-invalid' : '' }}" type="text" name="state" id="state" value="{{ old('state', $user->state) }}">
+                @if($errors->has('state'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('state') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.state_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="country">{{ trans('cruds.user.fields.country') }}</label>
+                <input class="form-control {{ $errors->has('country') ? 'is-invalid' : '' }}" type="text" name="country" id="country" value="{{ old('country', $user->country) }}">
+                @if($errors->has('country'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('country') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.country_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="pincode">{{ trans('cruds.user.fields.pincode') }}</label>
+                <input class="form-control {{ $errors->has('pincode') ? 'is-invalid' : '' }}" type="text" name="pincode" id="pincode" value="{{ old('pincode', $user->pincode) }}">
+                @if($errors->has('pincode'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('pincode') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.pincode_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="area">{{ trans('cruds.user.fields.area') }}</label>
+                <input class="form-control {{ $errors->has('area') ? 'is-invalid' : '' }}" type="text" name="area" id="area" value="{{ old('area', $user->area) }}">
+                @if($errors->has('area'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('area') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.area_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="contact_no">{{ trans('cruds.user.fields.contact_no') }}</label>
+                <input class="form-control {{ $errors->has('contact_no') ? 'is-invalid' : '' }}" type="text" name="contact_no" id="contact_no" value="{{ old('contact_no', $user->contact_no) }}">
+                @if($errors->has('contact_no'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('contact_no') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.contact_no_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="approved_by_id">{{ trans('cruds.user.fields.approved_by') }}</label>
+                <select class="form-control select2 {{ $errors->has('approved_by') ? 'is-invalid' : '' }}" name="approved_by_id" id="approved_by_id">
+                    @foreach($approved_bies as $id => $approved_by)
+                        <option value="{{ $id }}" {{ (old('approved_by_id') ? old('approved_by_id') : $user->approved_by->id ?? '') == $id ? 'selected' : '' }}>{{ $approved_by }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('approved_by'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('approved_by') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.approved_by_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
