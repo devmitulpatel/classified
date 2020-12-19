@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategoriesForAdmin;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
