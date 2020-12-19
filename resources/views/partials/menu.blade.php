@@ -78,7 +78,7 @@
             </li>
         @endcan
         @can('admin_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/to-approve-vendor-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/categories-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/sub-category-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/ads*") ? "c-show" : "" }} {{ request()->is("admin/plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-gateway-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/email-settings-for-admins*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/to-approve-vendor-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/categories-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/sub-category-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/ads*") ? "c-show" : "" }} {{ request()->is("admin/plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-gateway-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/email-settings-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/website-settings*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-toolbox c-sidebar-nav-icon">
 
@@ -153,6 +153,16 @@
 
                                 </i>
                                 {{ trans('cruds.emailSettingsForAdmin.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('website_setting_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.website-settings.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/website-settings") || request()->is("admin/website-settings/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.websiteSetting.title') }}
                             </a>
                         </li>
                     @endcan
@@ -336,7 +346,7 @@
             </li>
         @endcan
         @can('website_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/sliders*") ? "c-show" : "" }} {{ request()->is("admin/top-navigations*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-sub-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-cities-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/client-reviews*") ? "c-show" : "" }} {{ request()->is("admin/articles*") ? "c-show" : "" }} {{ request()->is("admin/article-tags*") ? "c-show" : "" }} {{ request()->is("admin/website-settings*") ? "c-show" : "" }} {{ request()->is("admin/feedback-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/query-from-website-for-admins*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/sliders*") ? "c-show" : "" }} {{ request()->is("admin/top-navigations*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-sub-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-cities-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/client-reviews*") ? "c-show" : "" }} {{ request()->is("admin/articles*") ? "c-show" : "" }} {{ request()->is("admin/article-tags*") ? "c-show" : "" }} {{ request()->is("admin/feedback-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/query-from-website-for-admins*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fab fa-weebly c-sidebar-nav-icon">
 
@@ -424,20 +434,10 @@
                             </a>
                         </li>
                     @endcan
-                    @can('website_setting_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.website-settings.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/website-settings") || request()->is("admin/website-settings/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.websiteSetting.title') }}
-                            </a>
-                        </li>
-                    @endcan
                     @can('feedback_for_admin_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.feedback-for-admins.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/feedback-for-admins") || request()->is("admin/feedback-for-admins/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+                                <i class="fa-fw far fa-comments c-sidebar-nav-icon">
 
                                 </i>
                                 {{ trans('cruds.feedbackForAdmin.title') }}
@@ -447,7 +447,7 @@
                     @can('query_from_website_for_admin_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.query-from-website-for-admins.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/query-from-website-for-admins") || request()->is("admin/query-from-website-for-admins/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+                                <i class="fa-fw far fa-comment-alt c-sidebar-nav-icon">
 
                                 </i>
                                 {{ trans('cruds.queryFromWebsiteForAdmin.title') }}
