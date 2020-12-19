@@ -24,6 +24,8 @@ class CustomSeeder extends Seeder
             WebsiteSettingTableSeeder::class,
             EmailSettingTableSeeder::class,
             PaymentGatewayTableSeeder::class,
+            DemoHighlightedCitiesSeeder::class,
+            DemoHighlightedCategoiesSeeder::class,
 
 
         ]);

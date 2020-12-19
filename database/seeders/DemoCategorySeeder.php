@@ -18,7 +18,7 @@ class DemoCategorySeeder extends Seeder
 
         $faker = Factory::create();
 
-        $demo_cat=5;
+        $demo_cat=10;
         $data=[];
         for ($i=0;$i<$demo_cat;$i++){
             $data[]=[

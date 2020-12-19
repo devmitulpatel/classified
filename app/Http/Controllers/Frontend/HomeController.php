@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\WebsiteSetting;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,8 +15,11 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+
+        $this->wesite_settings=WebsiteSetting::all()->pluck('value','name')->toArray();
+
         //$this->middleware('auth');
-        $this->title="";
+        $this->title=(array_key_exists('website_header_title', $this->wesite_settings))?$this->wesite_settings['website_header_title']:"Title Not Configured";
     }
 
     /**
@@ -25,7 +29,9 @@ class HomeController extends Controller
      */
     public function home()
     {
+
         $title=$this->title;
-        return view('layouts.root',['title'=>$title]);
+
+        return view('front.Pages.landing',['title'=>$title]);
     }
 }
