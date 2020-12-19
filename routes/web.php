@@ -1,6 +1,6 @@
 <?php
 
-Route::redirect('/', '/login');
+Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -153,8 +153,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('to-approve-vendor-for-admins', 'ToApproveVendorForAdminController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Payment Gateway For Admins
-    Route::post('payment-gateway-for-admins/media', 'PaymentGatewayForAdminController@storeMedia')->name('payment-gateway-for-admins.storeMedia');
-    Route::post('payment-gateway-for-admins/ckmedia', 'PaymentGatewayForAdminController@storeCKEditorImages')->name('payment-gateway-for-admins.storeCKEditorImages');
     Route::resource('payment-gateway-for-admins', 'PaymentGatewayForAdminController', ['except' => ['create', 'store', 'destroy']]);
 
     // Email Settings For Admins
@@ -171,10 +169,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('highlighted-cities-for-admins/media', 'HighlightedCitiesForAdminController@storeMedia')->name('highlighted-cities-for-admins.storeMedia');
     Route::post('highlighted-cities-for-admins/ckmedia', 'HighlightedCitiesForAdminController@storeCKEditorImages')->name('highlighted-cities-for-admins.storeCKEditorImages');
     Route::resource('highlighted-cities-for-admins', 'HighlightedCitiesForAdminController');
-
-    // Payment For Admins
-    Route::delete('payment-for-admins/destroy', 'PaymentForAdminController@massDestroy')->name('payment-for-admins.massDestroy');
-    Route::resource('payment-for-admins', 'PaymentForAdminController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password
