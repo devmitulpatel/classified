@@ -1,11 +1,6 @@
 <?php
 
-//Route::redirect('/', '/login');
-
-
-Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
-
-
+Route::redirect('/', '/login');
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -30,38 +25,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
 
-    // Categories
-    Route::delete('categories/destroy', 'CategoriesController@massDestroy')->name('categories.massDestroy');
-    Route::post('categories/media', 'CategoriesController@storeMedia')->name('categories.storeMedia');
-    Route::post('categories/ckmedia', 'CategoriesController@storeCKEditorImages')->name('categories.storeCKEditorImages');
-    Route::resource('categories', 'CategoriesController');
-
-    // Sub Categories
-    Route::delete('sub-categories/destroy', 'SubCategoryController@massDestroy')->name('sub-categories.massDestroy');
-    Route::post('sub-categories/media', 'SubCategoryController@storeMedia')->name('sub-categories.storeMedia');
-    Route::post('sub-categories/ckmedia', 'SubCategoryController@storeCKEditorImages')->name('sub-categories.storeCKEditorImages');
-    Route::resource('sub-categories', 'SubCategoryController');
-
-    // Products
-    Route::delete('products/destroy', 'ProductController@massDestroy')->name('products.massDestroy');
-    Route::post('products/media', 'ProductController@storeMedia')->name('products.storeMedia');
-    Route::post('products/ckmedia', 'ProductController@storeCKEditorImages')->name('products.storeCKEditorImages');
-    Route::resource('products', 'ProductController');
-
-    // Services
-    Route::delete('services/destroy', 'ServicesController@massDestroy')->name('services.massDestroy');
-    Route::post('services/media', 'ServicesController@storeMedia')->name('services.storeMedia');
-    Route::post('services/ckmedia', 'ServicesController@storeCKEditorImages')->name('services.storeCKEditorImages');
-    Route::resource('services', 'ServicesController');
-
-    // Premium Product Listings
-    Route::delete('premium-product-listings/destroy', 'PremiumProductListingController@massDestroy')->name('premium-product-listings.massDestroy');
-    Route::resource('premium-product-listings', 'PremiumProductListingController');
-
-    // Premium Service Listings
-    Route::delete('premium-service-listings/destroy', 'PremiumServiceListingController@massDestroy')->name('premium-service-listings.massDestroy');
-    Route::resource('premium-service-listings', 'PremiumServiceListingController');
-
     // Message Boxes
     Route::delete('message-boxes/destroy', 'MessageBoxController@massDestroy')->name('message-boxes.massDestroy');
     Route::post('message-boxes/media', 'MessageBoxController@storeMedia')->name('message-boxes.storeMedia');
@@ -76,20 +39,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('ads/destroy', 'AdsController@massDestroy')->name('ads.massDestroy');
     Route::resource('ads', 'AdsController');
 
-    // Payment Gateway Configurations
-    Route::resource('payment-gateway-configurations', 'PaymentGatewayConfigurationController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
-
-    // Email Configurations
-    Route::resource('email-configurations', 'EmailConfigurationController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
-
     // Sliders
     Route::delete('sliders/destroy', 'SliderController@massDestroy')->name('sliders.massDestroy');
     Route::post('sliders/media', 'SliderController@storeMedia')->name('sliders.storeMedia');
     Route::post('sliders/ckmedia', 'SliderController@storeCKEditorImages')->name('sliders.storeCKEditorImages');
     Route::resource('sliders', 'SliderController');
-
-    // Service To Approves
-    Route::resource('service-to-approves', 'ServiceToApproveController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Services For Users
     Route::resource('services-for-users', 'ServicesForUserController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
@@ -108,9 +62,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Profile For Users
     Route::resource('profile-for-users', 'ProfileForUserController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
-
-    // Product To Approves
-    Route::resource('product-to-approves', 'ProductToApproveController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Top Navigations
     Route::delete('top-navigations/destroy', 'TopNavigationController@massDestroy')->name('top-navigations.massDestroy');
@@ -143,6 +94,81 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Website Settings
     Route::delete('website-settings/destroy', 'WebsiteSettingsController@massDestroy')->name('website-settings.massDestroy');
     Route::resource('website-settings', 'WebsiteSettingsController');
+
+    // Categories For Admins
+    Route::delete('categories-for-admins/destroy', 'CategoriesForAdminController@massDestroy')->name('categories-for-admins.massDestroy');
+    Route::post('categories-for-admins/media', 'CategoriesForAdminController@storeMedia')->name('categories-for-admins.storeMedia');
+    Route::post('categories-for-admins/ckmedia', 'CategoriesForAdminController@storeCKEditorImages')->name('categories-for-admins.storeCKEditorImages');
+    Route::resource('categories-for-admins', 'CategoriesForAdminController');
+
+    // Sub Category For Admins
+    Route::delete('sub-category-for-admins/destroy', 'SubCategoryForAdminController@massDestroy')->name('sub-category-for-admins.massDestroy');
+    Route::post('sub-category-for-admins/media', 'SubCategoryForAdminController@storeMedia')->name('sub-category-for-admins.storeMedia');
+    Route::post('sub-category-for-admins/ckmedia', 'SubCategoryForAdminController@storeCKEditorImages')->name('sub-category-for-admins.storeCKEditorImages');
+    Route::resource('sub-category-for-admins', 'SubCategoryForAdminController');
+
+    // Product For Vendors
+    Route::delete('product-for-vendors/destroy', 'ProductForVendorController@massDestroy')->name('product-for-vendors.massDestroy');
+    Route::post('product-for-vendors/media', 'ProductForVendorController@storeMedia')->name('product-for-vendors.storeMedia');
+    Route::post('product-for-vendors/ckmedia', 'ProductForVendorController@storeCKEditorImages')->name('product-for-vendors.storeCKEditorImages');
+    Route::resource('product-for-vendors', 'ProductForVendorController');
+
+    // Service For Vendors
+    Route::delete('service-for-vendors/destroy', 'ServiceForVendorController@massDestroy')->name('service-for-vendors.massDestroy');
+    Route::post('service-for-vendors/media', 'ServiceForVendorController@storeMedia')->name('service-for-vendors.storeMedia');
+    Route::post('service-for-vendors/ckmedia', 'ServiceForVendorController@storeCKEditorImages')->name('service-for-vendors.storeCKEditorImages');
+    Route::resource('service-for-vendors', 'ServiceForVendorController');
+
+    // P Product Listing For Vendors
+    Route::delete('p-product-listing-for-vendors/destroy', 'PProductListingForVendorController@massDestroy')->name('p-product-listing-for-vendors.massDestroy');
+    Route::resource('p-product-listing-for-vendors', 'PProductListingForVendorController');
+
+    // P Service Listing For Vendors
+    Route::delete('p-service-listing-for-vendors/destroy', 'PServiceListingForVendorController@massDestroy')->name('p-service-listing-for-vendors.massDestroy');
+    Route::resource('p-service-listing-for-vendors', 'PServiceListingForVendorController');
+
+    // Permission Group For Admins
+    Route::delete('permission-group-for-admins/destroy', 'PermissionGroupForAdminController@massDestroy')->name('permission-group-for-admins.massDestroy');
+    Route::resource('permission-group-for-admins', 'PermissionGroupForAdminController');
+
+    // Feedback For Admins
+    Route::delete('feedback-for-admins/destroy', 'FeedbackForAdminController@massDestroy')->name('feedback-for-admins.massDestroy');
+    Route::post('feedback-for-admins/media', 'FeedbackForAdminController@storeMedia')->name('feedback-for-admins.storeMedia');
+    Route::post('feedback-for-admins/ckmedia', 'FeedbackForAdminController@storeCKEditorImages')->name('feedback-for-admins.storeCKEditorImages');
+    Route::resource('feedback-for-admins', 'FeedbackForAdminController');
+
+    // Query From Website For Admins
+    Route::delete('query-from-website-for-admins/destroy', 'QueryFromWebsiteForAdminController@massDestroy')->name('query-from-website-for-admins.massDestroy');
+    Route::post('query-from-website-for-admins/media', 'QueryFromWebsiteForAdminController@storeMedia')->name('query-from-website-for-admins.storeMedia');
+    Route::post('query-from-website-for-admins/ckmedia', 'QueryFromWebsiteForAdminController@storeCKEditorImages')->name('query-from-website-for-admins.storeCKEditorImages');
+    Route::resource('query-from-website-for-admins', 'QueryFromWebsiteForAdminController');
+
+    // P To Approve For Moderators
+    Route::resource('p-to-approve-for-moderators', 'PToApproveForModeratorController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // S To Approve For Moderators
+    Route::resource('s-to-approve-for-moderators', 'SToApproveForModeratorController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // To Approve Vendor For Admins
+    Route::resource('to-approve-vendor-for-admins', 'ToApproveVendorForAdminController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // Payment Gateway For Admins
+    Route::resource('payment-gateway-for-admins', 'PaymentGatewayForAdminController', ['except' => ['create', 'store', 'destroy']]);
+
+    // Email Settings For Admins
+    Route::resource('email-settings-for-admins', 'EmailSettingsForAdminController', ['except' => ['create', 'store', 'destroy']]);
+
+    // Message Box For Vendors
+    Route::resource('message-box-for-vendors', 'MessageBoxForVendorController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // Profile For Vendors
+    Route::resource('profile-for-vendors', 'ProfileForVendorController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // Highlighted Cities For Admins
+    Route::delete('highlighted-cities-for-admins/destroy', 'HighlightedCitiesForAdminController@massDestroy')->name('highlighted-cities-for-admins.massDestroy');
+    Route::post('highlighted-cities-for-admins/media', 'HighlightedCitiesForAdminController@storeMedia')->name('highlighted-cities-for-admins.storeMedia');
+    Route::post('highlighted-cities-for-admins/ckmedia', 'HighlightedCitiesForAdminController@storeCKEditorImages')->name('highlighted-cities-for-admins.storeCKEditorImages');
+    Route::resource('highlighted-cities-for-admins', 'HighlightedCitiesForAdminController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password

@@ -24,6 +24,10 @@ class StoreHighlightedSubCategoryRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'category_id'      => [
+                'required',
+                'integer',
+            ],
         ];
     }
 }

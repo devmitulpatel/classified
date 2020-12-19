@@ -41,6 +41,16 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.role.fields.permission_group') }}
+                        </th>
+                        <td>
+                            @foreach($role->permission_groups as $key => $permission_group)
+                                <span class="label label-info">{{ $permission_group->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

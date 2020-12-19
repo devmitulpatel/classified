@@ -17,7 +17,7 @@ class HighlightedSubCategoriesApiController extends Controller
     {
         abort_if(Gate::denies('highlighted_sub_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HighlightedSubCategoryResource(HighlightedSubCategory::with(['sub_categories'])->get());
+        return new HighlightedSubCategoryResource(HighlightedSubCategory::with(['sub_categories', 'category'])->get());
     }
 
     public function store(StoreHighlightedSubCategoryRequest $request)
@@ -34,7 +34,7 @@ class HighlightedSubCategoriesApiController extends Controller
     {
         abort_if(Gate::denies('highlighted_sub_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new HighlightedSubCategoryResource($highlightedSubCategory->load(['sub_categories']));
+        return new HighlightedSubCategoryResource($highlightedSubCategory->load(['sub_categories', 'category']));
     }
 
     public function update(UpdateHighlightedSubCategoryRequest $request, HighlightedSubCategory $highlightedSubCategory)

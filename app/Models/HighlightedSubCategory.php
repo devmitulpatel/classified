@@ -20,6 +20,7 @@ class HighlightedSubCategory extends Model
     ];
 
     protected $fillable = [
+        'category_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -32,6 +33,11 @@ class HighlightedSubCategory extends Model
 
     public function sub_categories()
     {
-        return $this->belongsToMany(SubCategory::class);
+        return $this->belongsToMany(SubCategoryForAdmin::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(CategoriesForAdmin::class, 'category_id');
     }
 }

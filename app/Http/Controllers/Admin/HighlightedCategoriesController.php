@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyHighlightedCategoryRequest;
 use App\Http\Requests\StoreHighlightedCategoryRequest;
 use App\Http\Requests\UpdateHighlightedCategoryRequest;
-use App\Models\Category;
+use App\Models\CategoriesForAdmin;
 use App\Models\HighlightedCategory;
 use Gate;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class HighlightedCategoriesController extends Controller
     {
         abort_if(Gate::denies('highlighted_category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all()->pluck('name', 'id');
+        $categories = CategoriesForAdmin::all()->pluck('name', 'id');
 
         return view('admin.highlightedCategories.create', compact('categories'));
     }
@@ -44,7 +44,7 @@ class HighlightedCategoriesController extends Controller
     {
         abort_if(Gate::denies('highlighted_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all()->pluck('name', 'id');
+        $categories = CategoriesForAdmin::all()->pluck('name', 'id');
 
         $highlightedCategory->load('categories');
 

@@ -17,13 +17,14 @@ class RolesApiController extends Controller
     {
         abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new RoleResource(Role::with(['permissions'])->get());
+        return new RoleResource(Role::with(['permissions', 'permission_groups'])->get());
     }
 
     public function store(StoreRoleRequest $request)
     {
         $role = Role::create($request->all());
         $role->permissions()->sync($request->input('permissions', []));
+        $role->permission_groups()->sync($request->input('permission_groups', []));
 
         return (new RoleResource($role))
             ->response()
@@ -34,13 +35,14 @@ class RolesApiController extends Controller
     {
         abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new RoleResource($role->load(['permissions']));
+        return new RoleResource($role->load(['permissions', 'permission_groups']));
     }
 
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update($request->all());
         $role->permissions()->sync($request->input('permissions', []));
+        $role->permission_groups()->sync($request->input('permission_groups', []));
 
         return (new RoleResource($role))
             ->response()

@@ -38,6 +38,24 @@
                 <span class="help-block">{{ trans('cruds.role.fields.permissions_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="permission_groups">{{ trans('cruds.role.fields.permission_group') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('permission_groups') ? 'is-invalid' : '' }}" name="permission_groups[]" id="permission_groups" multiple>
+                    @foreach($permission_groups as $id => $permission_group)
+                        <option value="{{ $id }}" {{ in_array($id, old('permission_groups', [])) ? 'selected' : '' }}>{{ $permission_group }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('permission_groups'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('permission_groups') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.role.fields.permission_group_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

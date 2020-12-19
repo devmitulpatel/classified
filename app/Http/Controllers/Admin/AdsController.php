@@ -7,10 +7,10 @@ use App\Http\Requests\MassDestroyAdRequest;
 use App\Http\Requests\StoreAdRequest;
 use App\Http\Requests\UpdateAdRequest;
 use App\Models\Ad;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Service;
-use App\Models\SubCategory;
+use App\Models\CategoriesForAdmin;
+use App\Models\ProductForVendor;
+use App\Models\ServiceForVendor;
+use App\Models\SubCategoryForAdmin;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,13 +30,13 @@ class AdsController extends Controller
     {
         abort_if(Gate::denies('ad_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all()->pluck('name', 'id');
+        $categories = CategoriesForAdmin::all()->pluck('name', 'id');
 
-        $sub_categories = SubCategory::all()->pluck('name', 'id');
+        $sub_categories = SubCategoryForAdmin::all()->pluck('name', 'id');
 
-        $products = Product::all()->pluck('name', 'id');
+        $products = ProductForVendor::all()->pluck('name', 'id');
 
-        $services = Service::all()->pluck('name', 'id');
+        $services = ServiceForVendor::all()->pluck('name', 'id');
 
         return view('admin.ads.create', compact('categories', 'sub_categories', 'products', 'services'));
     }
@@ -56,13 +56,13 @@ class AdsController extends Controller
     {
         abort_if(Gate::denies('ad_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all()->pluck('name', 'id');
+        $categories = CategoriesForAdmin::all()->pluck('name', 'id');
 
-        $sub_categories = SubCategory::all()->pluck('name', 'id');
+        $sub_categories = SubCategoryForAdmin::all()->pluck('name', 'id');
 
-        $products = Product::all()->pluck('name', 'id');
+        $products = ProductForVendor::all()->pluck('name', 'id');
 
-        $services = Service::all()->pluck('name', 'id');
+        $services = ServiceForVendor::all()->pluck('name', 'id');
 
         $ad->load('categories', 'sub_categories', 'products', 'services');
 

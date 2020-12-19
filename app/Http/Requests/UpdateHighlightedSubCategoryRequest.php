@@ -24,6 +24,10 @@ class UpdateHighlightedSubCategoryRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'category_id'      => [
+                'required',
+                'integer',
+            ],
         ];
     }
 }

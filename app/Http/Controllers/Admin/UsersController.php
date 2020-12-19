@@ -18,7 +18,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles'])->get();
+        $users = User::with(['roles', 'approved_by'])->get();
 
         return view('admin.users.index', compact('users'));
     }
@@ -29,7 +29,9 @@ class UsersController extends Controller
 
         $roles = Role::all()->pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        $approved_bies = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.users.create', compact('roles', 'approved_bies'));
     }
 
     public function store(StoreUserRequest $request)
@@ -46,9 +48,11 @@ class UsersController extends Controller
 
         $roles = Role::all()->pluck('title', 'id');
 
-        $user->load('roles');
+        $approved_bies = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        $user->load('roles', 'approved_by');
+
+        return view('admin.users.edit', compact('roles', 'approved_bies', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -63,7 +67,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles');
+        $user->load('roles', 'approved_by');
 
         return view('admin.users.show', compact('user'));
     }

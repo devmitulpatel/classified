@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroyRoleRequest;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\Permission;
+use App\Models\PermissionGroupForAdmin;
 use App\Models\Role;
 use Gate;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class RolesController extends Controller
     {
         abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $roles = Role::with(['permissions'])->get();
+        $roles = Role::with(['permissions', 'permission_groups'])->get();
 
         return view('admin.roles.index', compact('roles'));
     }
@@ -29,13 +30,16 @@ class RolesController extends Controller
 
         $permissions = Permission::all()->pluck('title', 'id');
 
-        return view('admin.roles.create', compact('permissions'));
+        $permission_groups = PermissionGroupForAdmin::all()->pluck('name', 'id');
+
+        return view('admin.roles.create', compact('permissions', 'permission_groups'));
     }
 
     public function store(StoreRoleRequest $request)
     {
         $role = Role::create($request->all());
         $role->permissions()->sync($request->input('permissions', []));
+        $role->permission_groups()->sync($request->input('permission_groups', []));
 
         return redirect()->route('admin.roles.index');
     }
@@ -46,15 +50,18 @@ class RolesController extends Controller
 
         $permissions = Permission::all()->pluck('title', 'id');
 
-        $role->load('permissions');
+        $permission_groups = PermissionGroupForAdmin::all()->pluck('name', 'id');
 
-        return view('admin.roles.edit', compact('permissions', 'role'));
+        $role->load('permissions', 'permission_groups');
+
+        return view('admin.roles.edit', compact('permissions', 'permission_groups', 'role'));
     }
 
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update($request->all());
         $role->permissions()->sync($request->input('permissions', []));
+        $role->permission_groups()->sync($request->input('permission_groups', []));
 
         return redirect()->route('admin.roles.index');
     }
@@ -63,7 +70,7 @@ class RolesController extends Controller
     {
         abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $role->load('permissions');
+        $role->load('permissions', 'permission_groups');
 
         return view('admin.roles.show', compact('role'));
     }
