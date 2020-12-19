@@ -21,13 +21,16 @@
                             {{ trans('cruds.paymentGatewayForAdmin.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.value') }}
+                            {{ trans('cruds.paymentGatewayForAdmin.fields.image') }}
                         </th>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.display_type') }}
+                            {{ trans('cruds.paymentGatewayForAdmin.fields.creditinals_title') }}
                         </th>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.store_type') }}
+                            {{ trans('cruds.paymentGatewayForAdmin.fields.creditinals_value') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.paymentGatewayForAdmin.fields.mode') }}
                         </th>
                         <th>
                             &nbsp;
@@ -47,13 +50,20 @@
                                 {{ $paymentGatewayForAdmin->name ?? '' }}
                             </td>
                             <td>
-                                {{ $paymentGatewayForAdmin->value ?? '' }}
+                                @if($paymentGatewayForAdmin->image)
+                                    <a href="{{ $paymentGatewayForAdmin->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $paymentGatewayForAdmin->image->getUrl('thumb') }}">
+                                    </a>
+                                @endif
                             </td>
                             <td>
-                                {{ App\Models\PaymentGatewayForAdmin::DISPLAY_TYPE_SELECT[$paymentGatewayForAdmin->display_type] ?? '' }}
+                                {{ $paymentGatewayForAdmin->creditinals_title ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\PaymentGatewayForAdmin::STORE_TYPE_SELECT[$paymentGatewayForAdmin->store_type] ?? '' }}
+                                {{ $paymentGatewayForAdmin->creditinals_value ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\PaymentGatewayForAdmin::MODE_SELECT[$paymentGatewayForAdmin->mode] ?? '' }}
                             </td>
                             <td>
                                 @can('payment_gateway_for_admin_show')

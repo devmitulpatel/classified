@@ -78,7 +78,7 @@
             </li>
         @endcan
         @can('admin_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/to-approve-vendor-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/categories-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/sub-category-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/ads*") ? "c-show" : "" }} {{ request()->is("admin/plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-gateway-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/email-settings-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/website-settings*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/to-approve-vendor-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/categories-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/sub-category-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/ads*") ? "c-show" : "" }} {{ request()->is("admin/plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-gateway-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/email-settings-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/website-settings*") ? "c-show" : "" }} {{ request()->is("admin/payment-for-admins*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-toolbox c-sidebar-nav-icon">
 
@@ -163,6 +163,16 @@
 
                                 </i>
                                 {{ trans('cruds.websiteSetting.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('payment_for_admin_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payment-for-admins.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payment-for-admins") || request()->is("admin/payment-for-admins/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.paymentForAdmin.title') }}
                             </a>
                         </li>
                     @endcan

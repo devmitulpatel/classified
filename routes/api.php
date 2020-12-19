@@ -81,6 +81,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('query-from-website-for-admins', 'QueryFromWebsiteForAdminApiController');
 
     // Payment Gateway For Admins
+    Route::post('payment-gateway-for-admins/media', 'PaymentGatewayForAdminApiController@storeMedia')->name('payment-gateway-for-admins.storeMedia');
     Route::apiResource('payment-gateway-for-admins', 'PaymentGatewayForAdminApiController', ['except' => ['store', 'destroy']]);
 
     // Email Settings For Admins
@@ -89,4 +90,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Highlighted Cities For Admins
     Route::post('highlighted-cities-for-admins/media', 'HighlightedCitiesForAdminApiController@storeMedia')->name('highlighted-cities-for-admins.storeMedia');
     Route::apiResource('highlighted-cities-for-admins', 'HighlightedCitiesForAdminApiController');
+
+    // Payment For Admins
+    Route::apiResource('payment-for-admins', 'PaymentForAdminApiController');
 });

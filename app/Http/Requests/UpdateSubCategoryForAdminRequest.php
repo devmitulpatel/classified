@@ -20,7 +20,6 @@ class UpdateSubCategoryForAdminRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
-                'unique:sub_category_for_admins,name,' . request()->route('sub_category_for_admin')->id,
             ],
         ];
     }

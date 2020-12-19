@@ -50,7 +50,7 @@ class SubCategoryForAdmin extends Model implements HasMedia
 
     public function parent_category()
     {
-            return $this->belongsTo(CategoriesForAdmin::class, 'parent_category_id');
+        return $this->belongsTo(CategoriesForAdmin::class, 'parent_category_id');
     }
 
     public function getSubCategoryImageAttribute()

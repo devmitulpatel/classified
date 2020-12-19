@@ -17,19 +17,10 @@ class UpdatePaymentGatewayForAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'         => [
+            'name' => [
                 'string',
                 'required',
                 'unique:payment_gateway_for_admins,name,' . request()->route('payment_gateway_for_admin')->id,
-            ],
-            'value'        => [
-                'required',
-            ],
-            'display_type' => [
-                'required',
-            ],
-            'store_type'   => [
-                'required',
             ],
         ];
     }
