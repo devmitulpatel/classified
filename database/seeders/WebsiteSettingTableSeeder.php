@@ -38,6 +38,6 @@ class WebsiteSettingTableSeeder extends Seeder
 
         ];
 
-        WebsiteSetting::create($data);
+        WebsiteSetting::insert($data);
     }
 }

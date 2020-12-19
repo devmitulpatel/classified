@@ -25,17 +25,22 @@ class DemoSubCategorySeeder extends Seeder
         foreach ($allCategory as $cat){
 
             for ($i=0;$i<$demo_sub_cat;$i++){
-                $data[]=[
+                $data[$cat->id][$i]=[
                     'name'=>$faker->word(),
                     'description'=>$faker->paragraph(),
                     'created_by_id'=>1,
-                    'parent_category_id'=>$cat
+                    'parent_category_id'=>$cat->id
 
                 ];
+
+                $id=SubCategoryForAdmin::insertGetId($data[$cat->id][$i]);
+              //  SubCategoryForAdmin::findorfail($id)->parent_category()->sync($cat->id);
+
             }
 
         }
 
-        SubCategoryForAdmin::insert($data);
+
+
     }
 }

@@ -10,7 +10,7 @@ class CreateSubCategoryForAdminsTable extends Migration
     {
         Schema::create('sub_category_for_admins', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
