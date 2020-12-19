@@ -11,9 +11,10 @@ class CreatePaymentGatewayForAdminsTable extends Migration
         Schema::create('payment_gateway_for_admins', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
-            $table->longText('value');
-            $table->string('display_type');
-            $table->string('store_type');
+            $table->longText('creditinals_title')->nullable();
+            $table->longText('creditinals_value')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('mode')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

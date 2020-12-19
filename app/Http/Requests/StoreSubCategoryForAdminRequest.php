@@ -20,7 +20,6 @@ class StoreSubCategoryForAdminRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
-                'unique:sub_category_for_admins',
             ],
         ];
     }

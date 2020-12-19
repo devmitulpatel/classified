@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.paymentGatewayForAdmin.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.paymentForAdmin.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.payment-gateway-for-admins.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.payment-for-admins.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,68 +17,74 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.id') }}
+                            {{ trans('cruds.paymentForAdmin.fields.id') }}
                         </th>
                         <td>
-                            {{ $paymentGatewayForAdmin->id }}
+                            {{ $paymentForAdmin->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.name') }}
+                            {{ trans('cruds.paymentForAdmin.fields.method') }}
                         </th>
                         <td>
-                            {{ $paymentGatewayForAdmin->name }}
+                            {{ $paymentForAdmin->method->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.image') }}
+                            {{ trans('cruds.paymentForAdmin.fields.user') }}
                         </th>
                         <td>
-                            @if($paymentGatewayForAdmin->image)
-                                <a href="{{ $paymentGatewayForAdmin->image->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $paymentGatewayForAdmin->image->getUrl('thumb') }}">
-                                </a>
-                            @endif
+                            {{ $paymentForAdmin->user->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.creditinals_title') }}
+                            {{ trans('cruds.paymentForAdmin.fields.amount') }}
                         </th>
                         <td>
-                            {{ $paymentGatewayForAdmin->creditinals_title }}
+                            {{ $paymentForAdmin->amount }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.creditinals_value') }}
+                            {{ trans('cruds.paymentForAdmin.fields.plan') }}
                         </th>
                         <td>
-                            {{ $paymentGatewayForAdmin->creditinals_value }}
+                            {{ $paymentForAdmin->plan->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.description') }}
+                            {{ trans('cruds.paymentForAdmin.fields.ref_product') }}
                         </th>
                         <td>
-                            {!! $paymentGatewayForAdmin->description !!}
+                            @foreach($paymentForAdmin->ref_products as $key => $ref_product)
+                                <span class="label label-info">{{ $ref_product->name }}</span>
+                            @endforeach
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.paymentGatewayForAdmin.fields.mode') }}
+                            {{ trans('cruds.paymentForAdmin.fields.ref_service') }}
                         </th>
                         <td>
-                            {{ App\Models\PaymentGatewayForAdmin::MODE_SELECT[$paymentGatewayForAdmin->mode] ?? '' }}
+                            {{ $paymentForAdmin->ref_service->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.paymentForAdmin.fields.approved_by') }}
+                        </th>
+                        <td>
+                            {{ $paymentForAdmin->approved_by->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.payment-gateway-for-admins.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.payment-for-admins.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

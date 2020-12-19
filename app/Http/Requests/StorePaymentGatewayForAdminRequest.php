@@ -17,19 +17,10 @@ class StorePaymentGatewayForAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'         => [
+            'name' => [
                 'string',
                 'required',
                 'unique:payment_gateway_for_admins',
-            ],
-            'value'        => [
-                'required',
-            ],
-            'display_type' => [
-                'required',
-            ],
-            'store_type'   => [
-                'required',
             ],
         ];
     }

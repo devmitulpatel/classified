@@ -584,6 +584,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 144,
+                'title' => 'payment_for_admin_create',
+            ],
+            [
+                'id'    => 145,
+                'title' => 'payment_for_admin_edit',
+            ],
+            [
+                'id'    => 146,
+                'title' => 'payment_for_admin_show',
+            ],
+            [
+                'id'    => 147,
+                'title' => 'payment_for_admin_delete',
+            ],
+            [
+                'id'    => 148,
+                'title' => 'payment_for_admin_access',
+            ],
+            [
+                'id'    => 149,
                 'title' => 'profile_password_edit',
             ],
         ];
