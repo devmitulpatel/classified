@@ -35506,6 +35506,7 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var _components_partials_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/partials/index */ "./resources/js/components/partials/index.js");
+/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase/app */ "./node_modules/firebase/app/dist/index.esm.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -35513,6 +35514,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
+window.FB = firebase_app__WEBPACK_IMPORTED_MODULE_2__["default"];
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -35535,17 +35538,30 @@ window.MainViewApp = new Vue({
   data: function data() {
     return {
       userLoggedIn: false,
-      user: {}
+      user: {},
+      sessionStarted: false
     };
+  },
+  mounted: function mounted() {
+    this.triggerLoading();
+    console.log();
   },
   methods: {
     userAuthStateChage: function userAuthStateChage(v, user) {
+      this.sessionStarted = true;
       this.userLoggedIn = v;
+      if (!this.userLoggedIn && (window.location.pathname == '/user' || window.location.pathname == '/vendor')) this.clickLoginBtn();
       this.user = user;
+    },
+    clickLoginBtn: function clickLoginBtn() {
+      var th = this;
+      th.$refs.loginBtn.click();
+      return true;
     },
     click: function click(url) {
       window.location.href = url;
-    }
+    },
+    triggerLoading: function triggerLoading() {}
   }
 });
 
@@ -35611,6 +35627,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login */ "./resources/js/components/partials/login.js");
+/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_login__WEBPACK_IMPORTED_MODULE_0__);
 
 
 /***/ }),
@@ -35619,12 +35636,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./resources/js/components/partials/login.js ***!
   \***************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ "./node_modules/firebase/app/dist/index.esm.js");
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 Vue.component('login-section', {
   data: function data() {
@@ -35634,7 +35647,7 @@ Vue.component('login-section', {
         password: ""
       },
       form: {},
-      firebase: firebase_app__WEBPACK_IMPORTED_MODULE_0__["default"],
+      firebase: window.FB,
       user: {},
       loggedin: false,
       autoSignUpNewUser: false,
@@ -35740,15 +35753,27 @@ Vue.component('login-section', {
 
 /***/ }),
 
+/***/ "./resources/sass/vendor.scss":
+/*!************************************!*\
+  !*** ./resources/sass/vendor.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!******************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/vendor.scss ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! E:\Pojects\Github\classified\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Pojects\Github\classified\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\Pojects\Github\classified\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! E:\Pojects\Github\classified\resources\sass\vendor.scss */"./resources/sass/vendor.scss");
 
 
 /***/ })

@@ -6,6 +6,8 @@
 
 import './bootstrap'
 import './components/partials/index';
+import firebase from 'firebase/app';
+window.FB=firebase;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -30,17 +32,37 @@ window.MainViewApp = new Vue({
     data(){
         return {
             userLoggedIn:false,
-            user:{}
+            user:{},
+            sessionStarted:false
         };
+    },
+    mounted() {
+        this.triggerLoading();
+        console.log()
     },
     methods:{
         userAuthStateChage(v,user){
+            this.sessionStarted=true;
+
             this.userLoggedIn=v;
+            if(!this.userLoggedIn && (window.location.pathname=='/user'||window.location.pathname=='/vendor'))this.clickLoginBtn();
             this.user=user;
+        },
+
+        clickLoginBtn(){
+            var th=this;
+
+                th.$refs.loginBtn.click();
+
+
+            return true;
         },
 
         click(url){
             window.location.href=url;
+        },
+        triggerLoading(){
+
         }
     }
 });

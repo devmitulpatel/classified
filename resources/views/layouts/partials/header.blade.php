@@ -7,13 +7,13 @@
                         <span></span>
                     </div>
                     <a class="navbar-brand navbar-brand-mobile" href="{{route('home')}}">
-                        <img src="images/logo.png" alt="TheDir">
+                        <img src="{{asset('images/logo.png')}}" alt="TheDir">
                     </a>
                     <a class="mobile-button-search" href="#search-popup" data-gtf-mfp="true" data-mfp-options='{"type":"inline","mainClass":"mfp-move-from-top mfp-align-top search-popup-bg","closeOnBgClick":false,"showCloseBtn":false}'><i class="far fa-search"></i></a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-main-menu">
                     <a class="navbar-brand d-none d-xl-block mr-auto" href="{{route('home')}}">
-                        <img src="images/logo.png" alt="TheDir">
+                        <img src="{{asset('images/logo.png')}}" alt="TheDir">
                     </a>
                     <ul class="navbar-nav">
                         <li class="nav-item">

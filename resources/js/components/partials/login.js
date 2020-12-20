@@ -1,6 +1,5 @@
 
 
-import firebase from 'firebase/app';
 
 Vue.component('login-section',
     {
@@ -15,7 +14,7 @@ Vue.component('login-section',
                 form:{
 
                 },
-                firebase:firebase,
+                firebase:window.FB,
                 user:{},
                 loggedin:false,
                 autoSignUpNewUser:false,

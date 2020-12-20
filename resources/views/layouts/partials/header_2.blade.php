@@ -17,7 +17,7 @@
                         <span></span>
                     </div>
                     <a class="navbar-brand navbar-brand-mobile" href="index-2.html">
-                        <img src="images/logo.png" alt="TheDir">
+                        <img src="{{asset('images/logo.png')}}" alt="TheDir">
                     </a>
                     <a class="mobile-button-search" href="#search-popup" data-gtf-mfp="true" data-mfp-options='{"type":"inline","mainClass":"mfp-move-from-top mfp-align-top search-popup-bg","closeOnBgClick":false,"showCloseBtn":false}'><i class="far fa-search"></i></a>
                 </div>
@@ -168,7 +168,7 @@
                             <a class="mobile-button-search" href="#search-popup" data-gtf-mfp="true" data-mfp-options='{"type":"inline","mainClass":"mfp-move-from-top mfp-align-top search-popup-bg","closeOnBgClick":false,"showCloseBtn":false}'><i class="far fa-search"></i></a>
                         </div>
                         <div class="header-customize-item">
-                            <a v-cloak v-if="!userLoggedIn"  href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
+                            <a v-cloak v-if="!userLoggedIn"  href="#login-popup" ref="loginBtn" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
                                 <svg class="icon icon-user-circle-o">
                                     <use xlink:href="#icon-user-circle-o"></use>
                                 </svg>

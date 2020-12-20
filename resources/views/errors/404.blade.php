@@ -10,8 +10,8 @@
                             <use xlink:href="#icon-map-marker-crossed"></use>
                         </svg>
                     </div>
-                    <div class="mb-7">
-                        <h3 class="mb-7">Ohh! Page Not Found</h3>
+                    <div class="mb-7 ">
+                        <h3 class="mb-7 ">Ohh! Page Not Found</h3>
                         <div class="text-gray">It seems we can’t find what you’re looking for. Perhaps
                             searching
                             can help or go back to <a href="index-2.html" class="text-primary text-decoration-underline">Homepage</a>.

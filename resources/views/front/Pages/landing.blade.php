@@ -4,4 +4,6 @@
 
     @include('front.Pages.partials.landing_content')
 
+
+
 @endsection
