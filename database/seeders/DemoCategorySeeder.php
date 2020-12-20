@@ -18,13 +18,16 @@ class DemoCategorySeeder extends Seeder
 
         $faker = Factory::create();
 
-        $demo_cat=10;
+        $demo_cat=7;
+        $demo_cat_name=['foods','hotels','jobs','medicals','services','shopping','automotive'];
+        $demo_cat_icon=['icon-pizza','icon-bed','icon-brush2','icon-pharmaceutical','icon-cog','icon-bag','icon-car'];
         $data=[];
         for ($i=0;$i<$demo_cat;$i++){
             $data[]=[
-                'name'=>$faker->word(),
+                'name'=>$demo_cat_name[$i],
                 'description'=>$faker->paragraph(),
                 'created_by_id'=>1,
+                'icon'=>$demo_cat_icon[$i],
 
             ];
         }

@@ -1,5 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
+
+Route::prefix('vendor')->group(function (){
+    Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'vendor_dashboard'])->name('vendor_dashboard');
+});
+
+Route::prefix('user')->group(function (){
+    Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'user_dashboard'])->name('user_dashboard');
+});
+
 Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
 Route::get('/home', function () {
     if (session('status')) {

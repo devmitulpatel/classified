@@ -3,7 +3,7 @@
         <div class="mb-8">
             <h2 class="mb-0">
                 <span>Featured </span>
-                <span class="font-weight-light">Destinations</span>
+                <span class="font-weight-light">Products & Services</span>
             </h2>
         </div>
         <div class="slick-slider arrow-center" data-slick-options='{"slidesToShow": 4, "autoplay":false,"dots":false,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow": 3,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 400,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>

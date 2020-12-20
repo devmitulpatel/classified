@@ -34,4 +34,16 @@ class HomeController extends Controller
 
         return view('front.Pages.landing',['title'=>$title]);
     }
+
+
+    public function vendor_dashboard(){
+        $title=$this->title;
+
+        return view('front.Pages.vendor_dashboard',['title'=>$title]);
+    }
+    public function user_dashboard(){
+        $title=$this->title;
+
+        return view('front.Pages.user_dashboard',['title'=>$title]);
+    }
 }

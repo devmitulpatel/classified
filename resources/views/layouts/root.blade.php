@@ -11,8 +11,11 @@
 <div id="app">
     <div id="site-wrapper" class="site-wrapper home-main">
 
-        @include('layouts/partials/header')
-
+        @if(isset($header)&& $header==2)
+            @include('layouts/partials/header_2')
+        @else
+            @include('layouts/partials/header')
+        @endif
         @yield('content')
 
         @include('layouts/partials/footer')

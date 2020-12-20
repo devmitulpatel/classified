@@ -31,47 +31,19 @@ if($highlithedCat==null)  $highlithedCat=\App\Models\CategoriesForAdmin::all()->
                                 <a href="#" class="input-group-append text-decoration-none" data-toggle="dropdown">
                                     <i class="fal fa-chevron-down"></i>
                                 </a>
+
+
                                 <ul class="dropdown-menu form-search-ajax" aria-labelledby="key-word">
+                                    @foreach($highlithedCat->categories as $cat)
                                     <li class="dropdown-item item">
                                         <a href="#" class="link-hover-dark-white">
-                                            <svg class="icon icon-pizza">
-                                                <use xlink:href="#icon-pizza"></use>
+                                            <svg class="icon {{$cat->icon}}">
+                                                <use xlink:href="#{{$cat->icon}}"></use>
                                             </svg>
-                                            <span class="font-size-md">Foods & Restaurants</span>
+                                            <span class="font-size-md">{{ucwords($cat->name)}}</span>
                                         </a>
                                     </li>
-                                    <li class="dropdown-item item">
-                                        <a href="#" class="link-hover-dark-white">
-                                            <svg class="icon icon-bed">
-                                                <use xlink:href="#icon-bed"></use>
-                                            </svg>
-                                            <span class="font-size-md">Hotels & Resorts</span>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item item">
-                                        <a href="#" class="link-hover-dark-white">
-                                            <svg class="icon icon-pharmaceutical">
-                                                <use xlink:href="#icon-pharmaceutical"></use>
-                                            </svg>
-                                            <span class="font-size-md">Healths & Medicals</span>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item item">
-                                        <a href="#" class="link-hover-dark-white">
-                                            <svg class="icon icon-cog">
-                                                <use xlink:href="#icon-cog"></use>
-                                            </svg>
-                                            <span class="font-size-md">Services</span>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item item">
-                                        <a href="#" class="link-hover-dark-white">
-                                            <svg class="icon icon-car">
-                                                <use xlink:href="#icon-car"></use>
-                                            </svg>
-                                            <span class="font-size-md">Automotive</span>
-                                        </a>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -110,11 +82,11 @@ if($highlithedCat==null)  $highlithedCat=\App\Models\CategoriesForAdmin::all()->
                 <div class="list-inline-item py-2">
                     <a href="explore-sidebar-grid.html" class="card border-0 icon-box-style-01 link-hover-dark-white">
                         <div class="card-body p-0">
-                            <svg class="icon icon-pizza">
-                                <use xlink:href="#icon-pizza"></use>
+                            <svg class="icon {{$cat['icon']}}">
+                                <use xlink:href="#{{$cat['icon']}}"></use>
                             </svg>
                             <span class="card-text font-size-md font-weight-semibold mt-2 d-block">
-                            {{$cat->name}}
+                            {{ucwords($cat->name)}}
                             </span>
                         </div>
                     </a>

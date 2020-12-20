@@ -1,9 +1,20 @@
+@php
+
+    $highlithedCity=\App\Models\HighlightedCitiesForAdmin::all();
+
+    $highlithedCat=\App\Models\HighlightedCategory::with(['categories'])->get()->first();
+    if($highlithedCat==null)  $highlithedCat=\App\Models\CategoriesForAdmin::all()->take(7);
+    //dd($highlithedCat);
+
+@endphp
+
+
 <section id="section-03" class="pb-8 our-directory">
     <div class="container">
         <div class="mb-7">
             <h2 class="mb-0">
                 <span class="font-weight-semibold">Our </span>
-                <span class="font-weight-light">Directory</span>
+                <span class="font-weight-light">Vendors</span>
             </h2>
         </div>
         <div class="d-flex align-items-center pb-8">
@@ -11,6 +22,8 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">all</a>
                 </li>
+
+
                 <li class="nav-item">
                     <a class="nav-link" id="featured-tab" data-toggle="tab" href="#feature" role="tab" aria-controls="feature" aria-selected="false">featured</a>
                 </li>
@@ -24,7 +37,7 @@
                     <a class="nav-link" id="popular-tab" data-toggle="tab" href="#popular" role="tab" aria-controls="popular" aria-selected="false">popular</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#ad-directory" role="tab" aria-controls="ad-directory" aria-selected="false">ad directory</a>
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#ad-directory" role="tab" aria-controls="ad-directory" aria-selected="false">Premium Vendor</a>
                 </li>
             </ul>
             <div class="ml-auto d-flex slick-custom-nav pl-5">

@@ -116,6 +116,9 @@ Vue.component('login-section',
 
                 console.log('ok')
 
+            },
+            click(url){
+                window.MainViewApp.click(url);
             }
         }
 

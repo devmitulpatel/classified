@@ -129,6 +129,7 @@
 
                 <div class="card-footer">
                     <button type="button" v-on:click="signOutUser" class="btn btn-lg btn-danger btn-block">Sign Out</button>
+                    <button type="button"  v-on:click="click('{{route('user_dashboard')}}')" class="btn btn-lg btn-info btn-block">Go to Dashboard</button>
                 </div>
             </div>
 

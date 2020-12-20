@@ -35542,6 +35542,9 @@ window.MainViewApp = new Vue({
     userAuthStateChage: function userAuthStateChage(v, user) {
       this.userLoggedIn = v;
       this.user = user;
+    },
+    click: function click(url) {
+      window.location.href = url;
     }
   }
 });
@@ -35717,6 +35720,9 @@ Vue.component('login-section', {
       //     .catch((function (er){}));
 
       console.log('ok');
+    },
+    click: function click(url) {
+      window.MainViewApp.click(url);
     }
   }
 });
@@ -35741,8 +35747,8 @@ Vue.component('login-section', {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\mitul\projects\classified\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\mitul\projects\classified\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\Pojects\Github\classified\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\Pojects\Github\classified\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

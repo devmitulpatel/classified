@@ -37,6 +37,10 @@ window.MainViewApp = new Vue({
         userAuthStateChage(v,user){
             this.userLoggedIn=v;
             this.user=user;
+        },
+
+        click(url){
+            window.location.href=url;
         }
     }
 });

@@ -2,6 +2,6 @@
 
 @section('content')
 
-    @include('front.Pages.partials.content')
+    @include('front.Pages.partials.landing_content')
 
 @endsection
