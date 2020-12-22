@@ -273,7 +273,7 @@
                         </li>
                     </ul>
                     <div class="header-customize justify-content-end align-items-center d-none d-xl-flex">
-                        <div class="header-customize-item">
+                        <div class="header-customize-item" v-cloak>
                             <a v-cloak v-if="!userLoggedIn" href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
                                 <svg class="icon icon-user-circle-o">
                                     <use xlink:href="#icon-user-circle-o"></use>

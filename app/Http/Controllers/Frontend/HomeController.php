@@ -22,6 +22,12 @@ class HomeController extends Controller
         $this->title=(array_key_exists('website_header_title', $this->wesite_settings))?$this->wesite_settings['website_header_title']:"Title Not Configured";
     }
 
+
+    public function user_profile(){
+
+        return view('front.Pages.user_profile',['title'=>"User Profile"]);
+    }
+
     /**
      * Show the application dashboard.
      *

@@ -10,6 +10,7 @@ Route::prefix('vendor')->group(function (){
 
 Route::prefix('user')->group(function (){
     Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'user_dashboard'])->name('user_dashboard');
+    Route::get('/profile', [\App\Http\Controllers\Frontend\HomeController::class,'user_profile'])->name('user_profile');
 });
 
 Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
@@ -20,6 +21,8 @@ Route::get('/home', function () {
 
     return redirect()->route('admin.home');
 });
+
+//////Backend
 
 Auth::routes(['register' => false]);
 
