@@ -24,6 +24,7 @@
                     {{ trans('cruds.userManagement.title') }}
                 </a>
                 <ul class="c-sidebar-nav-dropdown-items">
+                   @if(false)
                     @can('role_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.roles.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "c-active" : "" }}">
@@ -34,6 +35,7 @@
                             </a>
                         </li>
                     @endcan
+                   @endif
                     @can('user_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.users.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/users") || request()->is("admin/users/*") ? "c-active" : "" }}">
@@ -44,6 +46,7 @@
                             </a>
                         </li>
                     @endcan
+                       @if(false)
                     @can('permission_group_for_admin_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.permission-group-for-admins.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/permission-group-for-admins") || request()->is("admin/permission-group-for-admins/*") ? "c-active" : "" }}">
@@ -74,6 +77,7 @@
                             </a>
                         </li>
                     @endcan
+                    @endif
                 </ul>
             </li>
         @endcan
@@ -179,58 +183,54 @@
                 </ul>
             </li>
         @endcan
-        @can('moderator_for_moderator_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/massage-box-for-moderators*") ? "c-show" : "" }} {{ request()->is("admin/profile-for-moderators*") ? "c-show" : "" }} {{ request()->is("admin/p-to-approve-for-moderators*") ? "c-show" : "" }} {{ request()->is("admin/s-to-approve-for-moderators*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+        @if (!auth()->user()->roles->contains('1'))
 
-                    </i>
-                    {{ trans('cruds.moderatorForModerator.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('massage_box_for_moderator_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.massage-box-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/massage-box-for-moderators") || request()->is("admin/massage-box-for-moderators/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-envelope-square c-sidebar-nav-icon">
+            @can('moderator_for_moderator_access')
+                @can('massage_box_for_moderator_access')
+                    <li class="c-sidebar-nav-item">
+                        <a href="{{ route("admin.massage-box-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/massage-box-for-moderators") || request()->is("admin/massage-box-for-moderators/*") ? "c-active" : "" }}">
+                            <i class="fa-fw fas fa-envelope-square c-sidebar-nav-icon">
 
-                                </i>
-                                {{ trans('cruds.massageBoxForModerator.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('profile_for_moderator_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.profile-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/profile-for-moderators") || request()->is("admin/profile-for-moderators/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-user-cog c-sidebar-nav-icon">
+                            </i>
+                            {{ trans('cruds.massageBoxForModerator.title') }}
+                        </a>
+                    </li>
+                @endcan
+                @can('profile_for_moderator_access')
+                    <li class="c-sidebar-nav-item">
+                        <a href="{{ route("admin.profile-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/profile-for-moderators") || request()->is("admin/profile-for-moderators/*") ? "c-active" : "" }}">
+                            <i class="fa-fw fas fa-user-cog c-sidebar-nav-icon">
 
-                                </i>
-                                {{ trans('cruds.profileForModerator.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('p_to_approve_for_moderator_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.p-to-approve-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/p-to-approve-for-moderators") || request()->is("admin/p-to-approve-for-moderators/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-check c-sidebar-nav-icon">
+                            </i>
+                            {{ trans('cruds.profileForModerator.title') }}
+                        </a>
+                    </li>
+                @endcan
+                @can('p_to_approve_for_moderator_access')
+                    <li class="c-sidebar-nav-item">
+                        <a href="{{ route("admin.p-to-approve-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/p-to-approve-for-moderators") || request()->is("admin/p-to-approve-for-moderators/*") ? "c-active" : "" }}">
+                            <i class="fa-fw fas fa-check c-sidebar-nav-icon">
 
-                                </i>
-                                {{ trans('cruds.pToApproveForModerator.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('s_to_approve_for_moderator_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.s-to-approve-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/s-to-approve-for-moderators") || request()->is("admin/s-to-approve-for-moderators/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-check c-sidebar-nav-icon">
+                            </i>
+                            {{ trans('cruds.pToApproveForModerator.title') }}
+                        </a>
+                    </li>
+                @endcan
+                @can('s_to_approve_for_moderator_access')
+                    <li class="c-sidebar-nav-item">
+                        <a href="{{ route("admin.s-to-approve-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/s-to-approve-for-moderators") || request()->is("admin/s-to-approve-for-moderators/*") ? "c-active" : "" }}">
+                            <i class="fa-fw fas fa-check c-sidebar-nav-icon">
 
-                                </i>
-                                {{ trans('cruds.sToApproveForModerator.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
+                            </i>
+                            {{ trans('cruds.sToApproveForModerator.title') }}
+                        </a>
+                    </li>
+                @endcan
+
+            @endcan
+        @endif
+
+        @if (!auth()->user()->roles->contains('1'))
         @can('vendor_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/product-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/service-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/p-product-listing-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/p-service-listing-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/message-box-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/profile-for-vendors*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
@@ -303,6 +303,9 @@
                 </ul>
             </li>
         @endcan
+        @endif
+
+        @if (!auth()->user()->roles->contains('1'))
         @can('user_menu_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/services-for-users*") ? "c-show" : "" }} {{ request()->is("admin/products-for-users*") ? "c-show" : "" }} {{ request()->is("admin/massage-box-for-users*") ? "c-show" : "" }} {{ request()->is("admin/profile-for-users*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
@@ -355,6 +358,7 @@
                 </ul>
             </li>
         @endcan
+        @endif
         @can('website_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/sliders*") ? "c-show" : "" }} {{ request()->is("admin/top-navigations*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-sub-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-cities-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/client-reviews*") ? "c-show" : "" }} {{ request()->is("admin/articles*") ? "c-show" : "" }} {{ request()->is("admin/article-tags*") ? "c-show" : "" }} {{ request()->is("admin/feedback-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/query-from-website-for-admins*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">

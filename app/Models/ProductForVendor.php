@@ -48,6 +48,7 @@ class ProductForVendor extends Model implements HasMedia
         'updated_at',
         'deleted_at',
         'created_by_id',
+        'rejected',
     ];
 
     protected function serializeDate(DateTimeInterface $date)
@@ -102,4 +103,6 @@ class ProductForVendor extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, 'created_by_id');
     }
+
+
 }

@@ -6,8 +6,16 @@
             <div class="card">
                 <div class="card-header">
                     Dashboard
-                </div>
+                        @if(auth()->user()->roles->contains(3))
+                        For Moderator
+                        @endif
+                        @if(auth()->user()->roles->contains(1))
+                        For Admin
+                        @endif
 
+
+                </div>
+                @if(auth()->user()->roles->contains(1))
                 <div class="card-body">
                     @if(session('status'))
                         <div class="alert alert-success" role="alert">
@@ -22,6 +30,12 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                @if(auth()->user()->roles->contains(3))
+                <div class="card-body">
+                    @include('back.dashboardForModerator')
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -29,5 +43,7 @@
 @endsection
 @section('scripts')
 @parent
+@if(auth()->user()->roles->contains(1))
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>{!! $chart1->renderJs() !!}
+    @endif
 @endsection

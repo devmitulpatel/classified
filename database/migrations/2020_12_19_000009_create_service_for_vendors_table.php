@@ -17,6 +17,7 @@ class CreateServiceForVendorsTable extends Migration
             $table->decimal('shipping_cost', 15, 2)->nullable();
             $table->string('tax_included')->nullable();
             $table->string('tax_rate')->nullable();
+            $table->boolean('rejected')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

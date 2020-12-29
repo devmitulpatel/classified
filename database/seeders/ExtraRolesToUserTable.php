@@ -18,7 +18,7 @@ class ExtraRolesToUserTable extends Seeder
 
             [
                 'id'    => 3,
-                'title' => ' Moderator',
+                'title' => 'Moderator',
             ],
             [
                 'id'    => 4,

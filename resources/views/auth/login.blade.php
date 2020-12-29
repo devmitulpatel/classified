@@ -4,9 +4,9 @@
     <div class="col-md-6">
         <div class="card mx-4">
             <div class="card-body p-4">
-                <h1>{{ trans('panel.site_title') }}</h1>
+                <h1>Company Name </h1>
 
-                <p class="text-muted">{{ trans('global.login') }}</p>
+                <p class="text-muted">login with {{$type??"admin"}} account...</p>
 
                 @if(session('message'))
                     <div class="alert alert-info" role="alert">
@@ -14,7 +14,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('login',['for'=>$type??"admin"]) }}">
                     @csrf
 
                     <div class="input-group mb-3">

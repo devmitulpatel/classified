@@ -48,6 +48,7 @@ class ServiceForVendor extends Model implements HasMedia
         'updated_at',
         'deleted_at',
         'created_by_id',
+        'rejected',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

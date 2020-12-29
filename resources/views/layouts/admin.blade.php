@@ -27,7 +27,8 @@
 
 <body class="c-app">
     @include('partials.menu')
-    <div class="c-wrapper">
+    <div class="c-wrapper" id="app">
+        <section>
         <header class="c-header c-header-fixed px-3">
             <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
                 <i class="fas fa-fw fa-bars"></i>
@@ -84,10 +85,14 @@
 
 
             </main>
-            <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+            <form id="logoutform" action="{{ route('logout',['for'=>auth()->user()->roles->pluck('title')->toArray()]) }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
         </div>
+            <notifications group="ms-notfy" />
+
+        </section>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -111,6 +116,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/backend.js') }}"></script>
     <script>
         $(function() {
   let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
@@ -170,6 +176,7 @@
           columns: ':visible'
         }
       },
+        @if(auth()->user()->roles->contains(['1','3']))
       {
         extend: 'copy',
         className: 'btn-default',
@@ -218,6 +225,7 @@
           columns: ':visible'
         }
       }
+      @endif
     ]
   });
 

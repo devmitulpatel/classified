@@ -22,7 +22,18 @@ class ChangePasswordController extends Controller
     {
         auth()->user()->update($request->validated());
 
-        return redirect()->route('profile.password.edit')->with('message', __('global.change_password_success'));
+        $extra=$request->only(['for']);
+        //  dd($extra);
+        if(array_key_exists('for',$extra) || auth()->user()->roles->contain(3)){
+            switch (strtolower($extra['for'])) {
+                case "moderator":
+                    //  dd($extra);
+                    return redirect()->route('admin.profile-for-moderators.index')->with('message', __('global.update_profile_success'));
+                    break;
+            }
+        }
+
+                    return redirect()->route('profile.password.edit')->with('message', __('global.change_password_success'));
     }
 
     public function updateProfile(UpdateProfileRequest $request)
@@ -31,6 +42,16 @@ class ChangePasswordController extends Controller
 
         $user->update($request->validated());
 
+        $extra=$request->only(['for']);
+      //  dd($extra);
+        if(array_key_exists('for',$extra)){
+            switch (strtolower($extra['for'])){
+                case "moderator":
+                  //  dd($extra);
+                    return redirect()->route('admin.profile-for-moderators.index')->with('message', __('global.update_profile_success'));
+                    break;
+            }
+        }
         return redirect()->route('profile.password.edit')->with('message', __('global.update_profile_success'));
     }
 

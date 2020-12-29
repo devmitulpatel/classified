@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\PToApproveForModeratorController;
+use App\Http\Controllers\Admin\SToApproveForModeratorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
@@ -24,7 +26,23 @@ Route::get('/home', function () {
 
 //////Backend
 
-Auth::routes(['register' => false]);
+
+
+Route::group(['prefix' => 'admin', ], function () {
+    Auth::routes(['register' => false]);
+
+});
+
+Route::group(['prefix' => 'moderator','as'=>'moderator.' ], function () {
+    Route::get('/',[\App\Http\Controllers\Auth\LoginController::class,'showLoginFormForModerator'])->name('moderator_login');
+    Auth::routes(['register' => false]);
+    Route::get('/login',[\App\Http\Controllers\Auth\LoginController::class,'showLoginFormForModerator'])->name('moderator_login');
+
+
+
+});
+
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -160,9 +178,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // P To Approve For Moderators
     Route::resource('p-to-approve-for-moderators', 'PToApproveForModeratorController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+    Route::group(['prefix'=>'p-to-approve-for-moderators','as'=>'p-to-approve-for-moderators.'],function (){
+        Route::get('approve', [PToApproveForModeratorController::class,'approve'])->name('approve');
+    });
+
 
     // S To Approve For Moderators
     Route::resource('s-to-approve-for-moderators', 'SToApproveForModeratorController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    Route::group(['prefix'=>'s-to-approve-for-moderators','as'=>'s-to-approve-for-moderators.'],function (){
+        Route::get('approve', [SToApproveForModeratorController::class,'approve'])->name('approve');
+    });
 
     // To Approve Vendor For Admins
     Route::resource('to-approve-vendor-for-admins', 'ToApproveVendorForAdminController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);

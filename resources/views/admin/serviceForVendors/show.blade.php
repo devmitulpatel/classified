@@ -9,7 +9,13 @@
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.service-for-vendors.index') }}">
+                @php
+                    $backlink=route('admin.service-for-vendors.index');
+     if(auth()->user()->roles->contains(3))$backlink=route('admin.s-to-approve-for-moderators.index');
+
+          //
+                @endphp
+                <a class="btn btn-default" href="{{ $backlink }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -140,7 +146,7 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.service-for-vendors.index') }}">
+                <a class="btn btn-default" href="{{ $backlink }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

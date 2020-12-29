@@ -26,6 +26,8 @@ class CustomSeeder extends Seeder
             PaymentGatewayTableSeeder::class,
             DemoHighlightedCitiesSeeder::class,
             DemoHighlightedCategoiesSeeder::class,
+            DemoProductNServiceSeeder::class,
+            DemoServiceSeeder::class,
 
 
         ]);
