@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'Demo Classified',
+    'site_title' => 'Company Name',
 ];

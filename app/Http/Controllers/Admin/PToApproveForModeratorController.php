@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\LogForModerators;
 use App\Models\ProductForVendor;
 use App\Traits\ControllerTrait;
 use Illuminate\Support\Facades\Gate;
@@ -42,6 +43,14 @@ class PToApproveForModeratorController extends Controller
                 $msg="Product has been rejected by you.";
             }
 
+            $dForLog=[
+                'action_taken_by_id'=>auth()->id(),
+                'action_taken_on_id'=>$input['pid'],
+                'type'=>'product',
+                'action_type'=>($input['a']=="1")?"approved":"rejected",
+
+            ];
+            LogForModerators::create($dForLog);
 
             return $this->json($msg);
         }

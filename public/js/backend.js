@@ -32934,6 +32934,10 @@ Vue.component('dashboard-row-1', {
   methods: {
     clickMe: function clickMe() {
       console.log('clicke here');
+    },
+    apiCallOnClick: function apiCallOnClick() {
+      var u = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+      window.MainViewApp.apiCallOnClick(u);
     }
   }
 });

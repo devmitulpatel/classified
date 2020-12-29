@@ -186,26 +186,8 @@
         @if (!auth()->user()->roles->contains('1'))
 
             @can('moderator_for_moderator_access')
-                @can('massage_box_for_moderator_access')
-                    <li class="c-sidebar-nav-item">
-                        <a href="{{ route("admin.massage-box-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/massage-box-for-moderators") || request()->is("admin/massage-box-for-moderators/*") ? "c-active" : "" }}">
-                            <i class="fa-fw fas fa-envelope-square c-sidebar-nav-icon">
 
-                            </i>
-                            {{ trans('cruds.massageBoxForModerator.title') }}
-                        </a>
-                    </li>
-                @endcan
-                @can('profile_for_moderator_access')
-                    <li class="c-sidebar-nav-item">
-                        <a href="{{ route("admin.profile-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/profile-for-moderators") || request()->is("admin/profile-for-moderators/*") ? "c-active" : "" }}">
-                            <i class="fa-fw fas fa-user-cog c-sidebar-nav-icon">
 
-                            </i>
-                            {{ trans('cruds.profileForModerator.title') }}
-                        </a>
-                    </li>
-                @endcan
                 @can('p_to_approve_for_moderator_access')
                     <li class="c-sidebar-nav-item">
                         <a href="{{ route("admin.p-to-approve-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/p-to-approve-for-moderators") || request()->is("admin/p-to-approve-for-moderators/*") ? "c-active" : "" }}">
@@ -226,6 +208,16 @@
                         </a>
                     </li>
                 @endcan
+                    @can('profile_for_moderator_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.profile-for-moderators.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/profile-for-moderators") || request()->is("admin/profile-for-moderators/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-user-cog c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.profileForModerator.title') }}
+                            </a>
+                        </li>
+                    @endcan
 
             @endcan
         @endif
@@ -471,7 +463,7 @@
                 </ul>
             </li>
         @endcan
-        @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
+        @if(!auth()->user()->roles->contains(3)  && file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
             @can('profile_password_edit')
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'c-active' : '' }}" href="{{ route('profile.password.edit') }}">

@@ -27,6 +27,9 @@ Vue.component('dashboard-row-1',
 
            clickMe(){
                console.log('clicke here');
+           },
+           apiCallOnClick(u=""){
+               window.MainViewApp.apiCallOnClick(u);
            }
        }
     });
