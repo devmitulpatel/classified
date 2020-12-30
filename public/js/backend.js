@@ -32951,7 +32951,7 @@ Vue.component('dashboard-row-1', {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\Pojects\Github\classified\resources\js\backend.js */"./resources/js/backend.js");
+module.exports = __webpack_require__(/*! F:\mitul\projects\classified\resources\js\backend.js */"./resources/js/backend.js");
 
 
 /***/ })

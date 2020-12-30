@@ -30,6 +30,15 @@ class DemoServiceSeeder extends Seeder
                 'tax_included'=>true,
                 'tax_rate'=>0,
                 'created_by_id'=>4,
+                'imagaes'=>[
+                    storage_path(implode("/", ['sample','s1.jpg']))
+                ],
+                'videos'=>[
+
+                    storage_path(implode("/", ['sample','s1.mp4']))
+
+                ]
+
             ] ,
             [
                 'name'=>"Services 2 from b",
@@ -41,10 +50,39 @@ class DemoServiceSeeder extends Seeder
                 'shipping_cost'=>50,
                 'tax_included'=>true,
                 'tax_rate'=>0,
-                'created_by_id'=>5,
+                'created_by_id'=>5,  'imagaes'=>[
+                storage_path(implode("/", ['sample','s2.jpg']))
+            ],
+                'videos'=>[
+
+                    storage_path(implode("/", ['sample','s2.mp4']))
+
+                ]
+
             ]
         ];
 
-        ServiceForVendor::insert($data);
+        foreach ($data as $v){
+            $img=$v['imagaes'];
+            $videos=$v['videos'];
+            unset($v['imagaes']);
+            unset($v['videos']);
+            $productForVendor= ServiceForVendor::create($v);
+
+            foreach ($img as $file) {
+                $productForVendor->addMedia($file)->toMediaCollection('images');
+
+            }
+
+            foreach ($videos as $file) {
+
+                $productForVendor->addMedia($file)->toMediaCollection('videos');
+
+            }
+
+
+        }
+
+
     }
 }

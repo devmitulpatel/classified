@@ -66,7 +66,11 @@
                             {{ trans('cruds.productForVendor.fields.imagaes') }}
                         </th>
                         <td>
+
+
                             @foreach($productForVendor->imagaes as $key => $media)
+
+
                                 <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
                                     <img src="{{ $media->getUrl('thumb') }}">
                                 </a>

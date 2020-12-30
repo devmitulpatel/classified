@@ -76,6 +76,7 @@ class ProductForVendor extends Model implements HasMedia
     {
         $files = $this->getMedia('imagaes');
         $files->each(function ($item) {
+          //  dd($item->getUrl());
             $item->url       = $item->getUrl();
             $item->thumbnail = $item->getUrl('thumb');
             $item->preview   = $item->getUrl('preview');

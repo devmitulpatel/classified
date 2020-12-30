@@ -34,6 +34,12 @@ class WebsiteSettingTableSeeder extends Seeder
                 'display_type'=>'string',
                 'store_type'=>'string',
             ],
+            [
+                'name'=>'website_max_file_upload_size',
+                'value'=>'50',
+                'display_type'=>'string',
+                'store_type'=>'string',
+            ],
 
 
         ];

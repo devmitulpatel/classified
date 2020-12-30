@@ -9,6 +9,11 @@
 <body>
 
 <div id="app">
+
+    <file-uploader  >
+
+    </file-uploader>
+
     <div id="site-wrapper" class="site-wrapper home-main">
 
         @if(isset($header)&& $header==2)

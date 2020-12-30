@@ -35628,7 +35628,63 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login */ "./resources/js/components/partials/login.js");
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_login__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _large_file_uploader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./large_file_uploader */ "./resources/js/components/partials/large_file_uploader.js");
+/* harmony import */ var _large_file_uploader__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_large_file_uploader__WEBPACK_IMPORTED_MODULE_1__);
 
+
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/large_file_uploader.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/partials/large_file_uploader.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var template = '<div>' + '<input type="file" name="largeFile" ref="file_input" v-on:change="file_changed">' + '</div>';
+Vue.component('file-uploader', {
+  data: function data() {
+    return {
+      current_file_fake_path: null,
+      current_file_ext: null,
+      current_file_name: null,
+      current_raw_file_data: null,
+      current_file_size: null,
+      current_raw_file_data_debug: null
+    };
+  },
+  template: template,
+  watch: {
+    current_file: function current_file(newVal) {}
+  },
+  methods: {
+    file_changed: function file_changed(e) {
+      this.current_file_fake_path = this.$refs.file_input.value;
+      this.current_file_name = this.$refs.file_input.value.split('\\').pop().split('.')[0];
+      this.current_file_ext = this.$refs.file_input.value.split('.').pop();
+      var files = e.target.files; // FileList object
+      // use the 1st file from the list
+
+      f = files[0];
+      var reader = new FileReader();
+      var th = this;
+      reader.onload = this.handleFileRawDataFeed;
+      this.current_file_size = e.target.files[0].size;
+      reader.readAsText(e.target.files[0]);
+    },
+    handleFileRawDataFeed: function handleFileRawDataFeed(e, file) {
+      // var next_slice = start + slice_size + 1;
+      // var blob = file.slice( start, next_slice );
+      var loaded = 0;
+      var step = 1024 * 1024 * 10;
+      var total = this.current_file_size;
+      var start = 0;
+      this.current_raw_file_data_debug = e.target.result.slice(start, step);
+      this.current_raw_file_data = e.target.result;
+    }
+  }
+});
 
 /***/ }),
 
@@ -35742,38 +35798,14 @@ Vue.component('login-section', {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/vendor.scss":
-/*!************************************!*\
-  !*** ./resources/sass/vendor.scss ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!******************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/vendor.scss ***!
-  \******************************************************************************************/
+/*!***********************************!*\
+  !*** multi ./resources/js/app.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Pojects\Github\classified\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! E:\Pojects\Github\classified\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! E:\Pojects\Github\classified\resources\sass\vendor.scss */"./resources/sass/vendor.scss");
+module.exports = __webpack_require__(/*! F:\mitul\projects\classified\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

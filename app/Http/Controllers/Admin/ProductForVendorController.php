@@ -123,6 +123,7 @@ class ProductForVendorController extends Controller
 
         $productForVendor->load('category', 'sub_category', 'tags', 'approved_by', 'created_by');
 
+
         return view('admin.productForVendors.show', compact('productForVendor'));
     }
 
