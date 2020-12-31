@@ -9,10 +9,10 @@
 <body>
 
 <div id="app">
+    <div class="col-6">
+        @include('layouts.partials.uploader' , [ 'collection'=>'images','model'=>\App\Models\ProductForVendor::class,'rootUpdateFunction'=>'updateFormFromImageCollection' ] )
+    </div>
 
-    <file-uploader  >
-
-    </file-uploader>
 
     <div id="site-wrapper" class="site-wrapper home-main">
 
@@ -28,6 +28,7 @@
     </div>
     @include('layouts/partials/login')
     @include('layouts/partials/register')
+    <notifications group="ms-notfy" />
 </div>
 
 @include('layouts/partials/js')

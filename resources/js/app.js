@@ -3,9 +3,11 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
+Vue.config.productionTip = false;
 import './bootstrap'
 import './components/partials/index';
+import Notifications from 'vue-notification';
+Vue.use(Notifications)
 import firebase from 'firebase/app';
 window.FB=firebase;
 /**
