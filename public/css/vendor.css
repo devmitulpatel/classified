@@ -26085,3 +26085,7 @@ button.mfp-arrow:active {
   }
 }
 
+.text-link {
+  cursor: pointer !important;
+}
+

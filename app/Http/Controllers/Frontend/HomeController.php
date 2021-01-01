@@ -52,4 +52,13 @@ class HomeController extends Controller
 
         return view('front.Pages.user_dashboard',['title'=>$title]);
     }
+
+
+    public function add_list(){
+        $title=$this->title;
+
+        return view('front.Pages.add_listing',['title'=>$title]);
+    }
+
+
 }

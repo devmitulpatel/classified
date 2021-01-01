@@ -7,9 +7,9 @@
 <body>
 
 <div id="app">
-    <div class="col-12">
-        @include('layouts.partials.uploader' , [ 'collection'=>'images','model'=>\App\Models\ProductForVendor::class,'rootUpdateFunction'=>'updateFormFromImageCollection' ] )
-    </div>
+
+
+
 
 
     <div id="site-wrapper" class="site-wrapper home-main">

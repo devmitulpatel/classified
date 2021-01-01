@@ -10,6 +10,7 @@
         'vendors/magnific-popup/jquery.magnific-popup.js',
         'vendors/slick/slick.js',
         'vendors/waypoints/jquery.waypoints.js',
+       // 'js/tinymce.js',
         'js/vendor.js',
         'js/app.js',
 

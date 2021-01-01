@@ -9,21 +9,27 @@
         <input type="file" name="largeFile" ref="file_input" v-on:change="file_changed " :multiple="multiple"
                class="d-none">
 
-        <div class="border bg-primary p-2 text-center py-10" ref="drop_box" @drop.prevent="file_changed"
+        <div class="border bg-gray-01 p-2 text-center py-2" ref="drop_box" @drop.prevent="file_changed"
              @dragover.prevent style="cursor: pointer" v-on:click="()=>{ this.$refs.file_input.click() }">
-            <p class="text-white">
+            <div class="">
 
-                <i class="fas fa-upload fa-4x mb-2"></i><br>Click Here to Select Files <br> or <br> Just Drag Files and
-                Drop here<br>
-                <small>
+                <div><i class="fas fa-upload fa-2x my-2 "></i></div>
+                <div>Drag and Drop Files here</div>
+                <div>or</div>
+                <div class="btn btn-primary text-white" >Browse Files</div>
+
+
+                <div>
+                    <small>
                     <i>
                         max no. of File : <strong>@{{ file_limit }}</strong>, max size of per file: <strong>@{{
                             getSizeToDisplay(per_file_limit) }}</strong>, allowed file: <strong><span
                                 v-for="ext in file_type_allowed">.@{{ ext }}</span></strong>
                     </i>
                 </small>
+                </div>
 
-            </p>
+            </div>
 
         </div>
 
@@ -124,5 +130,7 @@
             </div>
 
         </div>
+
     </div>
+
 </file-uploader>

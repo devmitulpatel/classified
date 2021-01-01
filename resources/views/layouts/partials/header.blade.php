@@ -166,7 +166,7 @@
                                                         <li class="nav-item"><a class="nav-link" href="page-privacy-policy.html">
                                                                 privacy
                                                                 policy</a></li>
-                                                        <li class="nav-item"><a class="nav-link" href="page-submit-listing.html">submit
+                                                        <li class="nav-item"><a class="nav-link" href="{{route('add_list')}}">submit
                                                                 listing</a></li>
                                                         <li class="nav-item"><a class="nav-link" href="page-terms-and-condition.html">Term
                                                                 and condition</a></li>
@@ -286,7 +286,7 @@
                                My Profile</a>
                         </div>
                         <div class="header-customize-item button">
-                            <a href="page-submit-listing.html" class="btn btn-primary btn-icon-right">Add
+                            <a href="{{route('add_list')}}" class="btn btn-primary btn-icon-right">Add
                                 Listing
                                 <i class="far fa-angle-right"></i></a>
                         </div>

@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
 
+
+Route::get('/add-product-service', [\App\Http\Controllers\Frontend\HomeController::class,'add_list'])->name('add_list');
+
+
+
 Route::prefix('vendor')->group(function (){
     Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'vendor_dashboard'])->name('vendor_dashboard');
 });
