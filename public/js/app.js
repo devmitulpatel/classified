@@ -41631,7 +41631,8 @@ Vue.component('file-uploader', {
       file_type_allowed: ['*'],
       file_limit: 2,
       per_file_limit: 1,
-      chunk_size: 1024 * 1024 * 1
+      chunk_size: 1024 * 1024 * 1,
+      listViewOn: false
     };
   },
   mounted: function mounted() {
@@ -41642,6 +41643,9 @@ Vue.component('file-uploader', {
     this.per_file_limit = ((_this$perFileLimit = this.perFileLimit) !== null && _this$perFileLimit !== void 0 ? _this$perFileLimit : 5) * 1024 * 1024;
   },
   methods: {
+    toggleListView: function toggleListView() {
+      this.listViewOn = this.listViewOn ? false : true;
+    },
     getSizeToDisplay: function getSizeToDisplay(v) {
       unit = "MB";
       v = (v / (1024 * 1024)).toFixed(2);
@@ -41764,34 +41768,42 @@ Vue.component('file-uploader', {
       this.files_array = (_e$target$files = e.target.files) !== null && _e$target$files !== void 0 ? _e$target$files : e.dataTransfer.files;
 
       if (_typeof(this.files_array) == "object") {
+        var currentCount = 0;
+
         for (var x in _toConsumableArray(this.files_array)) {
-          var file = this.files_array[x];
+          currentCount = currentCount + 1;
 
-          if (_typeof(file) == "object" && x != "item" && file.size < this.per_file_limit) {
-            var reader;
+          if (this.maxFile >= this.files_added.length + currentCount) {
+            var file = this.files_array[x];
 
-            (function () {
-              reader = new FileReader();
-              var k = x;
-              var fileData = file;
-              reader.addEventListener('load', function (event) {
-                th.handleFileRawDataFeed(event, k, 'files_processed_array', fileData);
-              });
-              reader.addEventListener('loadend', th.fileReadSuccefully(k, 'files_processed_array'));
-              reader.readAsBinaryString(file);
-              th.$notify({
-                group: 'ms-notfy',
-                clean: true
-              });
-              th.notify('Selected Files are added in upload queue', 'success');
-            })();
+            if (_typeof(file) == "object" && x != "item" && file.size < this.per_file_limit) {
+              var reader;
+
+              (function () {
+                reader = new FileReader();
+                var k = x;
+                var fileData = file;
+                reader.addEventListener('load', function (event) {
+                  th.handleFileRawDataFeed(event, k, 'files_processed_array', fileData);
+                });
+                reader.addEventListener('loadend', th.fileReadSuccefully(k, 'files_processed_array'));
+                reader.readAsBinaryString(file);
+                th.$notify({
+                  group: 'ms-notfy',
+                  clean: true
+                });
+                th.notify('Selected Files are added in upload queue', 'success');
+              })();
+            } else {
+              var file_processed = {
+                file_name: file.name.split('\\').pop().split('.')[0],
+                file_ext: file.name.split('.').pop().toLowerCase(),
+                file_size: file.size
+              };
+              th.notify([[file_processed.file_name, file_processed.file_ext].join(''), "'s size should be less than", (this.per_file_limit / (1024 * 1024)).toFixed(2), 'MB'], 'error');
+            }
           } else {
-            var file_processed = {
-              file_name: file.name.split('\\').pop().split('.')[0],
-              file_ext: file.name.split('.').pop().toLowerCase(),
-              file_size: file.size
-            };
-            th.notify([[file_processed.file_name, file_processed.file_ext].join(''), "'s size should be less than", (this.per_file_limit / (1024 * 1024)).toFixed(2), 'MB'], 'error');
+            this.notify(['You are allowed to upload max ', this.maxFile, 'files'], 'error');
           }
         }
       }
