@@ -7,7 +7,8 @@ Vue.config.productionTip = false;
 import './bootstrap'
 import './components/partials/index';
 import Notifications from 'vue-notification';
-Vue.use(Notifications)
+import velocity      from 'velocity-animate'
+Vue.use(Notifications,{ velocity })
 import firebase from 'firebase/app';
 window.FB=firebase;
 /**

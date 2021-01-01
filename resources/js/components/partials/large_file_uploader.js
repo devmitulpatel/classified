@@ -23,6 +23,47 @@ Vue.component('file-uploader', {
 
     },
     methods:{
+
+        getSizeToDisplay(v){
+            unit="MB";
+            v=(v/(1024*1024)).toFixed(2);
+            if(v<1){
+                v=(v *(1024)).toFixed(2);
+                unit="KB";
+            }
+            if(v>999){
+                v=(v/(1024)).toFixed(2);
+                unit="GB";
+            }
+            return [v,unit].join(' ');
+        },
+        deleteAllSelectedFile(){
+
+            this.files_added=[];
+
+            this.notify('All Selected Files are removed from upload queue','success');
+        },
+        totalFileSize(){
+            var total=0;
+            var unit="MB"
+
+            for (var x in this.files_added){
+                total=total+this.files_added[x].file_size;
+            }
+            total=(total/(1024*1024)).toFixed(2);
+            if(total<1){
+                total=(total *(1024)).toFixed(2);
+                unit="KB";
+            }
+            if(total>999){
+                total=(total/(1024)).toFixed(2);
+                unit="GB";
+            }
+
+
+            if(total===0)total= total.toFixed(2);
+            return [total,unit].join(' ');
+        },
         getFileSize(f){
             var size=0;
             var unit="MB"
@@ -90,8 +131,10 @@ Vue.component('file-uploader', {
         deleteImage(k){
             this.files_added.splice(k,1);
 
+            this.notify('Selected File is removed from upload queue','success');
         },
         file_changed(e){
+
             var th=this;
             this.files_array=e.target.files ?? e.dataTransfer.files;
 
@@ -114,18 +157,11 @@ Vue.component('file-uploader', {
                         reader.addEventListener('load',(event)=>{th.handleFileRawDataFeed(event,k,'files_processed_array',fileData)} );
                         reader.addEventListener('loadend',th.fileReadSuccefully(k,'files_processed_array'));
                         reader.readAsBinaryString(file);
-
-                        // var file_processed={
-                        //     file_name: file.name.split('\\').pop().split('.')[0],
-                        //     file_ext: file.name.split('.').pop().toLowerCase(),
-                        //     file_size:file.size
-                        // };
-
-                      //  if(this.files_processed_array[x] ===undefined)this.files_processed_array[x]={};
-
-                      //  for (var i in file_processed)this.files_processed_array[x][i]=file_processed[i];
-
-
+                        th.$notify({
+                            group: 'ms-notfy',
+                            clean: true
+                        });
+                        th.notify('Selected Files are added in upload queue','success')
 
                     }
                     else{
@@ -134,12 +170,7 @@ Vue.component('file-uploader', {
                             file_ext: file.name.split('.').pop().toLowerCase(),
                             file_size:file.size
                         };
-                        th.$notify({
-                            group: 'ms-notfy',
-                            title: 'Opps',
-                            text: [[file_processed.file_name,file_processed.file_ext].join('') ,"'s size should be less than",this.per_file_limit/ (1024*1024),'MB'].join(' '),
-                            type:'error'
-                        });
+                        th.notify([[file_processed.file_name,file_processed.file_ext].join('') ,"'s size should be less than",(this.per_file_limit/ (1024*1024)).toFixed(2),'MB'],'error')
 
 
 
@@ -154,6 +185,34 @@ Vue.component('file-uploader', {
 
 
 
+
+        },
+
+        notify(text,type){
+            var icon="";
+            switch (type){
+                case "success":
+                    icon="fas fa-check-circle";
+                    break;
+                case "warn":
+                    icon="fas fa-info-circle";
+                    break;
+                case "error":
+                    icon="fas fa-exclamation-circle";
+                    break;
+            }
+
+            console.log(typeof text);
+
+            this.$notify({
+                group: 'ms-notfy',
+                title:  " <i class='"+icon+"'></i>",
+                text: (typeof text=='object' )?[...text].join(' '):text,
+                type:type,
+                duration: 3000,
+
+              //  position:"bottom"
+            });
 
         },
         handleFileRawDataFeed(e,k,varName,file){
