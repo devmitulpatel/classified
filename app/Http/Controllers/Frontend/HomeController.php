@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Frontend;
 use App\Helper\File\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginPostFromFront;
+use App\Http\Requests\RegisterFromFront;
+use App\Models\User;
 use App\Models\WebsiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -90,5 +93,17 @@ class HomeController extends Controller
         return JsonResponse::data(['msg'=>'Logged out Successfully']);
     }
 
+
+    public function registerPost(RegisterFromFront $r){
+
+        $input=$r->validated();
+
+        return User::create([
+            'city'=>$input['city']['value'],
+            'email'    => $input['username'],
+            'password' => Hash::make($input['password']),
+        ]);
+
+    }
 
 }

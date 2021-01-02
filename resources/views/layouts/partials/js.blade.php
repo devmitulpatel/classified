@@ -23,4 +23,5 @@
 
 @foreach($js as $url)
     <script src="{{asset($url)}}"></script>
+
 @endforeach

@@ -2,12 +2,13 @@
 @php
 $url=[
     'loginPost'=>route('loginForFrontEnd'),
-    'logoutPost'=>route('logoutForFrontEnd')
+    'logoutPost'=>route('logoutForFrontEnd'),
+    'registerPost'=>route('registerForFrontEnd')
 ];
 $url=collect($url)->toJson();
 @endphp
 
-<login-section inline-template id="login-popup" ref="login-model" class="mfp-hide" :urls="{{ $url  }}">
+<login-section inline-template id="login-popup" refCreate Your Account="login-model" class="mfp-hide" :urls="{{ $url  }}">
     <div class="form-login-register" >
         <div v-if="!loggedin">
             <div class="tabs mb-8">
@@ -90,29 +91,48 @@ $url=collect($url)->toJson();
                 </div>
                 <div class="tab-pane fade " id="register" role="tabpanel" aria-labelledby="register-tab">
                     <div class="form-register">
-                        <form>
+                        <form  v-on:submit.prevent="submitFormForRegistration()">
                             <div class="font-size-md text-dark mb-5">Create Your Account</div>
-                            <div class="form-group mb-2">
-                                <label for="username-rt" class="sr-only">Username</label>
-                                <input id="username-rt" type="text" class="form-control" placeholder="Username">
-                            </div>
+
                             <div class="form-group mb-2">
                                 <label for="email" class="sr-only">Email</label>
-                                <input id="email" type="text" class="form-control" placeholder="Email Address">
+                                <input id="email" :class="{ 'is-invalid':checkError('username')}" v-model="input.username" type="text" class="form-control" placeholder="Email Address">
+                                <div class="invalid-feedback" v-if="checkError('username')">
+                                    Please choose a username.
+                                </div>
                             </div>
                             <div class="form-group mb-2">
                                 <label for="password-rt" class="sr-only">Username</label>
-                                <input id="password-rt" type="password" class="form-control" placeholder="Password">
+                                <input id="password-rt" v-model="input.password" type="password" class="form-control" placeholder="Password">
+                                <div class="invalid-feedback" v-if="checkError('username')">
+                                    Please choose a username.
+                                </div>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="r-password" class="sr-only">Username</label>
-                                <input id="r-password" type="password" class="form-control" placeholder="Retype password">
+                                <label for="r-c-password" class="sr-only">Confirm Password</label>
+                                <input id="r-c-password" type="password" v-model="input.confirm_password" class="form-control" placeholder="Retype password">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="r-c-password" class="sr-only">Select City</label>
+
+
+                                <multiselect v-model="selectedCountries" id="ajax" label="text" track-by="value" placeholder="Type to search city"  :options="countries" :multiple="false" :searchable="true" :loading="isLoading" :internal-search="true" :clear-on-select="false" :close-on-select="true" :max-height="600" @search-change="asyncFind">
+                                    <template slot="singleLabel" slot-scope="props"><span>  @{{ props.option.text }} </span></template>
+                                    <template slot="noOptions" ><span>  No city selected </span></template>
+                                    <template slot="noResult" ><span> No city found   </span></template>
+                                </multiselect>
+
+
+
+
+
                             </div>
                             <div class="form-group mb-8">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="check-term">
-                                    <label class="custom-control-label text-dark" for="check-term">You agree with our
-                                        Terms Privacy Policy and</label>
+                                    <label class="custom-control-label text-dark" for="check-term">Yes, I agree
+                                        all Terms & Privacy Policy.</label>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block font-weight-bold text-uppercase font-size-lg rounded-sm">

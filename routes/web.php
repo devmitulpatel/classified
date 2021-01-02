@@ -26,6 +26,7 @@ Route::get('/add-product-service', [\App\Http\Controllers\Frontend\HomeControlle
 
 Route::post('login',[\App\Http\Controllers\Frontend\HomeController::class,'loginPost'])->name('loginForFrontEnd');
 Route::post('logout',[\App\Http\Controllers\Frontend\HomeController::class,'logoutPost'])->name('logoutForFrontEnd');
+Route::post('register',[\App\Http\Controllers\Frontend\HomeController::class,'registerPost'])->name('registerForFrontEnd');
 
 
 Route::prefix('vendor')->group(function (){

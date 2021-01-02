@@ -16,7 +16,7 @@
             </div>
             <ul class="list-group list-group-flush list-group-borderless">
                 <li class="list-group-item p-0 mb-2 lh-15">
-                    <a href="{{route('user_dashboard')}}" class="d-flex align-items-center link-hover-dark-primary font-size-md">
+                    <a href="{{route('vendor_dashboard')}}" class="d-flex align-items-center link-hover-dark-primary font-size-md">
                         <span class="d-inline-block mr-3"><i class="fal fa-cog"></i></span>
                         <span>Dashboard</span>
                     </a>

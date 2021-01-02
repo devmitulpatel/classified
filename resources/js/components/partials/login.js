@@ -1,19 +1,27 @@
-
-
+import Multiselect from 'vue-multiselect'
+Vue.component('multiselect', Multiselect)
 
 Vue.component('login-section',
     {
         props:['urls'],
+        components: {
+            Multiselect
+        },
         data() {
             return {
 
                 input: {
                     username: "",
-                    password: ""
+                    password: "",
+                    confirm_password: "",
+                    city: "",
+
+
                 },
                 form:{
 
                 },
+                city:require('./city.json'),
                 firebase:window.FB,
                 user:{},
                 loggedin:false,
@@ -27,7 +35,13 @@ Vue.component('login-section',
                      appId: "1:950553154359:web:afada0bc271bafad4840b2",
                      measurementId: "G-GKQ5QWFDF5"
             },
-            error:[],
+                errorFound:false,
+                error:[],
+                regError:{},
+                selectedCountries: [],
+                countries: [],
+                isLoading: false,
+
         }},
         created() {
             require("firebase/auth");
@@ -62,6 +76,54 @@ Vue.component('login-section',
 
         },
         methods:{
+            checkError(name){
+
+                return (this.regError.hasOwnProperty(name) &&  typeof this.regError[name] == 'object')
+            },
+            submitFormForRegistration(){
+                var url =this.urls.registerPost;
+                var th = this;
+                let data = {...this.input};
+                data.city={...this.selectedCountries};
+
+
+                axios.post(url,data).catch(e=>{
+
+                if(e.response.data.hasOwnProperty('ResponseMessage') && typeof e.response.data.ResponseMessage == "object") {
+                    th.errorFound=true;
+                    th.regError = e.response.data.ResponseMessage;
+                    th.input.password="";
+                    th.input.confirm_password="";
+                }
+
+                });
+
+            },
+            updateInput(){
+              var old=this.input;
+              this.input=null;
+              this.input=old;
+
+            },
+            asyncFind (query) {
+                this.isLoading = true;
+
+                    var size=5;
+
+                  this.countries = this.city.filter(ele=>ele.toLowerCase().includes(query.toLowerCase())).slice(0, size).map(i => {
+                      return {
+                          text:i,
+                          value:i.toLowerCase()
+
+                      }
+                  });
+                    this.isLoading = false
+
+            },
+            clearAll () {
+                this.selectedCountries = []
+            },
+
             signInClick(){
                 this.signinUser(this.input.username,this.input.password);
             },
