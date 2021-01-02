@@ -45,11 +45,21 @@ class HomeController extends Controller
 
     public function vendor_dashboard(){
         $title=$this->title;
+        if(auth()->check()){
+           // dd(auth()->user()->roles->contains(2));
 
+            if(auth()->user()->roles->contains(2))return redirect()->route('user_dashboard');
+
+        }
         return view('front.Pages.vendor_dashboard',['title'=>$title]);
     }
     public function user_dashboard(){
         $title=$this->title;
+
+        if(auth()->check()){
+            if(auth()->user()->roles->contains(4))return redirect()->route('vendor_dashboard');
+
+        }
 
         return view('front.Pages.user_dashboard',['title'=>$title]);
     }

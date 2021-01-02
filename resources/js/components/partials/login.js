@@ -102,7 +102,7 @@ Vue.component('login-section',
 
                 }).catch(er=>{
 
-                });
+                }).finally(()=>window.location.reload());
             },
         logOutToServer(){
             var url =this.urls.logoutPost;
@@ -113,7 +113,7 @@ Vue.component('login-section',
 
             }).catch(er=>{
 
-            });
+            }).finally(()=>window.location.reload());
         }
         ,
             signupNewUser(email,password){

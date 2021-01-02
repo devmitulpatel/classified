@@ -24,16 +24,32 @@
                 <li class="list-group-item p-0 mb-2 lh-15">
                     <a href="#listing" class="d-flex align-items-center link-hover-dark-primary font-size-md" data-toggle="collapse" aria-expanded="false">
                         <span class="d-inline-block mr-3"><i class="fal fa-bookmark"></i></span>
-                        <span>Saved List</span>
+                        <span>Listing</span>
                         <span class=" ml-auto"><i class="fal fa-chevron-down"></i></span>
                     </a>
                     <ul class="submenu collapse list-group list-group-flush list-group-borderless pt-2 mb-0 sidebar-menu" id="listing">
                         <li class="list-group-item p-0 mb-2 lh-15"><a href="panel-my-listing.html" class="link-hover-dark-primary font-size-md">Products</a></li>
                         <li class="list-group-item p-0 mb-2 lh-15"><a href="panel-my-listing.html" class="link-hover-dark-primary font-size-md">Services</a></li>
-                        <li class="list-group-item p-0 mb-2 lh-15"><a href="panel-my-listing.html" class="link-hover-dark-primary font-size-md">Vendors</a></li>
                     </ul>
                 </li>
                 <li class="list-group-item p-0 mb-2 lh-15">
+                    <a href="#listing2" class="d-flex align-items-center link-hover-dark-primary font-size-md" data-toggle="collapse" aria-expanded="false">
+                        <span class="d-inline-block mr-3"><i class="fal fa-bookmark"></i></span>
+                        <span>Premium Listing</span>
+                        <span class=" ml-auto"><i class="fal fa-chevron-down"></i></span>
+                    </a>
+                    <ul class="submenu collapse list-group list-group-flush list-group-borderless pt-2 mb-0 sidebar-menu" id="listing2">
+                        <li class="list-group-item p-0 mb-2 lh-15"><a href="panel-my-listing.html" class="link-hover-dark-primary font-size-md">Products</a></li>
+                        <li class="list-group-item p-0 mb-2 lh-15"><a href="panel-my-listing.html" class="link-hover-dark-primary font-size-md">Services</a></li>
+                    </ul>
+                </li>
+                <li class="list-group-item p-0 mb-2 lh-15">
+                    <a href="panel-my-favourite.html" class="d-flex align-items-center link-hover-dark-primary font-size-md">
+                        <span class="d-inline-block mr-3"><i class="fal fa-bookmark"></i></span>
+                        <span>Invoices</span>
+                    </a>
+                </li>
+ <li class="list-group-item p-0 mb-2 lh-15">
                     <a href="panel-my-favourite.html" class="d-flex align-items-center link-hover-dark-primary font-size-md">
                         <span class="d-inline-block mr-3"><i class="fal fa-bookmark"></i></span>
                         <span>Message Box</span>

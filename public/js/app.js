@@ -41938,7 +41938,9 @@ window.MainViewApp = new Vue({
     this.triggerLoading(); //     console.log()
   },
   methods: {
-    openLoginModel: function openLoginModel() {},
+    signOutUser: function signOutUser() {
+      this.$refs['login-model'].signOutUser();
+    },
     userAuthStateChage: function userAuthStateChage(v, user) {
       this.sessionStarted = true;
       this.userLoggedIn = v;
@@ -42483,12 +42485,16 @@ Vue.component('login-section', {
       var data = {
         token: token
       };
-      axios.post(url, data).then(function (res) {})["catch"](function (er) {});
+      axios.post(url, data).then(function (res) {})["catch"](function (er) {})["finally"](function () {
+        return window.location.reload();
+      });
     },
     logOutToServer: function logOutToServer() {
       var url = this.urls.logoutPost;
       var data = {};
-      axios.post(url, data).then(function (res) {})["catch"](function (er) {});
+      axios.post(url, data).then(function (res) {})["catch"](function (er) {})["finally"](function () {
+        return window.location.reload();
+      });
     },
     signupNewUser: function signupNewUser(email, password) {
       this.firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {

@@ -44,8 +44,8 @@ window.MainViewApp = new Vue({
    //     console.log()
     },
     methods:{
-        openLoginModel(){
-
+        signOutUser(){
+            this.$refs['login-model'].signOutUser();
         },
 
         userAuthStateChage(v,user){

@@ -167,7 +167,7 @@
                         <div class="header-customize-item button-search">
                             <a class="mobile-button-search" href="#search-popup" data-gtf-mfp="true" data-mfp-options='{"type":"inline","mainClass":"mfp-move-from-top mfp-align-top search-popup-bg","closeOnBgClick":false,"showCloseBtn":false}'><i class="far fa-search"></i></a>
                         </div>
-                        <div class="header-customize-item" v-cloak>
+                        <div class="header-customize-item" v-cloak :class="{'hide-custom':!sessionStarted}">
                             <a v-cloak v-if="!userLoggedIn"  href="#login-popup" ref="loginBtn" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
                                 <svg class="icon icon-user-circle-o">
                                     <use xlink:href="#icon-user-circle-o"></use>
@@ -182,6 +182,12 @@
 
 
 
+                        </div>
+
+
+                        <div class="header-customize-item flash animated infinite" v-cloak :class="{'hide-custom':sessionStarted}">
+
+                            <span> <small class="text-muted">Fetching User info</small> <i class="fas fa-circle-notch fa-spin "></i></span>
                         </div>
 
                         <div class="header-customize-item">

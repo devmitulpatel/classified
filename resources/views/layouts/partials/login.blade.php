@@ -7,7 +7,7 @@ $url=[
 $url=collect($url)->toJson();
 @endphp
 
-<login-section inline-template id="login-popup" class="mfp-hide" :urls="{{ $url  }}">
+<login-section inline-template id="login-popup" ref="login-model" class="mfp-hide" :urls="{{ $url  }}">
     <div class="form-login-register" >
         <div v-if="!loggedin">
             <div class="tabs mb-8">
