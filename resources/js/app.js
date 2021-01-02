@@ -41,9 +41,13 @@ window.MainViewApp = new Vue({
     },
     mounted() {
         this.triggerLoading();
-        console.log()
+   //     console.log()
     },
     methods:{
+        openLoginModel(){
+
+        },
+
         userAuthStateChage(v,user){
             this.sessionStarted=true;
 

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helper\File\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginPostFromFront;
 use App\Models\WebsiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -35,9 +38,7 @@ class HomeController extends Controller
      */
     public function home()
     {
-
         $title=$this->title;
-
         return view('front.Pages.landing',['title'=>$title]);
     }
 
@@ -58,6 +59,25 @@ class HomeController extends Controller
         $title=$this->title;
 
         return view('front.Pages.add_listing',['title'=>$title]);
+    }
+
+    public function loginPost(LoginPostFromFront  $r){
+        $input=$r->validated();
+
+
+        $token=$input['token'];
+
+
+        $fb=new \App\Helper\File\FirebaseAuthenticator ($token);
+
+        return ($fb->auth()) ? JsonResponse::data(['msg'=>'Logged in Successfully']):JsonResponse::error(['msg'=>'unable to login']);
+
+
+    }
+
+    public function logoutPost(){
+        Auth::logout();
+        return JsonResponse::data(['msg'=>'Logged out Successfully']);
     }
 
 

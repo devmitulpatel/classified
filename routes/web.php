@@ -4,11 +4,28 @@ use App\Http\Controllers\Admin\PToApproveForModeratorController;
 use App\Http\Controllers\Admin\SToApproveForModeratorController;
 use Illuminate\Support\Facades\Route;
 
+
+
+
+Route::get('test/api',function (Kreait\Firebase\Auth $auth){
+    $refreshToken="AG8BCnfsxPNmvSUZF6aeE-dzh2Za63K4PM-SZn02nrHD_0hQp4R-HUpWjEfDaxygHaAelrJfeWMH18aX9urOvTQP8wUFvnO5DEiIMAJpKziffeL0sCkiELrA0-geBGQ_Eq2upmi2JP5iFmpfaWcMGbMAUxnmjsoUaW6jG5zKzIDsZJ1tmC8XqugOclS9Q1M-BPAm2vkR6y9Ex_MSfwgYE9Lxrks-YWa_sg";
+//$refreshToken.="021";
+
+
+    $fb=new \App\Helper\File\FirebaseAuthenticator ($refreshToken);
+
+    dd($fb->auth());
+});
+
+
 Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
 
 
 Route::get('/add-product-service', [\App\Http\Controllers\Frontend\HomeController::class,'add_list'])->name('add_list');
 
+
+Route::post('login',[\App\Http\Controllers\Frontend\HomeController::class,'loginPost'])->name('loginForFrontEnd');
+Route::post('logout',[\App\Http\Controllers\Frontend\HomeController::class,'logoutPost'])->name('logoutForFrontEnd');
 
 
 Route::prefix('vendor')->group(function (){

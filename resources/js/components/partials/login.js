@@ -3,7 +3,7 @@
 
 Vue.component('login-section',
     {
-
+        props:['urls'],
         data() {
             return {
 
@@ -67,6 +67,7 @@ Vue.component('login-section',
             },
             signOutUser(){
                 var th=this;
+                th.logOutToServer();
              th.firebase.auth().signOut();
             },
             signinUser(email,password){
@@ -79,7 +80,7 @@ Vue.component('login-section',
                         console.log(user.user.uid);
                         console.log(user.user.email);
                         console.log(user.user.refreshToken);
-
+                        th.sendDatatoServer(user.user.refreshToken);
                     })
                     .catch((error) => {
 
@@ -91,6 +92,30 @@ Vue.component('login-section',
 
                     });
             },
+
+            sendDatatoServer(token){
+                var url =this.urls.loginPost;
+
+                var data={token:token};
+
+                axios.post(url,data).then(res=>{
+
+                }).catch(er=>{
+
+                });
+            },
+        logOutToServer(){
+            var url =this.urls.logoutPost;
+
+            var data={};
+
+            axios.post(url,data).then(res=>{
+
+            }).catch(er=>{
+
+            });
+        }
+        ,
             signupNewUser(email,password){
                 this.firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then((user) => {
@@ -113,7 +138,7 @@ Vue.component('login-section',
                 //     .then(function (res){})
                 //     .catch((function (er){}));
 
-                console.log('ok')
+
 
             },
             click(url){
@@ -123,5 +148,5 @@ Vue.component('login-section',
 
 
     }
-    
+
 )

@@ -41935,10 +41935,10 @@ window.MainViewApp = new Vue({
     };
   },
   mounted: function mounted() {
-    this.triggerLoading();
-    console.log();
+    this.triggerLoading(); //     console.log()
   },
   methods: {
+    openLoginModel: function openLoginModel() {},
     userAuthStateChage: function userAuthStateChage(v, user) {
       this.sessionStarted = true;
       this.userLoggedIn = v;
@@ -42401,6 +42401,7 @@ Vue.component('file-uploader', {
 /***/ (function(module, exports, __webpack_require__) {
 
 Vue.component('login-section', {
+  props: ['urls'],
   data: function data() {
     return {
       input: {
@@ -42454,6 +42455,7 @@ Vue.component('login-section', {
     },
     signOutUser: function signOutUser() {
       var th = this;
+      th.logOutToServer();
       th.firebase.auth().signOut();
     },
     signinUser: function signinUser(email, password) {
@@ -42465,6 +42467,7 @@ Vue.component('login-section', {
         console.log(user.user.uid);
         console.log(user.user.email);
         console.log(user.user.refreshToken);
+        th.sendDatatoServer(user.user.refreshToken);
       })["catch"](function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -42474,6 +42477,18 @@ Vue.component('login-section', {
         });
         if (th.autoSignUpNewUser) th.signupNewUser(email, password); // if(!th.autoSignUpNewUser)alert(errorMessage);
       });
+    },
+    sendDatatoServer: function sendDatatoServer(token) {
+      var url = this.urls.loginPost;
+      var data = {
+        token: token
+      };
+      axios.post(url, data).then(function (res) {})["catch"](function (er) {});
+    },
+    logOutToServer: function logOutToServer() {
+      var url = this.urls.logoutPost;
+      var data = {};
+      axios.post(url, data).then(function (res) {})["catch"](function (er) {});
     },
     signupNewUser: function signupNewUser(email, password) {
       this.firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
@@ -42492,8 +42507,6 @@ Vue.component('login-section', {
       //     .post(url,this.input)
       //     .then(function (res){})
       //     .catch((function (er){}));
-
-      console.log('ok');
     },
     click: function click(url) {
       window.MainViewApp.click(url);

@@ -1,0 +1,1 @@
+[Sat Jan 02 11:57:09.938059 2021] [php7:error] [pid 2932:tid 2064] [client 192.168.2.127:60611] PHP Fatal error:  Cannot use App\\Helper\\File\\JsonResponse as JsonResponse because the name is already in use in F:\\mitul\\projects\\classified\\app\\Helper\\File\\RequestValidatorHelper.php on line 8, referer: http://192.168.2.127:8087/user

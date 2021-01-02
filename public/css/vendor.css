@@ -26089,3 +26089,7 @@ button.mfp-arrow:active {
   cursor: pointer !important;
 }
 
+.hide-custom {
+  display: none;
+}
+

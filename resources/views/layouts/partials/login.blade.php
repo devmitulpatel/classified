@@ -1,4 +1,13 @@
-<login-section inline-template id="login-popup" class="mfp-hide">
+
+@php
+$url=[
+    'loginPost'=>route('loginForFrontEnd'),
+    'logoutPost'=>route('logoutForFrontEnd')
+];
+$url=collect($url)->toJson();
+@endphp
+
+<login-section inline-template id="login-popup" class="mfp-hide" :urls="{{ $url  }}">
     <div class="form-login-register" >
         <div v-if="!loggedin">
             <div class="tabs mb-8">

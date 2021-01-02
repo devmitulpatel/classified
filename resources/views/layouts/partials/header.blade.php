@@ -273,18 +273,28 @@
                         </li>
                     </ul>
                     <div class="header-customize justify-content-end align-items-center d-none d-xl-flex">
-                        <div class="header-customize-item" v-cloak>
-                            <a v-cloak v-if="!userLoggedIn" href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
+
+
+
+                        <div class="header-customize-item" v-cloak :class="{'hide-custom':!sessionStarted}">
+
+                            <a v-cloak v-on:click="openLoginModel" v-if="!userLoggedIn " href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}' >
                                 <svg class="icon icon-user-circle-o">
                                     <use xlink:href="#icon-user-circle-o"></use>
                                 </svg>
                                 Log in</a>
-                            <a v-cloak v-if="userLoggedIn" href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
+                            <a v-cloak v-if="userLoggedIn " href="#login-popup" class="link" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}'>
                                 <svg class="icon icon-user-circle-o">
                                     <use xlink:href="#icon-user-circle-o"></use>
                                 </svg>
                                My Profile</a>
                         </div>
+
+                        <div class="header-customize-item flash animated infinite" v-cloak :class="{'hide-custom':sessionStarted}">
+
+                            <span> <small class="text-muted">Fetching User info</small> <i class="fas fa-circle-notch fa-spin "></i></span>
+                        </div>
+
                         <div class="header-customize-item button">
                             <a href="{{route('add_list')}}" class="btn btn-primary btn-icon-right">Add
                                 Listing
