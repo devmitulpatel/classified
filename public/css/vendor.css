@@ -26257,7 +26257,7 @@ fieldset[disabled] .multiselect {
 .multiselect__tags {
   min-height: 40px;
   display: block;
-  padding: 8px 40px 0 8px;
+  padding: 3px 40px 0px 12px;
   border-radius: 5px;
   border: 1px solid #e8e8e8;
   background: #fff;
@@ -26578,5 +26578,58 @@ fieldset[disabled] .multiselect {
   to {
     transform: rotate(2turn);
   }
+}
+
+.multiselect .is-invalid:focus {
+  transition: all 500ms ease-in-out;
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+}
+
+.is-invalid .multiselect__tags {
+  transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+  border-color: red;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMicgaGVpZ2h0PScxMicgZmlsbD0nbm9uZScgc3Ryb2tlPScjZmYwMDAwJyB2aWV3Qm94PScwIDAgMTIgMTInPjxjaXJjbGUgY3g9JzYnIGN5PSc2JyByPSc0LjUnLz48cGF0aCBzdHJva2UtbGluZWpvaW49J3JvdW5kJyBkPSdNNS44IDMuNmguNEw2IDYuNXonLz48Y2lyY2xlIGN4PSc2JyBjeT0nOC4yJyByPScuNicgZmlsbD0nI2ZmMDAwMCcgc3Ryb2tlPSdub25lJy8+PC9zdmc+);
+  background-repeat: no-repeat;
+  background-position: right calc(1.925em + 0.1875rem) center;
+  background-size: calc(0.85em + 0.375rem) calc(0.85em + 0.375rem);
+}
+
+.is-invalid {
+  transition: all 500ms ease-in-out;
+}
+
+.c-err {
+  margin-top: -1px;
+  transition: all 500ms ease-in-out;
+}
+
+.c-err span {
+  transition: all 500ms ease-in-out;
+  padding: 6px 12px;
+  border-bottom: 1px solid red;
+  border-left: 1px solid red;
+  border-right: 1px solid red;
+  font-weight: 500;
+  word-spacing: -1px;
+  display: flex;
+}
+
+.c-err span:last-of-type {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.form-control.is-invalid {
+  transition: all 500ms ease-in-out;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.form-check .c-err span {
+  border: 0 !important;
+  padding-left: 0;
 }
 

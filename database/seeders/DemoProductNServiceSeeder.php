@@ -6,6 +6,7 @@ use App\Models\CategoriesForAdmin;
 use App\Models\HighlightedCategory;
 use App\Models\ProductForVendor;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DemoProductNServiceSeeder extends Seeder
 {
@@ -16,6 +17,22 @@ class DemoProductNServiceSeeder extends Seeder
      */
     public function run()
     {
+
+
+        $directory=implode(".",['sample_bak']);
+        $new_directory=['sample'];
+
+
+        foreach (Storage::disk('root')->allFiles($directory) as $f){
+
+            $file['name']=last(explode('/',$f));
+            $file['location']=$f;
+            $file['new_location']=implode('/',array_merge($new_directory,[$file['name']]));
+
+            if(!Storage::disk('root')->exists($file['new_location']))Storage::disk('root')->copy($file['location'], $file['new_location']);
+
+        }
+
         $data=[
             [
             'name'=>"Product 1 from a",
@@ -65,6 +82,8 @@ class DemoProductNServiceSeeder extends Seeder
             unset($v['imagaes']);
             unset($v['videos']);
             $productForVendor= ProductForVendor::create($v);
+
+
 
             foreach ($img as $file) {
                 $productForVendor->addMedia($file)->toMediaCollection('imagaes');

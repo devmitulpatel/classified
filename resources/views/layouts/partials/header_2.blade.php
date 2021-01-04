@@ -189,13 +189,14 @@
 
                             <span> <small class="text-muted">Fetching User info</small> <i class="fas fa-circle-notch fa-spin "></i></span>
                         </div>
-
+                        @if((auth()->check() && (!auth()->user()->roles->contains(2) && auth()->user()->roles->contains(4))) || !auth()->check() )
                         <div class="header-customize-item">
                             @if(request()->route()->getName()!="add_list")
                             <a href="{{route('add_list')}}" class="btn btn-primary btn-icon-right" >Add
                                 Listing <i class="far fa-angle-right"></i></a>
                             @endif
                         </div>
+                        @endif
                     </div>
                 </div>
             </nav>

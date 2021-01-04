@@ -28,15 +28,18 @@ class RegisterFromFront extends RequestValidatorHelper
 
             'username'=>['required','unique:users,email'],
             'city'=>['required'],
-            'password'=>['required','required_with:password_confirmation|same:password_confirmation'],
-            'confirm_password'=>['required']
+            'password'=>['required'],
+            'password_confirmation'=>['required','same:password'],
+            'city'=>['required'],
+            'terms'=>['accepted']
 
         ];
     }
     public function attributes()
     {
         return [
-            'username'=>'Email'
+            'username'=>'Email',
+            'terms'=>'Terms & Privacy Policy'
         ];
 
     }

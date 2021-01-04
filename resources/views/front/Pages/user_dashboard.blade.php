@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
     <div v-cloak id="site-wrapper" class="site-wrapper panel dashboards" >
 
 
@@ -11,7 +13,9 @@
 
 
             @if(auth()->check())
-                @include('front.Pages.partials.vendor_dashboard_content')
+
+                @include('front.Pages.partials.user_dashboard_content')
+
             @else
                 <div class="mb-7">
                     <svg class="icon icon-map-marker-crossed">

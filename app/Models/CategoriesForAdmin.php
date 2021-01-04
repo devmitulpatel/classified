@@ -13,7 +13,7 @@ use \DateTimeInterface;
 
 class CategoriesForAdmin extends Model implements HasMedia
 {
-    use SoftDeletes, MultiTenantModelTrait, InteractsWithMedia, HasFactory;
+    use SoftDeletes, InteractsWithMedia, HasFactory;
 
     protected $appends = [
         'img',

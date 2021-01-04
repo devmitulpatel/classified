@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Helper\File\JsonResponse;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class ExtraUsersToTableSeeder extends Seeder
 {
@@ -111,6 +113,50 @@ class ExtraUsersToTableSeeder extends Seeder
                 'contact_no'     => '',
             ],
         ];
+
+
+        $auth=Firebase::auth();
+
+        foreach ($users as $u){
+            if($u['id']>3){
+                $userProperties = [
+                    'email' => $u['email'],
+                    'emailVerified' => false,
+                    'password' => 'password',
+                    'disabled' => false,
+                ];
+
+
+
+
+                try {
+                    $foundUser=$auth->getUserByEmail($userProperties['email']);
+                    $fUid=$foundUser->uid;
+                    $auth->deleteUser($fUid);
+                    goto FinallyCreateNewUser;
+                }catch (Exception $e){
+                    FinallyCreateNewUser:
+                    $userProperties = [
+                        'email' => $u['email'],
+                        'emailVerified' => false,
+                        'password' => 'password',
+                        'disabled' => false,
+                    ];
+                    try {
+                        $createdUser = $auth->createUser($userProperties);
+                    }catch (\Exception $e){
+
+                    }
+                }
+
+
+
+
+            }
+        }
+
+
+
 
         User::insert($users);
     }

@@ -11,6 +11,7 @@ use App\Models\WebsiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Kreait\Firebase\Auth as FBAuth;
 
 class HomeController extends Controller
 {
@@ -59,11 +60,11 @@ class HomeController extends Controller
     public function user_dashboard(){
         $title=$this->title;
 
+
         if(auth()->check()){
             if(auth()->user()->roles->contains(4))return redirect()->route('vendor_dashboard');
 
         }
-
         return view('front.Pages.user_dashboard',['title'=>$title]);
     }
 
@@ -94,15 +95,40 @@ class HomeController extends Controller
     }
 
 
-    public function registerPost(RegisterFromFront $r){
+    public function registerPost(RegisterFromFront $r,FBAuth $auth){
 
         $input=$r->validated();
 
-        return User::create([
+        $user=User::create([
             'city'=>$input['city']['value'],
             'email'    => $input['username'],
             'password' => Hash::make($input['password']),
         ]);
+//        $user=[
+//            'city'=>"surat",
+//            'created_at'=> "2021-01-04 07:25:19",
+//            'email'=> "wadoq@mailinator.com",
+//            'id'=> 12,
+//            'updated_at'=> "2021-01-04 07:25:19",
+//        ];
+
+        $userProperties = [
+            'email' => $user['email'],
+            'emailVerified' => false,
+            'password' => $input['password'],
+            'disabled' => false,
+        ];
+
+        try {
+            $createdUser = $auth->createUser($userProperties);
+        }catch (\Exception $e){
+            return JsonResponse::error($e->getMessage());
+        }
+
+
+
+
+        return $createdUser  ;
 
     }
 

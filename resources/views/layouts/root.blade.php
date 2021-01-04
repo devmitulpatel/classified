@@ -11,7 +11,6 @@
 
 
 
-
     <div id="site-wrapper" class="site-wrapper home-main">
 
         @if(isset($header)&& $header==2)
@@ -25,7 +24,7 @@
 
     </div>
     @include('layouts.partials.login')
-    @include('layouts.partials.register')
+    @include('front.Pages.partials.search_popup')
     @include('layouts.partials.notify_for_front')
 </div>
 

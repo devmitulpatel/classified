@@ -70,3 +70,50 @@
     display: none;
 }
 @import "plugins/vue_multiselect";
+
+
+.is-invalid{
+    transition: all 500ms ease-in-out;
+}
+
+.c-err{
+margin-top: -1px;
+    transition: all 500ms ease-in-out;
+    span{
+        transition: all 500ms ease-in-out;
+        padding: 6px 12px;
+
+        border-bottom: 1px solid rgba(255,0,0,1);
+        border-left: 1px solid rgba(255,0,0,1);
+        border-right: 1px solid rgba(255,0,0,1);
+        //background-color: rgba(255,0,0,0.05);
+        //box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+        font-weight: 500;
+        word-spacing: -1px;
+        display: flex;
+
+    }
+    span:last-of-type{
+        border-bottom-left-radius:3px ;
+        border-bottom-right-radius:3px;
+
+    }
+
+}
+.form-control.is-invalid{
+    transition: all 500ms ease-in-out;
+    border-bottom-left-radius:0 ;
+    border-bottom-right-radius:0 ;
+}
+
+
+.form-check{
+
+    .c-err{
+        span{
+            border:0!important;
+            padding-left: 0;
+        }
+
+    }
+}

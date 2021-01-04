@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-lg-4 mb-6 mb-lg-0">
-                    <div class="mb-8"><img src="images/logo.png" alt="Thedir"></div>
+                    <div class="mb-8"><img src="{{asset('images/logo.png')}}" alt="Thedir"></div>
                     <div class="mb-7">
                         <div class="font-size-md font-weight-semibold text-dark mb-4">Global Headquaters</div>
                         <p class="mb-0">

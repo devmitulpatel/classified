@@ -3,17 +3,19 @@ Vue.component('multiselect', Multiselect)
 
 Vue.component('login-section',
     {
+
         props:['urls'],
         components: {
             Multiselect
         },
+
         data() {
             return {
 
                 input: {
                     username: "",
                     password: "",
-                    confirm_password: "",
+                    password_confirmation: "",
                     city: "",
 
 
@@ -41,6 +43,12 @@ Vue.component('login-section',
                 selectedCountries: [],
                 countries: [],
                 isLoading: false,
+                validation:{
+                    username: {
+                        presence: true, email: true
+                    }
+                },
+                validate: window.validate
 
         }},
         created() {
@@ -76,9 +84,53 @@ Vue.component('login-section',
 
         },
         methods:{
+
+
+            validateMe(v,name){
+                var toValidate =v.target.value;
+                if(this.validation.hasOwnProperty(name) && toValidate.length > 0 ){
+
+
+                    var vResult=this.validate.single(toValidate, this.validation[name]);
+                    if(vResult!==undefined){
+                            if(!this.regError.hasOwnProperty(name))this.regError[name]=[];
+                            for (var x in vResult){
+                                var key =x;
+                                if(this.regError[name].find(x=>{return x==vResult[key]}) ===undefined)this.regError[name].push(vResult[x]);
+                            }
+
+                        }
+                    if(vResult===undefined){
+                        if(!this.errorFound) {
+
+                            this.regError[name] = [];
+                            delete this.regError[name];
+
+                        }
+                    }
+
+
+                }
+
+
+            },
+
+            updateError(){
+              var old =this.this.regError;
+              this.this.regError=null;
+              this.this.regError=old;
+
+            },
             checkError(name){
 
-                return (this.regError.hasOwnProperty(name) &&  typeof this.regError[name] == 'object')
+
+               if(this.regError.hasOwnProperty(name)) {
+
+                   var dt=[...this.regError[name]];
+                   console.log(dt);
+
+               }
+                return (this.regError.hasOwnProperty(name) &&  typeof this.regError[name] == 'object' )
             },
             submitFormForRegistration(){
                 var url =this.urls.registerPost;
@@ -159,12 +211,16 @@ Vue.component('login-section',
                 var url =this.urls.loginPost;
 
                 var data={token:token};
-
+                var th = this;
                 axios.post(url,data).then(res=>{
+
 
                 }).catch(er=>{
 
-                }).finally(()=>window.location.reload());
+                    th.signOutUser();
+
+                })
+                    .finally(()=>window.location.reload());
             },
         logOutToServer(){
             var url =this.urls.logoutPost;

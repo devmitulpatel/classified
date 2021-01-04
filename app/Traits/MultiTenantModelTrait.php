@@ -11,6 +11,9 @@ trait MultiTenantModelTrait
     {
 
 
+
+
+
         if (!app()->runningInConsole() && auth()->check()) {
             $isAdmin = auth()->user()->roles->contains(1) || auth()->user()->roles->contains(3);
          //   if(auth()->user()->roles->contains(3))$isAdmin=true;
