@@ -13,7 +13,7 @@
                 <h1 class="font-size-h4 mb-4 font-weight-normal" style="
     display: none;
 ">My Profile</h1>
-                <div class="row">
+                <div class="row" style="min-height: 100vh;">
                     <div class="col-lg-6 mb-4 mb-lg-0">
                         <div class="card rounded-0 border-0 bg-white px-4 pt-3 pb-6">
                             <div class="card-header p-0 bg-transparent"><h5 class="card-title text-capitalize">Profile
