@@ -115,6 +115,23 @@ class ExtraUsersToTableSeeder extends Seeder
         ];
 
 
+        for ($x=1;$x<50;$x++){
+            $id=7+$x;
+            $users[]= [
+                'id'=>$id,
+                'name'           => 'User '.$id,
+                'email'          => 'user_'.$id.'@test.com',
+                'password'       => bcrypt('password'),
+                'remember_token' => null,
+                'city'           => '',
+                'state'          => '',
+                'country'        => '',
+                'pincode'        => '',
+                'area'           => '',
+                'contact_no'     => '',
+            ];
+        }
+
         $auth=Firebase::auth();
 
         foreach ($users as $u){
@@ -134,7 +151,8 @@ class ExtraUsersToTableSeeder extends Seeder
                     $fUid=$foundUser->uid;
                     $auth->deleteUser($fUid);
                     goto FinallyCreateNewUser;
-                }catch (Exception $e){
+                }catch (\Kreait\Firebase\Exception\Auth\UserNotFound  $e){
+
                     FinallyCreateNewUser:
                     $userProperties = [
                         'email' => $u['email'],
@@ -151,7 +169,6 @@ class ExtraUsersToTableSeeder extends Seeder
 
 
 
-
             }
         }
 
@@ -159,5 +176,12 @@ class ExtraUsersToTableSeeder extends Seeder
 
 
         User::insert($users);
+
+        foreach ($users as $u){
+            if($u['id']>7) {
+                User::findOrFail($u['id'])->roles()->sync(2);
+            }
+
+        }
     }
 }

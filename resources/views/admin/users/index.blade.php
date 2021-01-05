@@ -15,9 +15,37 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-User">
-                <thead>
+        <div class="table-responsive"  id="live_table_data">
+            <div class="row justify-content-center">
+
+            <div class="form-group">
+                <div class="form-select form-control">
+                    @php
+                        $model=\App\Models\Role::all();
+                        $allRoles=$model->pluck('title','id')->toArray();
+                    @endphp
+                    <label for="current_view_only">View only</label>
+                    <select name="current_view_only" id="current_view_only" data-target="live_table_data">
+                        <option value="0" selected>
+                          All
+                        </option>
+                        @foreach ($allRoles as $v=>$t)
+                            <option value="{{$v}}">
+                                {{ $t }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+
+
+            <div>
+                <table class=" table table-bordered table-striped table-hover datatable datatable-User">
+                    <thead>
                     <tr>
                         <th width="10">
 
@@ -62,78 +90,86 @@
                             &nbsp;
                         </th>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $key => $user)
-                        <tr data-entry-id="{{ $user->id }}">
-                            <td>
+                    </thead>
+                    <tbody >
+                    @if(true)
+                        @foreach($users as $key => $user)
+                            <tr data-entry-id="{{ $user->id }}">
+                                <td>
 
-                            </td>
-                            <td>
-                                {{ $user->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->email ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->email_verified_at ?? '' }}
-                            </td>
-                            <td>
-                                @foreach($user->roles as $key => $item)
-                                    <span class="badge badge-info">{{ $item->title }}</span>
-                                @endforeach
-                            </td>
-                            <td>
-                                {{ $user->city ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->state ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->country ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->pincode ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->area ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->contact_no ?? '' }}
-                            </td>
-                            <td>
-                                {{ $user->approved_by->name ?? '' }}
-                            </td>
-                            <td>
-                                @can('user_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
+                                </td>
+                                <td>
+                                    {{ $user->id ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->name ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->email ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->email_verified_at ?? '' }}
+                                </td>
+                                <td>
+                                    @foreach($user->roles as $key => $item)
+                                        <span class="badge badge-info">{{ $item->title }}</span>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    {{ $user->city ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->state ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->country ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->pincode ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->area ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->contact_no ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $user->approved_by->name ?? '' }}
+                                </td>
+                                <td>
+                                    @can('user_show')
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
+                                            {{ trans('global.view') }}
+                                        </a>
+                                    @endcan
 
-                                @can('user_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.users.edit', $user->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
+                                    @can('user_edit')
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.users.edit', $user->id) }}">
+                                            {{ trans('global.edit') }}
+                                        </a>
+                                    @endcan
 
-                                @can('user_delete')
-                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
+                                    @can('user_delete')
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                        </form>
+                                    @endcan
 
-                            </td>
+                                </td>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </tr>
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="hide" style="display: none" id="custom-loading">
+            loading Data
         </div>
     </div>
 </div>
@@ -145,8 +181,8 @@
 @parent
 <script>
     $(function () {
-  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('user_delete')
+    let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+    @can('user_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
@@ -176,17 +212,33 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
-    orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
-    pageLength: 10,
+    $('#current_view_only').on( "change",
+    function (e){
+        var target=$('#'+$(this).data('target'));
+        target.slideUp();
+
+        var url='{{route('admin.users.indexData')}}';
+        var viewById=e.target.value;
+        axios.post(url ,{role:viewById}).then(res=>{
+            target.html(res.data);
+        }).finally(()=>{target.slideDown();});
+
+    }
+    );
+
+
+    $.extend(true, $.fn.dataTable.defaults, {
+        orderCellsTop: true,
+        order: [[ 1, 'desc' ]],
+        pageLength: 10,
+
   });
-  let table = $('.datatable-User:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-  $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
+    let table = $('.datatable-User:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+    $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PToApproveForModeratorController;
 use App\Http\Controllers\Admin\SToApproveForModeratorController;
+use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -65,6 +66,7 @@ Route::group(['prefix' => 'moderator','as'=>'moderator.' ], function () {
 
 });
 
+Route::get('test/users/custom/indexData', [UsersController::class,'indexData'])->name('users.indexData');
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -80,6 +82,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
+    Route::any('users/custome/indexData', [UsersController::class,'indexData'])->name('users.indexData');
 
     // Message Boxes
     Route::delete('message-boxes/destroy', 'MessageBoxController@massDestroy')->name('message-boxes.massDestroy');
