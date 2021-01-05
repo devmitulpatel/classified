@@ -43717,8 +43717,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -43730,6 +43728,8 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.it
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
 Vue.component('multiselect', vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -43798,9 +43798,36 @@ Vue.component('login-section', {
         th.user = {};
         window.MainViewApp.userAuthStateChage(th.loggedin, th.user); //   th.signinUser(email,password)
       }
-    });
+    }); //this.firebase.auth().useEmulator('http://localhost:9091/');
   },
   methods: {
+    notify: function notify(text, type) {
+      var icon = "";
+
+      switch (type) {
+        case "success":
+          icon = "fas fa-check-circle";
+          break;
+
+        case "warn":
+          icon = "fas fa-info-circle";
+          break;
+
+        case "error":
+          icon = "fas fa-exclamation-circle";
+          break;
+      }
+
+      console.log(_typeof(text));
+      this.$notify({
+        group: 'ms-notfy',
+        title: " <i class='" + icon + "'></i>",
+        text: _typeof(text) == 'object' ? _toConsumableArray(text).join(' ') : text,
+        type: type,
+        duration: 3000 //  position:"bottom"
+
+      });
+    },
     validateMe: function validateMe(v, name) {
       var toValidate = v.target.value;
 
@@ -43847,7 +43874,12 @@ Vue.component('login-section', {
       var data = _objectSpread({}, this.input);
 
       data.city = _objectSpread({}, this.selectedCountries);
-      axios.post(url, data)["catch"](function (e) {
+      axios.post(url, data).then(function (x) {
+        th.notify('Your account is created successfully.');
+        setTimeout(function () {
+          window.location.reload();
+        }, 5000);
+      })["catch"](function (e) {
         if (e.response.data.hasOwnProperty('ResponseMessage') && _typeof(e.response.data.ResponseMessage) == "object") {
           th.errorFound = true;
           th.regError = e.response.data.ResponseMessage;

@@ -11,6 +11,9 @@ import velocity      from 'velocity-animate'
 Vue.use(Notifications,{ velocity })
 import firebase from 'firebase/app';
 window.FB=firebase;
+
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

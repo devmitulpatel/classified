@@ -115,7 +115,7 @@ class ExtraUsersToTableSeeder extends Seeder
         ];
 
 
-        for ($x=1;$x<50;$x++){
+      if(false)  for ($x=1;$x<50;$x++){
             $id=7+$x;
             $users[]= [
                 'id'=>$id,
@@ -134,7 +134,7 @@ class ExtraUsersToTableSeeder extends Seeder
 
         $auth=Firebase::auth();
 
-        foreach ($users as $u){
+          foreach ($users as $u){
             if($u['id']>3){
                 $userProperties = [
                     'email' => $u['email'],
@@ -173,11 +173,9 @@ class ExtraUsersToTableSeeder extends Seeder
         }
 
 
-
-
         User::insert($users);
 
-        foreach ($users as $u){
+        if(false)foreach ($users as $u){
             if($u['id']>7) {
                 User::findOrFail($u['id'])->roles()->sync(2);
             }

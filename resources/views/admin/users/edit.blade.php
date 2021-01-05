@@ -40,6 +40,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
             </div>
+            @if(auth()->user()->roles->contains(ADMIN_ROLE))
             <div class="form-group">
                 <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
                 <div style="padding-bottom: 4px">
@@ -58,6 +59,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
             </div>
+            @endif
             <div class="form-group">
                 <label for="city">{{ trans('cruds.user.fields.city') }}</label>
                 <input class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" type="text" name="city" id="city" value="{{ old('city', $user->city) }}">
@@ -118,20 +120,24 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.user.fields.contact_no_helper') }}</span>
             </div>
-            <div class="form-group">
-                <label for="approved_by_id">{{ trans('cruds.user.fields.approved_by') }}</label>
-                <select class="form-control select2 {{ $errors->has('approved_by') ? 'is-invalid' : '' }}" name="approved_by_id" id="approved_by_id">
-                    @foreach($approved_bies as $id => $approved_by)
-                        <option value="{{ $id }}" {{ (old('approved_by_id') ? old('approved_by_id') : $user->approved_by->id ?? '') == $id ? 'selected' : '' }}>{{ $approved_by }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('approved_by'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('approved_by') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.user.fields.approved_by_helper') }}</span>
-            </div>
+            @if (false)
+                <div class="form-group">
+                    <label for="approved_by_id">{{ trans('cruds.user.fields.approved_by') }}</label>
+                    <select class="form-control select2 {{ $errors->has('approved_by') ? 'is-invalid' : '' }}" name="approved_by_id" id="approved_by_id">
+                        @foreach($approved_bies as $id => $approved_by)
+                            <option value="{{ $id }}" {{ (old('approved_by_id') ? old('approved_by_id') : $user->approved_by->id ?? '') == $id ? 'selected' : '' }}>{{ $approved_by }}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('approved_by'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('approved_by') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.user.fields.approved_by_helper') }}</span>
+                </div>
+
+            @endif
+
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}

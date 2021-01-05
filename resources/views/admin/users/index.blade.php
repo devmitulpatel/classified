@@ -16,30 +16,44 @@
 
     <div class="card-body">
         <div class="table-responsive"  id="live_table_data">
+            @php
+                $model=\App\Models\Role::all();
+                $allRoles=$model->pluck('title','id')->toArray();
+            @endphp
             <div class="row justify-content-center">
 
-            <div class="form-group">
-                <div class="form-select form-control">
-                    @php
-                        $model=\App\Models\Role::all();
-                        $allRoles=$model->pluck('title','id')->toArray();
-                    @endphp
-                    <label for="current_view_only">View only</label>
-                    <select name="current_view_only" id="current_view_only" data-target="live_table_data">
-                        <option value="0" selected>
-                          All
-                        </option>
-                        @foreach ($allRoles as $v=>$t)
-                            <option value="{{$v}}">
-                                {{ $t }}
-                            </option>
-                        @endforeach
+                <div class="col text-right">
+                    <label for="current_view_only flex ">View only : </label>
+                </div>
 
-                    </select>
+                <div class="col-11">
+                      <select name="current_view_only" id="current_view_only" data-target="live_table_data" class="form-select pl-2 col">
+                            <option value="0" selected>
+                                All
+                            </option>
+                            @foreach ($allRoles as $v=>$t)
+                                @if (auth()->user()->roles->contains(ADMIN_ROLE))
+                                  <option value="{{$v}}">
+                                      {{ $t }}
+                                  </option>
+                                @endif
+
+                                @if (auth()->user()->roles->contains(MODERATOR_ROLE))
+                                        @if($v != ADMIN_ROLE && $v!=MODERATOR_ROLE)
+                                            <option value="{{$v}}">
+                                                {{ $t }}
+                                            </option>
+                                        @endif
+                                @endif
+
+                            @endforeach
+
+                        </select>
 
                 </div>
 
-            </div>
+
+
         </div>
 
 
@@ -168,9 +182,6 @@
 
         </div>
 
-        <div class="hide" style="display: none" id="custom-loading">
-            loading Data
-        </div>
     </div>
 </div>
 

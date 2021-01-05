@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         define('USER_ROLE', 2);
         define('ADMIN_ROLE', 1);
         define('MODERATOR_ROLE', 3);
-        define('VENDOR_ROLE', 1);
+        define('VENDOR_ROLE', 4);
 
     }
 }

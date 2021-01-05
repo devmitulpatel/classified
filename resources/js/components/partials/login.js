@@ -48,7 +48,8 @@ Vue.component('login-section',
                         presence: true, email: true
                     }
                 },
-                validate: window.validate
+                validate: window.validate,
+
 
         }},
         created() {
@@ -82,9 +83,37 @@ Vue.component('login-section',
                 }
             });
 
+            //this.firebase.auth().useEmulator('http://localhost:9091/');
+
         },
         methods:{
+            notify(text,type){
+                var icon="";
+                switch (type){
+                    case "success":
+                        icon="fas fa-check-circle";
+                        break;
+                    case "warn":
+                        icon="fas fa-info-circle";
+                        break;
+                    case "error":
+                        icon="fas fa-exclamation-circle";
+                        break;
+                }
 
+                console.log(typeof text);
+
+                this.$notify({
+                    group: 'ms-notfy',
+                    title:  " <i class='"+icon+"'></i>",
+                    text: (typeof text=='object' )?[...text].join(' '):text,
+                    type:type,
+                    duration: 3000,
+
+                    //  position:"bottom"
+                });
+
+            },
 
             validateMe(v,name){
                 var toValidate =v.target.value;
@@ -139,7 +168,14 @@ Vue.component('login-section',
                 data.city={...this.selectedCountries};
 
 
-                axios.post(url,data).catch(e=>{
+                axios.post(url,data).then(x=>{
+                    th.notify('Your account is created successfully.')
+                    setTimeout(function (){
+                        window.location.reload();
+                    },5000)
+
+
+                }).catch(e=>{
 
                 if(e.response.data.hasOwnProperty('ResponseMessage') && typeof e.response.data.ResponseMessage == "object") {
                     th.errorFound=true;

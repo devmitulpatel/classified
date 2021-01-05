@@ -1,32 +1,45 @@
-<div class="table-responsive" id="live_table_data">
-    <div class="row justify-content-center">
+@php
+    $model=\App\Models\Role::all();
+    $allRoles=$model->pluck('title','id')->toArray();
+@endphp
+<div class="row justify-content-center">
 
-        <div>
-            <div class="form-select">
-                @php
-                    $model=\App\Models\Role::all();
-                    $allRoles=$model->pluck('title','id')->toArray();
-                @endphp
-                <label for="current_view_only">View only</label>
-                <select name="current_view_only" id="current_view_only" data-target="live_table_data">
-                    <option value="0" @if($input['role']==0 || $input['role']=='0') selected @endif>
-                        All
+    <div class="col text-right">
+        <label for="current_view_only flex ">View only : </label>
+    </div>
+
+    <div class="col-11">
+        <select name="current_view_only" id="current_view_only" data-target="live_table_data" class="form-select pl-2 col">
+            <option value="0" @if(0==$input['role'] || '0'==$input['role']) selected @endif>
+                All
+            </option>
+            @foreach ($allRoles as $v=>$t)
+                @if (auth()->user()->roles->contains(ADMIN_ROLE))
+                    <option value="{{$v}}" @if($input['role']==$v) selected @endif>
+                        {{ $t }}
                     </option>
-                    @foreach ($allRoles as $v=>$t)
+                @endif
+
+                @if (auth()->user()->roles->contains(MODERATOR_ROLE))
+                    @if($v != ADMIN_ROLE && $v!=MODERATOR_ROLE)
                         <option value="{{$v}}" @if($input['role']==$v) selected @endif>
                             {{ $t }}
                         </option>
-                    @endforeach
+                    @endif
+                @endif
 
-                </select>
+            @endforeach
 
-            </div>
+        </select>
 
-        </div>
     </div>
 
 
 
+</div>
+
+
+<div>
     <table class=" table table-bordered table-striped table-hover datatable datatable-User">
         <thead>
         <tr>

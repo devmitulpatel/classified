@@ -104,6 +104,8 @@ class HomeController extends Controller
             'email'    => $input['username'],
             'password' => Hash::make($input['password']),
         ]);
+
+        User::findOrFail($user['id'])->roles()->sync(2);
 //        $user=[
 //            'city'=>"surat",
 //            'created_at'=> "2021-01-04 07:25:19",

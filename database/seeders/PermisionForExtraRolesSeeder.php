@@ -29,14 +29,82 @@ class PermisionForExtraRolesSeeder extends Seeder
 
 
         $modeExtraPermission=[
-            [  'id'    => 149,
-                'title' => 'profile_password_edit',],
+            [
+                'id'    => 1,
+                'title' => 'user_management_access',
+            ],
+            [
+                'id'    => 16,
+                'title' => 'user_access',
+            ],
+            [
+                'id'    => 13,
+                'title' => 'user_edit',
+            ],
+            [
+                'id'    => 14,
+                'title' => 'user_show',
+            ],
+            [
+                'id'    => 14,
+                'title' => 'user_show',
+            ],
+            [
+                'id'    => 149,
+                'title' => 'profile_password_edit',
+                ],
+            [
+                'id'    => 93,
+                'title' => 'product_for_vendor_show',
+                ],
+            [
+                'id'    => 99,
+                'title' => 'service_for_vendor_show',
+                ],
 
-            ['id'    => 93,
-                'title' => 'product_for_vendor_show',],
+//            [
+//                'id'    => 91,
+//                'title' => 'product_for_vendor_create',
+//            ],
+            [
+                'id'    => 92,
+                'title' => 'product_for_vendor_edit',
+            ],
+            [
+                'id'    => 93,
+                'title' => 'product_for_vendor_show',
+            ],
+//            [
+//                'id'    => 94,
+//                'title' => 'product_for_vendor_delete',
+//            ],
+            [
+                'id'    => 95,
+                'title' => 'product_for_vendor_access',
+            ],
+//            [
+//                'id'    => 97,
+//                'title' => 'service_for_vendor_create',
+//            ],
+            [
+                'id'    => 98,
+                'title' => 'service_for_vendor_edit',
+            ],
+            [
+                'id'    => 99,
+                'title' => 'service_for_vendor_show',
+            ],
+//            [
+//                'id'    => 100,
+//                'title' => 'service_for_vendor_delete',
+//            ],
+            [
+                'id'    => 101,
+                'title' => 'service_for_vendor_access',
+            ],
 
-            ['id'    => 99,
-                'title' => 'service_for_vendor_show',],
+
+
 
         ];
         foreach ($modeExtraPermission as $v)$moderator_permissions->push($v);

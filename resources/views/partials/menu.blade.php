@@ -81,6 +81,7 @@
                 </ul>
             </li>
         @endcan
+
         @can('admin_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/to-approve-vendor-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/categories-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/sub-category-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/ads*") ? "c-show" : "" }} {{ request()->is("admin/plans*") ? "c-show" : "" }} {{ request()->is("admin/payment-gateway-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/email-settings-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/website-settings*") ? "c-show" : "" }} {{ request()->is("admin/payment-for-admins*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
@@ -183,7 +184,41 @@
                 </ul>
             </li>
         @endcan
-        @if (!auth()->user()->roles->contains('1'))
+
+        @if(auth()->user()->roles->contains(MODERATOR_ROLE))
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/product-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/service-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/p-product-listing-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/p-service-listing-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/message-box-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/profile-for-vendors*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    Product & Services
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('product_for_vendor_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.product-for-vendors.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/product-for-vendors") || request()->is("admin/product-for-vendors/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-list c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.productForVendor.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('service_for_vendor_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.service-for-vendors.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/service-for-vendors") || request()->is("admin/service-for-vendors/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-american-sign-language-interpreting c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.serviceForVendor.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endif
+
+    @if (!auth()->user()->roles->contains(ADMIN_ROLE))
 
             @can('moderator_for_moderator_access')
 
@@ -222,7 +257,7 @@
             @endcan
         @endif
 
-        @if (!auth()->user()->roles->contains('1'))
+        @if (!auth()->user()->roles->contains(ADMIN_ROLE))
         @can('vendor_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/product-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/service-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/p-product-listing-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/p-service-listing-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/message-box-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/profile-for-vendors*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
@@ -297,7 +332,7 @@
         @endcan
         @endif
 
-        @if (!auth()->user()->roles->contains('1'))
+        @if (!auth()->user()->roles->contains(ADMIN_ROLE))
         @can('user_menu_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/services-for-users*") ? "c-show" : "" }} {{ request()->is("admin/products-for-users*") ? "c-show" : "" }} {{ request()->is("admin/massage-box-for-users*") ? "c-show" : "" }} {{ request()->is("admin/profile-for-users*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
@@ -351,6 +386,8 @@
             </li>
         @endcan
         @endif
+
+
         @can('website_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/sliders*") ? "c-show" : "" }} {{ request()->is("admin/top-navigations*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-sub-categories*") ? "c-show" : "" }} {{ request()->is("admin/highlighted-cities-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/client-reviews*") ? "c-show" : "" }} {{ request()->is("admin/articles*") ? "c-show" : "" }} {{ request()->is("admin/article-tags*") ? "c-show" : "" }} {{ request()->is("admin/feedback-for-admins*") ? "c-show" : "" }} {{ request()->is("admin/query-from-website-for-admins*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
@@ -482,6 +519,9 @@
                 {{ trans('global.logout') }}
             </a>
         </li>
+
+
+
     </ul>
 
 </div>

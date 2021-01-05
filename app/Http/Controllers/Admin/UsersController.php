@@ -22,7 +22,16 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles', 'approved_by'])->get();
+        if(auth()->user()->roles->contains(MODERATOR_ROLE)){
+            $users = User::with(['roles', 'approved_by'])->whereHas('roles', function ($query) {
+                $query->whereIn('id',[USER_ROLE,VENDOR_ROLE]);
+            })->get();
+        }else{
+            $users = User::with(['roles', 'approved_by'])->get();
+        }
+
+
+
 
         return view('admin.users.index', compact('users'));
     }
@@ -31,9 +40,32 @@ class UsersController extends Controller
         $input=$r->only(['role']);
 
       //  dd(User::get()->toArray());
-        $users = User::with(['roles', 'approved_by'])->whereHas('roles', function ($query)use($input) {
-           if($input['role']!=0 && $input['role']!='0' ) $query->where('id',$input['role']);
-        })->get();
+        if(auth()->user()->roles->contains(MODERATOR_ROLE)){
+
+
+                $users = User::with(['roles', 'approved_by'])->whereHas('roles', function ($query)use($input) {
+                    if($input['role']!=0 && $input['role']!='0' ){
+                        $query->where('id',$input['role']);
+
+                    }else{
+                        $query->whereIn('id',[USER_ROLE,VENDOR_ROLE]);
+                    }
+
+                })->get();
+
+
+
+
+        }else{
+
+            $users = User::with(['roles', 'approved_by'])->whereHas('roles', function ($query)use($input) {
+                if($input['role']!=0 && $input['role']!='0' ) $query->where('id',$input['role']);
+            })->get();
+
+        }
+
+
+
 
         $model = $users;
 
