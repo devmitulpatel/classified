@@ -12,7 +12,7 @@
                 @php
                     $backlink=route('admin.service-for-vendors.index');
      if(auth()->user()->roles->contains(3))$backlink=route('admin.s-to-approve-for-moderators.index');
-
+   if(session()->previousUrl()!=null)$backlink=session()->previousUrl();
           //
                 @endphp
                 <a class="btn btn-default" href="{{ $backlink }}">
@@ -63,9 +63,11 @@
                         </th>
                         <td>
                             @foreach($serviceForVendor->videos as $key => $media)
-                                <a href="{{ $media->getUrl() }}" target="_blank">
-                                    {{ trans('global.view_file') }}
-                                </a>
+                                <button  v-on:click="viewVideo('{{$media->mime_type}}','{{ $media->getUrl() }}','{{ $media->file_name }}')" type="button" class="btn btn-sm btn-primary"
+                                         data-toggle="modal" data-target="#videoModal"
+                                         title="{{$media->file_name}}" >
+                                    <i class="fas fa-video mr-2"></i> {{ $media->file_name }}
+                                </button><br>
                             @endforeach
                         </td>
                     </tr>
@@ -141,6 +143,33 @@
                         </th>
                         <td>
                             {{ $serviceForVendor->approved_by->name ?? '' }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                           Status
+                        </th>
+                        <td>
+                            @if ($serviceForVendor->approved_by == null)
+                                <a class="btn btn-xs btn-info text-white"  >
+                                    Pending
+                                </a>
+                            @else
+                                @if($serviceForVendor->rejected==0)
+                                    <a class="btn btn-xs btn-success text-white"  >
+                                        Approved
+                                    </a>
+
+
+                                @else
+
+                                    <a class="btn btn-xs btn-danger text-white"  >
+                                        Rejected
+                                    </a>
+                                @endif
+                            @endif
+
                         </td>
                     </tr>
                 </tbody>

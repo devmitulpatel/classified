@@ -22,7 +22,7 @@
                         <th width="10">
 
                         </th>
-                        <th>
+                        <th class="text-center">
                             {{ trans('cruds.serviceForVendor.fields.id') }}
                         </th>
                         <th>
@@ -58,9 +58,7 @@
                         <th>
                             {{ trans('cruds.serviceForVendor.fields.tags') }}
                         </th>
-                        <th>
-                            {{ trans('cruds.serviceForVendor.fields.approved_by') }}
-                        </th>
+
                         <th>
                             &nbsp;
                         </th>
@@ -72,7 +70,7 @@
                             <td>
 
                             </td>
-                            <td>
+                            <td class="text-center">
                                 {{ $serviceForVendor->id ?? '' }}
                             </td>
                             <td>
@@ -87,9 +85,11 @@
                             </td>
                             <td>
                                 @foreach($serviceForVendor->videos as $key => $media)
-                                    <a href="{{ $media->getUrl() }}" target="_blank">
-                                        {{ trans('global.view_file') }}
-                                    </a>
+                                    <button  v-on:click="viewVideo('{{$media->mime_type}}','{{ $media->getUrl() }}','{{ $media->file_name }}')" type="button" class="btn btn-sm btn-primary"
+                                             data-toggle="modal" data-target="#videoModal"
+                                             title="{{$media->file_name}}" >
+                                        <i class="fas fa-video"></i>
+                                    </button>
                                 @endforeach
                             </td>
                             <td>
@@ -118,9 +118,7 @@
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
                             </td>
-                            <td>
-                                {{ $serviceForVendor->approved_by->name ?? '' }}
-                            </td>
+
                             <td>
                                 @can('service_for_vendor_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.service-for-vendors.show', $serviceForVendor->id) }}">
@@ -200,7 +198,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

@@ -22,7 +22,7 @@
                         <th width="10">
 
                         </th>
-                        <th>
+                        <th class="text-center">
                             {{ trans('cruds.productForVendor.fields.id') }}
                         </th>
                         <th>
@@ -58,9 +58,7 @@
                         <th>
                             {{ trans('cruds.productForVendor.fields.tags') }}
                         </th>
-                        <th>
-                            {{ trans('cruds.productForVendor.fields.approved_by') }}
-                        </th>
+
                         <th>
                             &nbsp;
                         </th>
@@ -72,7 +70,7 @@
                             <td>
 
                             </td>
-                            <td>
+                            <td class="text-center">
                                 {{ $productForVendor->id ?? '' }}
                             </td>
                             <td>
@@ -93,10 +91,13 @@
                             </td>
                             <td>
                                 @foreach($productForVendor->videos as $key => $media)
-                                    <a href="{{ $media->getUrl() }}" target="_blank">
-                                        {{ trans('global.view_file') }}
-                                    </a>
+                                <button  v-on:click="viewVideo('{{$media->mime_type}}','{{ $media->getUrl() }}','{{ $media->file_name }}')" type="button" class="btn btn-sm btn-primary"
+                                        data-toggle="modal" data-target="#videoModal"
+                                 title="{{$media->file_name}}" >
+                                    <i class="fas fa-video"></i>
+                                </button>
                                 @endforeach
+
                             </td>
                             <td>
                                 {{ $productForVendor->price_start ?? '' }}
@@ -118,9 +119,7 @@
                                     <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
                             </td>
-                            <td>
-                                {{ $productForVendor->approved_by->name ?? '' }}
-                            </td>
+
                             <td>
                                 @can('product_for_vendor_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.product-for-vendors.show', $productForVendor->id) }}">
@@ -150,6 +149,9 @@
             </table>
         </div>
     </div>
+
+
+
 </div>
 
 
@@ -200,7 +202,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

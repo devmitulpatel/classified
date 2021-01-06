@@ -90,6 +90,7 @@
                 {{ csrf_field() }}
             </form>
         </div>
+            @include('layouts.partials.videoModel')
             <notifications group="ms-notfy" />
 
         </section>

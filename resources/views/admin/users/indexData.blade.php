@@ -2,7 +2,7 @@
     $model=\App\Models\Role::all();
     $allRoles=$model->pluck('title','id')->toArray();
 @endphp
-<div class="row justify-content-center">
+<div class="d-flex justify-content-center">
 
     <div class="col text-right">
         <label for="current_view_only flex ">View only : </label>
@@ -55,33 +55,15 @@
             <th>
                 {{ trans('cruds.user.fields.email') }}
             </th>
-            <th>
-                {{ trans('cruds.user.fields.email_verified_at') }}
-            </th>
+
             <th>
                 {{ trans('cruds.user.fields.roles') }}
             </th>
-            <th>
-                {{ trans('cruds.user.fields.city') }}
-            </th>
-            <th>
-                {{ trans('cruds.user.fields.state') }}
-            </th>
-            <th>
-                {{ trans('cruds.user.fields.country') }}
-            </th>
-            <th>
-                {{ trans('cruds.user.fields.pincode') }}
-            </th>
-            <th>
-                {{ trans('cruds.user.fields.area') }}
-            </th>
+
             <th>
                 {{ trans('cruds.user.fields.contact_no') }}
             </th>
-            <th>
-                {{ trans('cruds.user.fields.approved_by') }}
-            </th>
+
             <th>
                 &nbsp;
             </th>
@@ -103,35 +85,17 @@
                     <td>
                         {{ $user->email ?? '' }}
                     </td>
-                    <td>
-                        {{ $user->email_verified_at ?? '' }}
-                    </td>
+
                     <td>
                         @foreach($user->roles as $key => $item)
                             <span class="badge badge-info">{{ $item->title }}</span>
                         @endforeach
                     </td>
-                    <td>
-                        {{ $user->city ?? '' }}
-                    </td>
-                    <td>
-                        {{ $user->state ?? '' }}
-                    </td>
-                    <td>
-                        {{ $user->country ?? '' }}
-                    </td>
-                    <td>
-                        {{ $user->pincode ?? '' }}
-                    </td>
-                    <td>
-                        {{ $user->area ?? '' }}
-                    </td>
+
                     <td>
                         {{ $user->contact_no ?? '' }}
                     </td>
-                    <td>
-                        {{ $user->approved_by->name ?? '' }}
-                    </td>
+
                     <td>
                         @can('user_show')
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">

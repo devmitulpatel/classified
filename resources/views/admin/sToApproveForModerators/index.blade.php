@@ -13,7 +13,7 @@
                     <th width="10">
 
                     </th>
-                    <th>
+                    <th class="text-center">
                         {{ trans('cruds.productForVendor.fields.id') }}
                     </th>
                     <th>
@@ -56,7 +56,7 @@
                         <td>
 
                         </td>
-                        <td>
+                        <td class="text-center">
                             {{ $productForVendor->id ?? '' }}
                         </td>
                         <td>

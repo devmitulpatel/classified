@@ -2,6 +2,8 @@
 import './bootstrap';
 import './components/partials/index_back';
 import Notifications from 'vue-notification';
+import videojs from 'video.js';
+require('!style-loader!css-loader!video.js/dist/video-js.css')
 Vue.use(Notifications)
 /**
  * The following block of code may be used to automatically register your
@@ -24,7 +26,57 @@ Vue.use(Notifications)
 
 window.MainViewApp = new Vue({
     el: '#app',
+    data(){
+
+        return {
+
+            currentVideo:{
+                url:null,
+                title:null
+            },
+
+            currentVideoConfig:{
+                autoplay: 'muted',
+                autoSetup:true,
+                fluid: true,
+                liveui:true,
+                controls:true,
+                responsive:true
+            },
+            videoPlayer:null
+
+        };
+
+    },
+    mounted(){
+        this.videoPlayer =videojs(this.$refs.currentVideo, this.currentVideoConfig, function onPlayerReady() {
+            console.log('onPlayerReady', this);
+        })
+    },
+
+    beforeDestroy() {
+        if (this.videoPlayer) {
+            this.videoPlayer.dispose()
+        }
+    },
     methods:{
+
+        viewVideo(type,url,filename){
+            this.currentVideo.url=url;
+            this.currentVideo.title=['Video File :',filename].join(' ');
+
+
+            this.videoPlayer.src({type: type, src: url})
+
+            this.currentVideoConfig={
+
+            };
+
+
+
+
+
+        },
         apiCallOnClick(u="",dataRefresh=false){
            // console.log(u);
             var th= this;

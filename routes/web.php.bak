@@ -1,5 +1,44 @@
 <?php
 
+use App\Http\Controllers\Admin\PToApproveForModeratorController;
+use App\Http\Controllers\Admin\SToApproveForModeratorController;
+use App\Http\Controllers\Admin\UsersController;
+use Illuminate\Support\Facades\Route;
+
+
+
+
+Route::get('test/api',function (Kreait\Firebase\Auth $auth){
+    $refreshToken="AG8BCnfsxPNmvSUZF6aeE-dzh2Za63K4PM-SZn02nrHD_0hQp4R-HUpWjEfDaxygHaAelrJfeWMH18aX9urOvTQP8wUFvnO5DEiIMAJpKziffeL0sCkiELrA0-geBGQ_Eq2upmi2JP5iFmpfaWcMGbMAUxnmjsoUaW6jG5zKzIDsZJ1tmC8XqugOclS9Q1M-BPAm2vkR6y9Ex_MSfwgYE9Lxrks-YWa_sg";
+//$refreshToken.="021";
+
+
+    $fb=new \App\Helper\File\FirebaseAuthenticator ($refreshToken);
+
+    dd($fb->auth());
+});
+
+
+Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
+
+
+Route::get('/add-product-service', [\App\Http\Controllers\Frontend\HomeController::class,'add_list'])->name('add_list');
+
+
+Route::post('login',[\App\Http\Controllers\Frontend\HomeController::class,'loginPost'])->name('loginForFrontEnd');
+Route::post('logout',[\App\Http\Controllers\Frontend\HomeController::class,'logoutPost'])->name('logoutForFrontEnd');
+Route::post('register',[\App\Http\Controllers\Frontend\HomeController::class,'registerPost'])->name('registerForFrontEnd');
+
+
+Route::prefix('vendor')->group(function (){
+    Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'vendor_dashboard'])->name('vendor_dashboard');
+});
+
+Route::prefix('user')->group(function (){
+    Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'user_dashboard'])->name('user_dashboard');
+    Route::get('/profile', [\App\Http\Controllers\Frontend\HomeController::class,'user_profile'])->name('user_profile');
+});
+
 Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
 Route::get('/home', function () {
     if (session('status')) {
@@ -9,7 +48,26 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 });
 
-Auth::routes(['register' => false]);
+//////Backend
+
+
+
+Route::group(['prefix' => 'admin', ], function () {
+    Auth::routes(['register' => false]);
+
+});
+
+Route::group(['prefix' => 'moderator','as'=>'moderator.' ], function () {
+    Route::get('/',[\App\Http\Controllers\Auth\LoginController::class,'showLoginFormForModerator'])->name('moderator_login');
+    Auth::routes(['register' => false]);
+    Route::get('/login',[\App\Http\Controllers\Auth\LoginController::class,'showLoginFormForModerator'])->name('moderator_login');
+
+
+
+});
+
+Route::get('test/users/custom/indexData', [UsersController::class,'indexData'])->name('users.indexData');
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -24,6 +82,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
+    Route::any('users/custome/indexData', [UsersController::class,'indexData'])->name('users.indexData');
 
     // Message Boxes
     Route::delete('message-boxes/destroy', 'MessageBoxController@massDestroy')->name('message-boxes.massDestroy');
@@ -145,14 +204,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // P To Approve For Moderators
     Route::resource('p-to-approve-for-moderators', 'PToApproveForModeratorController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+    Route::group(['prefix'=>'p-to-approve-for-moderators','as'=>'p-to-approve-for-moderators.'],function (){
+        Route::get('approve', [PToApproveForModeratorController::class,'approve'])->name('approve');
+    });
+
 
     // S To Approve For Moderators
     Route::resource('s-to-approve-for-moderators', 'SToApproveForModeratorController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    Route::group(['prefix'=>'s-to-approve-for-moderators','as'=>'s-to-approve-for-moderators.'],function (){
+        Route::get('approve', [SToApproveForModeratorController::class,'approve'])->name('approve');
+    });
 
     // To Approve Vendor For Admins
     Route::resource('to-approve-vendor-for-admins', 'ToApproveVendorForAdminController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Payment Gateway For Admins
+    Route::post('payment-gateway-for-admins/media', 'PaymentGatewayForAdminController@storeMedia')->name('payment-gateway-for-admins.storeMedia');
+    Route::post('payment-gateway-for-admins/ckmedia', 'PaymentGatewayForAdminController@storeCKEditorImages')->name('payment-gateway-for-admins.storeCKEditorImages');
     Route::resource('payment-gateway-for-admins', 'PaymentGatewayForAdminController', ['except' => ['create', 'store', 'destroy']]);
 
     // Email Settings For Admins
@@ -169,6 +238,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('highlighted-cities-for-admins/media', 'HighlightedCitiesForAdminController@storeMedia')->name('highlighted-cities-for-admins.storeMedia');
     Route::post('highlighted-cities-for-admins/ckmedia', 'HighlightedCitiesForAdminController@storeCKEditorImages')->name('highlighted-cities-for-admins.storeCKEditorImages');
     Route::resource('highlighted-cities-for-admins', 'HighlightedCitiesForAdminController');
+
+    // Payment For Admins
+    Route::delete('payment-for-admins/destroy', 'PaymentForAdminController@massDestroy')->name('payment-for-admins.massDestroy');
+    Route::resource('payment-for-admins', 'PaymentForAdminController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password

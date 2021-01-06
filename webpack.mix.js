@@ -11,10 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
- mix.js('resources/js/app.js', 'public/js')
- mix.js('resources/js/tinymce.js', 'public/js')
-//mix.js('resources/js/backend.js', 'public/js')
-  //.sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/vendor.scss', 'public/css')
+ //mix.js('resources/js/app.js', 'public/js')
+// mix.js('resources/js/tinymce.js', 'public/js')
+mix.js('resources/js/backend.js', 'public/js')
+.sass('resources/sass/app.scss', 'public/css')
+   // .sass('resources/sass/vendor.scss', 'public/css')
 ;
 mix.disableNotifications();
