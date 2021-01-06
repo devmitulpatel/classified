@@ -96,7 +96,11 @@
                             </table>
                             </div>
 
-                            <a href="{{route('admin.p-to-approve-for-moderators.index')}}" class="btn btn-primary float-right">View All</a>
+
+                        </div>
+
+                        <div class="card-footer">
+                            <a href="{{route('admin.p-to-approve-for-moderators.index')}}" class="btn btn-primary btn-block float-right">View All</a>
                         </div>
                     </div>
                 </div>
@@ -195,8 +199,10 @@
                             </table>
 
                             </div>
-                            <a href="{{route('admin.s-to-approve-for-moderators.index')}}" class="btn btn-primary float-right">View All</a>
 
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{route('admin.s-to-approve-for-moderators.index')}}" class="btn btn-primary btn-block float-right">View All</a>
                         </div>
                     </div>
                 </div>
