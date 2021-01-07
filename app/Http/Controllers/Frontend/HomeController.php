@@ -89,13 +89,8 @@ class HomeController extends Controller
 
     public function loginPost(LoginPostFromFront  $r){
         $input=$r->validated();
-
-
         $token=$input['token'];
-
-
         $fb=new \App\Helper\File\FirebaseAuthenticator ($token);
-
         return ($fb->auth()) ? JsonResponse::data(['msg'=>'Logged in Successfully']):JsonResponse::error(['msg'=>'unable to login']);
 
 

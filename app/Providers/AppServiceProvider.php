@@ -66,6 +66,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
 
+
+
         $this->setupSetiings();
     }
 }

@@ -1,0 +1,21 @@
+{
+    "name": "msllp/quickadminplus",
+    "description": "",
+    "autoload": {
+        "psr-4": {
+            "QAP\\": "src/"
+        },
+        "files": ["src/Helper/Functions.php"]
+    },
+    "type": "library",
+    "require": {
+        "laravel/laravel": "^v8.2.0"
+    },
+    "license": "mit",
+    "authors": [
+        {
+            "name": "msllp",
+            "email": "48418814+msllp@users.noreply.github.com"
+        }
+    ]
+}

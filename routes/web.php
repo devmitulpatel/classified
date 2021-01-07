@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\SToApproveForModeratorController;
 use App\Http\Controllers\Admin\UsersController;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +13,23 @@ use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Tags\Url;
 
+Route::get('/debug/reset/db', function (){
+
+
+
+    // dd($status);
+    $exitCode = Artisan::call("migrate:fresh",[
+        '--seed'=>true
+    ]);
+
+    //  $exitCode = Artisan::call('migrate:fresh', [
+    //      '--seed'
+    // ]);
+
+    return redirect()->route('home');
+
+
+});
 
 Route::get('test/api',function (Kreait\Firebase\Auth $auth){
     $refreshToken="AG8BCnfsxPNmvSUZF6aeE-dzh2Za63K4PM-SZn02nrHD_0hQp4R-HUpWjEfDaxygHaAelrJfeWMH18aX9urOvTQP8wUFvnO5DEiIMAJpKziffeL0sCkiELrA0-geBGQ_Eq2upmi2JP5iFmpfaWcMGbMAUxnmjsoUaW6jG5zKzIDsZJ1tmC8XqugOclS9Q1M-BPAm2vkR6y9Ex_MSfwgYE9Lxrks-YWa_sg";

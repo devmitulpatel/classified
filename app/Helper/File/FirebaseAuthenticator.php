@@ -13,7 +13,8 @@ class FirebaseAuthenticator
 {
 
     public $userData=[],$errorData=[],$token=null,$tokenData=[];
-        public function __construct($refreshToken){
+
+    public function __construct($refreshToken){
 
             $this->auth = Firebase::auth();
 
