@@ -84,9 +84,11 @@
                             </td>
                             <td>
                                 @foreach($productForVendor->imagaes as $key => $media)
-                                    <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $media->getUrl('thumb') }}">
-                                    </a>
+
+
+                                    <div  v-on:click="viewImage('{{ $media->getUrl() }}','{{ $media->file_name }}')" target="_blank" style="display: inline-block;cursor: pointer">
+                                        <img src="{{ $media->getUrl('thumb') }}" data-toggle="modal" data-target="#imageModal">
+                                    </div>
                                 @endforeach
                             </td>
                             <td>
@@ -100,13 +102,13 @@
 
                             </td>
                             <td>
-                                {{ $productForVendor->price_start ?? '' }}
+                                {{config('default_var.website_default_currency')}} {{ $productForVendor->price_start ?? '' }}
                             </td>
                             <td>
-                                {{ $productForVendor->price_max ?? '' }}
+                                {{config('default_var.website_default_currency')}} {{ $productForVendor->price_max ?? '' }}
                             </td>
                             <td>
-                                {{ $productForVendor->shipping_cost ?? '' }}
+                                {{config('default_var.website_default_currency')}}  {{ $productForVendor->shipping_cost ?? '' }}
                             </td>
                             <td>
                                 {{ App\Models\ProductForVendor::TAX_INCLUDED_SELECT[$productForVendor->tax_included] ?? '' }}

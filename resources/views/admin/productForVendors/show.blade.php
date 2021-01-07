@@ -24,9 +24,35 @@
                 <a class="btn btn-default" href="{{$backlink}}">
                     {{ trans('global.back_to_list') }}
                 </a>
+
+                @can('product_for_vendor_edit')
+                    <a class="btn  btn-info" href="{{ route('admin.product-for-vendors.edit', $productForVendor->id) }}">
+                        {{ trans('global.edit') }}
+                    </a>
+                @endcan
+
+                @can('product_for_vendor_delete')
+                    <form action="{{ route('admin.product-for-vendors.destroy', $productForVendor->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="submit" class="btn  btn-danger" value="{{ trans('global.delete') }}">
+                    </form>
+                @endcan
+
             </div>
             <table class="table table-bordered table-striped">
                 <tbody>
+
+
+                <tr>
+                    <th>
+                        Vendor
+                    </th>
+
+                    <td style="cursor: pointer" v-on:click=" gotToUrl ('{{ route('admin.users.show', $productForVendor->created_by->id)}}')">
+                        {{ $productForVendor->created_by->name }}
+                    </td>
+                </tr>
                     <tr>
                         <th>
                             {{ trans('cruds.productForVendor.fields.id') }}
@@ -77,9 +103,9 @@
                             @foreach($productForVendor->imagaes as $key => $media)
 
 
-                                <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $media->getUrl('thumb') }}">
-                                </a>
+                                <div  v-on:click="viewImage('{{ $media->getUrl() }}','{{ $media->file_name }}')" target="_blank" style="display: inline-block;cursor: pointer">
+                                    <img src="{{ $media->getUrl('thumb') }}" data-toggle="modal" data-target="#imageModal">
+                                </div>
                             @endforeach
                         </td>
                     </tr>
@@ -102,7 +128,7 @@
                             {{ trans('cruds.productForVendor.fields.price_start') }}
                         </th>
                         <td>
-                            {{ $productForVendor->price_start }}
+                            {{config('default_var.website_default_currency')}}  {{ $productForVendor->price_start }}
                         </td>
                     </tr>
                     <tr>
@@ -110,7 +136,7 @@
                             {{ trans('cruds.productForVendor.fields.price_max') }}
                         </th>
                         <td>
-                            {{ $productForVendor->price_max }}
+                            {{config('default_var.website_default_currency')}}  {{ $productForVendor->price_max }}
                         </td>
                     </tr>
                     <tr>
@@ -118,7 +144,7 @@
                             {{ trans('cruds.productForVendor.fields.shipping_cost') }}
                         </th>
                         <td>
-                            {{ $productForVendor->shipping_cost }}
+                            {{config('default_var.website_default_currency')}}  {{ $productForVendor->shipping_cost }}
                         </td>
                     </tr>
                     <tr>
@@ -164,6 +190,21 @@
                                 <a class="btn btn-xs btn-info text-white"  >
                                     Pending
                                 </a>
+                                <br>
+                                @if (auth()->user()->roles->contains(MODERATOR_ROLE))
+                                    <div class="btn-group">
+                                        <button class="btn btn-xs" disabled>
+                                            Take Action
+                                        </button>
+                                        <button class="btn btn-xs btn-info text-white" v-on:click="apiCallOnClick('{{route('admin.p-to-approve-for-moderators.approve',['pid'=>$productForVendor->id,'a'=>true])}}')"  >
+                                            Approve
+                                        </button>
+                                        <button class="btn btn-xs btn-danger text-white" v-on:click="apiCallOnClick('{{route('admin.p-to-approve-for-moderators.approve',['pid'=>$productForVendor->id,'a'=>false])}}')"  >
+                                            Reject
+                                        </button>
+
+                                    </div>
+                                @endif
                             @else
                                 @if($productForVendor->rejected==0)
                                     <a class="btn btn-xs btn-success text-white"  >
@@ -187,6 +228,23 @@
                 <a class="btn btn-default" href="{{$backlink}}">
                     {{ trans('global.back_to_list') }}
                 </a>
+
+
+
+
+                @can('product_for_vendor_edit')
+                    <a class="btn  btn-info" href="{{ route('admin.product-for-vendors.edit', $productForVendor->id) }}">
+                        {{ trans('global.edit') }}
+                    </a>
+                @endcan
+
+                @can('product_for_vendor_delete')
+                    <form action="{{ route('admin.product-for-vendors.destroy', $productForVendor->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="submit" class="btn  btn-danger" value="{{ trans('global.delete') }}">
+                    </form>
+                @endcan
             </div>
         </div>
     </div>

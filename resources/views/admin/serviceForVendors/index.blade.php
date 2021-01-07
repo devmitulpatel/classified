@@ -28,18 +28,21 @@
                         <th>
                             {{ trans('cruds.serviceForVendor.fields.name') }}
                         </th>
-                        <th>
-                            {{ trans('cruds.serviceForVendor.fields.images') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.serviceForVendor.fields.videos') }}
-                        </th>
+
                         <th>
                             {{ trans('cruds.serviceForVendor.fields.category') }}
                         </th>
                         <th>
                             {{ trans('cruds.serviceForVendor.fields.sub_category') }}
                         </th>
+
+                        <th>
+                            {{ trans('cruds.serviceForVendor.fields.images') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.serviceForVendor.fields.videos') }}
+                        </th>
+
                         <th>
                             {{ trans('cruds.serviceForVendor.fields.price_start') }}
                         </th>
@@ -76,11 +79,18 @@
                             <td>
                                 {{ $serviceForVendor->name ?? '' }}
                             </td>
+
+                            <td>
+                                {{ $serviceForVendor->category->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $serviceForVendor->sub_category->name ?? '' }}
+                            </td>
                             <td>
                                 @foreach($serviceForVendor->images as $key => $media)
-                                    <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $media->getUrl('thumb') }}">
-                                    </a>
+                                    <div  v-on:click="viewImage('{{ $media->getUrl() }}','{{ $media->file_name }}')" target="_blank" style="display: inline-block;cursor: pointer">
+                                        <img src="{{ $media->getUrl('thumb') }}" data-toggle="modal" data-target="#imageModal">
+                                    </div>
                                 @endforeach
                             </td>
                             <td>
@@ -93,19 +103,13 @@
                                 @endforeach
                             </td>
                             <td>
-                                {{ $serviceForVendor->category->name ?? '' }}
+                                {{config('default_var.website_default_currency')}}   {{ $serviceForVendor->price_start ?? '' }}
                             </td>
                             <td>
-                                {{ $serviceForVendor->sub_category->name ?? '' }}
+                                {{config('default_var.website_default_currency')}}  {{ $serviceForVendor->price_max ?? '' }}
                             </td>
                             <td>
-                                {{ $serviceForVendor->price_start ?? '' }}
-                            </td>
-                            <td>
-                                {{ $serviceForVendor->price_max ?? '' }}
-                            </td>
-                            <td>
-                                {{ $serviceForVendor->shipping_cost ?? '' }}
+                                {{config('default_var.website_default_currency')}}  {{ $serviceForVendor->shipping_cost ?? '' }}
                             </td>
                             <td>
                                 {{ App\Models\ServiceForVendor::TAX_INCLUDED_SELECT[$serviceForVendor->tax_included] ?? '' }}

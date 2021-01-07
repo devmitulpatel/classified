@@ -2,7 +2,7 @@
 
     <div class="c-sidebar-brand d-md-down-none">
         <a class="c-sidebar-brand-full h4" href="#">
-            {{ trans('panel.site_title') }}
+            {{config('default_var.website_company_name')}}
         </a>
     </div>
 
@@ -185,7 +185,7 @@
             </li>
         @endcan
 
-        @if(auth()->user()->roles->contains(MODERATOR_ROLE))
+        @if(auth()->user()->roles->contains(MODERATOR_ROLE) || auth()->user()->roles->contains(ADMIN_ROLE))
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/product-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/service-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/p-product-listing-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/p-service-listing-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/message-box-for-vendors*") ? "c-show" : "" }} {{ request()->is("admin/profile-for-vendors*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">

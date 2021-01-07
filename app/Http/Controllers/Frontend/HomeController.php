@@ -29,6 +29,18 @@ class HomeController extends Controller
         $this->title=(array_key_exists('website_header_title', $this->wesite_settings))?$this->wesite_settings['website_header_title']:"Title Not Configured";
     }
 
+    public function aboutUs(){
+        return view('front.Pages.about_us',['title'=>"About Us"]);
+    }
+
+    public function sitemap(){
+        return view('front.Pages.sitemap',['title'=>"sitemap"]);
+    }
+
+    public function contactUs(){
+        return view('front.Pages.contact_us',['title'=>"Contact Us"]);
+    }
+
 
     public function user_profile(){
 

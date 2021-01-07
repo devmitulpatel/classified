@@ -18,6 +18,22 @@
                 <a class="btn btn-default" href="{{ $backlink }}">
                     {{ trans('global.back_to_list') }}
                 </a>
+
+
+                @can('service_for_vendor_edit')
+                    <a class="btn  btn-info" href="{{ route('admin.service-for-vendors.edit', $serviceForVendor->id) }}">
+                        {{ trans('global.edit') }}
+                    </a>
+                @endcan
+
+                @can('service_for_vendor_delete')
+                    <form action="{{ route('admin.service-for-vendors.destroy', $serviceForVendor->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="submit" class="btn  btn-danger" value="{{ trans('global.delete') }}">
+                    </form>
+                @endcan
+
             </div>
             <table class="table table-bordered table-striped">
                 <tbody>
@@ -51,9 +67,9 @@
                         </th>
                         <td>
                             @foreach($serviceForVendor->images as $key => $media)
-                                <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $media->getUrl('thumb') }}">
-                                </a>
+                                <div  v-on:click="viewImage('{{ $media->getUrl() }}','{{ $media->file_name }}')" target="_blank" style="display: inline-block;cursor: pointer">
+                                    <img src="{{ $media->getUrl('thumb') }}" data-toggle="modal" data-target="#imageModal">
+                                </div>
                             @endforeach
                         </td>
                     </tr>
@@ -92,7 +108,7 @@
                             {{ trans('cruds.serviceForVendor.fields.price_start') }}
                         </th>
                         <td>
-                            {{ $serviceForVendor->price_start }}
+                            {{config('default_var.website_default_currency')}}  {{ $serviceForVendor->price_start }}
                         </td>
                     </tr>
                     <tr>
@@ -100,7 +116,7 @@
                             {{ trans('cruds.serviceForVendor.fields.price_max') }}
                         </th>
                         <td>
-                            {{ $serviceForVendor->price_max }}
+                            {{config('default_var.website_default_currency')}}  {{ $serviceForVendor->price_max }}
                         </td>
                     </tr>
                     <tr>
@@ -108,7 +124,7 @@
                             {{ trans('cruds.serviceForVendor.fields.shipping_cost') }}
                         </th>
                         <td>
-                            {{ $serviceForVendor->shipping_cost }}
+                            {{config('default_var.website_default_currency')}}   {{ $serviceForVendor->shipping_cost }}
                         </td>
                     </tr>
                     <tr>
@@ -155,6 +171,22 @@
                                 <a class="btn btn-xs btn-info text-white"  >
                                     Pending
                                 </a>
+                                <br>
+
+                                @if (auth()->user()->roles->contains(MODERATOR_ROLE))
+                                <div class="btn-group">
+                                        <button class="btn btn-xs" disabled>
+                                            Take Action
+                                        </button>
+                                        <button class="btn btn-xs btn-info text-white" v-on:click="apiCallOnClick('{{route('admin.s-to-approve-for-moderators.approve',['pid'=>$serviceForVendor->id,'a'=>true])}}')"  >
+                                            Approve
+                                        </button>
+                                        <button class="btn btn-xs btn-danger text-white" v-on:click="apiCallOnClick('{{route('admin.s-to-approve-for-moderators.approve',['pid'=>$serviceForVendor->id,'a'=>false])}}')"  >
+                                            Reject
+                                        </button>
+
+                                    </div>
+                                @endif
                             @else
                                 @if($serviceForVendor->rejected==0)
                                     <a class="btn btn-xs btn-success text-white"  >
@@ -178,6 +210,21 @@
                 <a class="btn btn-default" href="{{ $backlink }}">
                     {{ trans('global.back_to_list') }}
                 </a>
+                @can('service_for_vendor_edit')
+                    <a class="btn  btn-info" href="{{ route('admin.service-for-vendors.edit', $serviceForVendor->id) }}">
+                        {{ trans('global.edit') }}
+                    </a>
+                @endcan
+
+                @can('service_for_vendor_delete')
+                    <form action="{{ route('admin.service-for-vendors.destroy', $serviceForVendor->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="submit" class="btn  btn-danger" value="{{ trans('global.delete') }}">
+                    </form>
+                @endcan
+
+
             </div>
         </div>
     </div>

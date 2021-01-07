@@ -32,5 +32,7 @@
 @include('layouts.partials.icons')
 
 
+@yield('js')
+
 </body>
 </html>

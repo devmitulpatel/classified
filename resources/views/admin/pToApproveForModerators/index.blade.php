@@ -71,23 +71,25 @@
                             </td>
                             <td>
                                 @foreach($productForVendor->imagaes as $key => $media)
-                                    <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $media->getUrl('thumb') }}">
-                                    </a>
+                                    <div  v-on:click="viewImage('{{ $media->getUrl() }}','{{ $media->file_name }}')" target="_blank" style="display: inline-block;cursor: pointer">
+                                        <img src="{{ $media->getUrl('thumb') }}" data-toggle="modal" data-target="#imageModal">
+                                    </div>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach($productForVendor->videos as $key => $media)
-                                    <a href="{{ $media->getUrl() }}" target="_blank">
-                                        {{ trans('global.view_file') }}
-                                    </a>
+                                    <button  v-on:click="viewVideo('{{$media->mime_type}}','{{ $media->getUrl() }}','{{ $media->file_name }}')" type="button" class="btn btn-sm btn-primary"
+                                             data-toggle="modal" data-target="#videoModal"
+                                             title="{{$media->file_name}}" >
+                                        <i class="fas fa-video"></i>
+                                    </button>
                                 @endforeach
                             </td>
                             <td>
-                                {{ $productForVendor->price_start ?? '' }}
+                                {{config('default_var.website_default_currency')}}  {{ $productForVendor->price_start ?? '' }}
                             </td>
                             <td>
-                                {{ $productForVendor->price_max ?? '' }}
+                                {{config('default_var.website_default_currency')}}  {{ $productForVendor->price_max ?? '' }}
                             </td>
 
                             <td>

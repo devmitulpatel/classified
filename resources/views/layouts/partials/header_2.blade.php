@@ -75,92 +75,51 @@
                             </div>
                         </form>
                     </div>
+                    @php
+                        $allCategory=\App\Models\SubCategoryForAdmin::with(['parent_category'])->get();
+
+                        $allCategory=$allCategory->groupBy('parent_category.name')->toArray();
+                        $allCity=\App\Models\HighlightedCitiesForAdmin::all();
+
+                    @endphp
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Explore<span class="caret"><i class="fas fa-angle-down"></i></span></a>
+                            <a class="nav-link" href="#">Products & Services<span class="caret"><i class="fas fa-angle-down"></i></span></a>
                             <ul class="sub-menu x-animated x-fadeInUp">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"> layout
-                                        <span class="caret"><i class="fas fa-angle-down"></i></span>
-                                    </a>
-                                    <ul class="sub-menu x-animated x-fadeInUp">
-                                        <li class="nav-item"><a class="nav-link" href="explore-full-map-grid.html"> full
-                                                map grid</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="explore-full-map-list.html"> full
-                                                map list</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="explore-half-map-grid.html"> half
-                                                map grid</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="explore-half-map-list.html"> half
-                                                map list</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="explore-sidebar-grid.html"> sidebar
-                                                grid</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="explore-sidebar-list.html"> sidebar
-                                                list</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Listing details
-                                        <span class="caret"><i class="fas fa-angle-down"></i></span>
-                                    </a>
-                                    <ul class="sub-menu x-animated x-fadeInUp">
-                                        <li class="nav-item"><a class="nav-link" href="listing-details-full-gallery.html">
-                                                full gallery</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="listing-details-full-image.html">
-                                                full image</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="listing-details-full-map.html">
-                                                full map</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="listing-details-gallery.html">gallery</a>
-                                        </li>
-                                        <li class="nav-item"><a class="nav-link" href="listing-details-image.html"> image</a>
-                                        </li>
-                                        <li class="nav-item"><a class="nav-link" href="listing-details-no-image.html"> no
-                                                image</a></li>
-                                    </ul>
-                                </li>
+
+                                @foreach($allCategory as $c=>$sc)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">{{$c}}<span class="caret"><i class="fas fa-angle-down"></i></span></a>
+                                        <ul class="sub-menu x-animated x-fadeInUp">
+                                            @foreach($sc as $osc)
+                                                <li class="nav-item"><a class="nav-link" href="blog-listing-grid.html">
+                                                        {{$osc['name']}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+
+                                @endforeach
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">City <span class="caret"><i class="fas fa-angle-down"></i></span></a>
+                            <ul class="sub-menu x-animated x-fadeInUp">
+                                @foreach($allCity as $city)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">{{$city->name}}</a>
+
+                                    </li>
+                                @endforeach
+
+
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blog <span class="caret"><i class="fas fa-angle-down"></i></span></a>
-                            <ul class="sub-menu x-animated x-fadeInUp">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Blog layout<span class="caret"><i class="fas fa-angle-down"></i></span></a>
-                                    <ul class="sub-menu x-animated x-fadeInUp">
-                                        <li class="nav-item"><a class="nav-link" href="blog-listing-grid.html">
-                                                grid</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog-listing-large-image.html">
-                                                large image</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog-listing-with-sidebar.html">
-                                                with sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Post
-                                        <span class="caret"><i class="fas fa-angle-down"></i></span>
-                                    </a>
-                                    <ul class="sub-menu x-animated x-fadeInUp">
-                                        <li class="nav-item"><a class="nav-link" href="blog-single-audio.html">
-                                                audio</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog-single-gallery.html">
-                                                gallery</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog-single-image.html">
-                                                image</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog-single-video.html">video</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Docs <span class="caret"><i class="fas fa-angle-down"></i></span></a>
-                            <ul class="sub-menu x-animated x-fadeInUp">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="document/introduction.html">Documentation</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="starter/introduction.html">Get started
-                                    </a>
-                                </li>
-                            </ul>
+                            <a class="nav-link" href="{{route('aboutusForFrontEnd')}}">About us</a>
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="{{route('contactusForFrontEnd')}}">Contact us</a>
                         </li>
                     </ul>
                     <div class="header-customize justify-content-end align-items-center d-none d-xl-flex">

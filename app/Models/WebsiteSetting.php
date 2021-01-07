@@ -38,6 +38,7 @@ class WebsiteSetting extends Model
         '5' => 'json',
         '6' => 'encoded',
         '7' => 'decoded',
+        '8' => 'boolean',
     ];
 
     const DISPLAY_TYPE_SELECT = [
@@ -49,6 +50,7 @@ class WebsiteSetting extends Model
         '5' => 'json',
         '6' => 'encoded',
         '7' => 'decoded',
+        '8' => 'boolean',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

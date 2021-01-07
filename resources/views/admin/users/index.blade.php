@@ -116,7 +116,7 @@
 
                                 <td>
                                     @can('user_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
+                                            <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
                                             {{ trans('global.view') }}
                                         </a>
                                     @endcan

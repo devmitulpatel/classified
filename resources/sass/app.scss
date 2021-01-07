@@ -15,3 +15,26 @@
         }
     }
 }
+
+#imageModal {
+
+    .modal-dialog{
+        .modal-content{
+            .modal-body{
+                .d-flex{
+                    div{
+                        img{
+                            object-fit: scale-down;
+                            width: 100%;
+                        }
+                    }
+
+
+                }
+
+            }
+        }
+    }
+
+
+}

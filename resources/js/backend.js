@@ -43,7 +43,12 @@ window.MainViewApp = new Vue({
                 controls:true,
                 responsive:true
             },
-            videoPlayer:null
+            videoPlayer:null,
+            currentImage:{
+                url:null,
+                title:null,
+            },
+            fullscreen:false
 
         };
 
@@ -60,7 +65,13 @@ window.MainViewApp = new Vue({
         }
     },
     methods:{
-
+        fsToggle(){
+            this.fullscreen=!this.fullscreen;
+        },
+        viewImage(url,filename){
+            this.currentImage.url=url;
+            this.currentImage.title=filename;
+        },
         viewVideo(type,url,filename){
             this.currentVideo.url=url;
             this.currentVideo.title=['Video File :',filename].join(' ');
@@ -129,6 +140,9 @@ window.MainViewApp = new Vue({
             });
 
 
+        },
+        gotToUrl(url){
+            window.location.href=url;
         }
     }
 

@@ -10903,3 +10903,9 @@ a.text-dark:focus {
   }
 }
 
+#imageModal .modal-dialog .modal-content .modal-body .d-flex div img {
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
+  width: 100%;
+}
+

@@ -87,6 +87,11 @@
                                                 @endif
 
                                             @endif
+                                                @can('product_for_vendor_show')
+                                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.product-for-vendors.show', $d->id) }}">
+                                                        {{ trans('global.view') }}
+                                                    </a>
+                                                @endcan
 
                                         </td>
                                     </tr>
@@ -190,6 +195,11 @@
                                                 @endif
 
                                             @endif
+                                                @can('service_for_vendor_show')
+                                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.service-for-vendors.show', $d->id) }}">
+                                                        {{ trans('global.view') }}
+                                                    </a>
+                                                @endcan
 
                                         </td>
                                     </tr>

@@ -3,9 +3,14 @@
 use App\Http\Controllers\Admin\PToApproveForModeratorController;
 use App\Http\Controllers\Admin\SToApproveForModeratorController;
 use App\Http\Controllers\Admin\UsersController;
+
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
-
+use Illuminate\Support\Facades\Storage;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
 
 
 Route::get('test/api',function (Kreait\Firebase\Auth $auth){
@@ -19,6 +24,30 @@ Route::get('test/api',function (Kreait\Firebase\Auth $auth){
 });
 
 
+
+Route::get('sitemap/gen', function () {
+    $path=public_path('sitemap.xml');
+
+    $sitemap=[
+        'Home'=>route('home'),
+        'About us'=>route('aboutusForFrontEnd'),
+        'Contact us'=>route('contactusForFrontEnd')
+    ];
+    Storage::disk('public_raw')->delete('sitemap.xml');
+    $sitemapC=Sitemap::create();
+
+    foreach ($sitemap as $n=>$r){
+        $sitemapC ->add(
+            Url::create($r)
+            ->setLastModificationDate(Carbon::yesterday())
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+            ->setPriority(0.1)) ;
+    }
+    $sitemapC ->writeToFile($path);
+
+    return response()->file($path);
+});
+
 Route::get('/', [\App\Http\Controllers\Frontend\HomeController::class,'home'])->name('home');
 
 
@@ -28,6 +57,9 @@ Route::get('/add-product-service', [\App\Http\Controllers\Frontend\HomeControlle
 Route::post('login',[\App\Http\Controllers\Frontend\HomeController::class,'loginPost'])->name('loginForFrontEnd');
 Route::post('logout',[\App\Http\Controllers\Frontend\HomeController::class,'logoutPost'])->name('logoutForFrontEnd');
 Route::post('register',[\App\Http\Controllers\Frontend\HomeController::class,'registerPost'])->name('registerForFrontEnd');
+Route::get('about-us',[\App\Http\Controllers\Frontend\HomeController::class,'aboutUs'])->name('aboutusForFrontEnd');
+Route::get('contact-us',[\App\Http\Controllers\Frontend\HomeController::class,'contactUs'])->name('contactusForFrontEnd');
+Route::get('sitemap',[\App\Http\Controllers\Frontend\HomeController::class,'sitemap'])->name('sitemapForFrontEnd');
 
 
 Route::prefix('vendor')->group(function (){

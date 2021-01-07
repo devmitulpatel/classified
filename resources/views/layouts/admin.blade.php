@@ -91,6 +91,7 @@
             </form>
         </div>
             @include('layouts.partials.videoModel')
+            @include('layouts.partials.imageModel')
             <notifications group="ms-notfy" />
 
         </section>

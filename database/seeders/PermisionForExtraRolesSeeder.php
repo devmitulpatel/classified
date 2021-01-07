@@ -74,10 +74,10 @@ class PermisionForExtraRolesSeeder extends Seeder
                 'id'    => 93,
                 'title' => 'product_for_vendor_show',
             ],
-//            [
-//                'id'    => 94,
-//                'title' => 'product_for_vendor_delete',
-//            ],
+            [
+                'id'    => 94,
+                'title' => 'product_for_vendor_delete',
+            ],
             [
                 'id'    => 95,
                 'title' => 'product_for_vendor_access',
@@ -94,10 +94,10 @@ class PermisionForExtraRolesSeeder extends Seeder
                 'id'    => 99,
                 'title' => 'service_for_vendor_show',
             ],
-//            [
-//                'id'    => 100,
-//                'title' => 'service_for_vendor_delete',
-//            ],
+            [
+                'id'    => 100,
+                'title' => 'service_for_vendor_delete',
+            ],
             [
                 'id'    => 101,
                 'title' => 'service_for_vendor_access',

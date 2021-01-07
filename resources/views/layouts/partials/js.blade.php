@@ -5,6 +5,7 @@
         'vendors/jquery.min.js',
         'vendors/popper/popper.js',
         'vendors/bootstrap/js/bootstrap.js',
+        'vendors/counter/countUp.js',
         'vendors/hc-sticky/hc-sticky.js',
         'vendors/isotope/isotope.pkgd.js',
         'vendors/magnific-popup/jquery.magnific-popup.js',

@@ -97516,7 +97516,12 @@ window.MainViewApp = new Vue({
         controls: true,
         responsive: true
       },
-      videoPlayer: null
+      videoPlayer: null,
+      currentImage: {
+        url: null,
+        title: null
+      },
+      fullscreen: false
     };
   },
   mounted: function mounted() {
@@ -97530,6 +97535,13 @@ window.MainViewApp = new Vue({
     }
   },
   methods: {
+    fsToggle: function fsToggle() {
+      this.fullscreen = !this.fullscreen;
+    },
+    viewImage: function viewImage(url, filename) {
+      this.currentImage.url = url;
+      this.currentImage.title = filename;
+    },
     viewVideo: function viewVideo(type, url, filename) {
       this.currentVideo.url = url;
       this.currentVideo.title = ['Video File :', filename].join(' ');
@@ -97588,6 +97600,9 @@ window.MainViewApp = new Vue({
       })["finally"](function () {
         location.reload();
       });
+    },
+    gotToUrl: function gotToUrl(url) {
+      window.location.href = url;
     }
   }
 });

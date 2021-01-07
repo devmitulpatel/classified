@@ -55,6 +55,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'public_raw'=>[
+            'driver' => 'local',
+            'root' => public_path(''),
+        ],
+
         'root' => [
             'driver' => 'local',
             'root' => storage_path(''),

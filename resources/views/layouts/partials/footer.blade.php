@@ -8,22 +8,25 @@
                     <div class="mb-7">
                         <div class="font-size-md font-weight-semibold text-dark mb-4">Global Headquaters</div>
                         <p class="mb-0">
-                            90 Fifth Avenue, 3rd Floor<br>
-                            New York NY 10011<br>
-                            212.913.9058</p>
+
+                            <span>{{ implode(', ',[config('default_var.website_official_address_line_1'),config('default_var.website_official_address_line_2'),])  }},</span><br>
+                            <span>{{ implode(', ',[config('default_var.website_official_address_line_3'),config('default_var.website_official_city')])  }}  </span><br>
+                            <span>{{ implode(', ',[config('default_var.website_official_state'),config('default_var.website_official_address_country')])  }}-{{config('default_var.website_official_pincode')}}  </span>
+
+
                     </div>
-                    <div class="region pt-1">
-                        <div class="font-size-md font-weight-semibold text-dark mb-2">Recent Region</div>
-                        <form>
-                            <div class="select-custom bg-white">
-                                <select class="form-control bg-transparent">
-                                    <option value="1">San Fracisco, CA</option>
-                                    <option value="1">New York</option>
-                                    <option value="1">LA</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
+{{--                    <div class="region pt-1">--}}
+{{--                        <div class="font-size-md font-weight-semibold text-dark mb-2">Recent Region</div>--}}
+{{--                        <form>--}}
+{{--                            <div class="select-custom bg-white">--}}
+{{--                                <select class="form-control bg-transparent">--}}
+{{--                                    <option value="1">San Fracisco, CA</option>--}}
+{{--                                    <option value="1">New York</option>--}}
+{{--                                    <option value="1">LA</option>--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
                 </div>
                 <div class="col-md-6 col-lg mb-6 mb-lg-0">
                     <div class="font-size-md font-weight-semibold text-dark mb-4">
@@ -31,7 +34,7 @@
                     </div>
                     <ul class="list-group list-group-flush list-group-borderless">
                         <li class="list-group-item px-0 lh-1625 bg-transparent py-1">
-                            <a href="page-about.html" class="link-hover-secondary-primary">About Us</a>
+                            <a href="{{route('aboutusForFrontEnd')}}" class="link-hover-secondary-primary">About Us</a>
                         </li>
                         <li class="list-group-item px-0 lh-1625 bg-transparent py-1">
                             <a href="#" class="link-hover-secondary-primary">Team</a>
@@ -43,7 +46,7 @@
                             <a href="#" class="link-hover-secondary-primary">Investors</a>
                         </li>
                         <li class="list-group-item px-0 lh-1625 bg-transparent py-1">
-                            <a href="page-contact.html" class="link-hover-secondary-primary">Contact Us</a>
+                            <a href="{{route('contactusForFrontEnd')}}" class="link-hover-secondary-primary">Contact Us</a>
                         </li>
                         <li class="list-group-item px-0 lh-1625 bg-transparent py-1">
                             <a href="#" class="link-hover-secondary-primary">Offices</a>
@@ -97,48 +100,64 @@
                     <div class="col-lg-4 mb-3 mb-lg-0">
                         <div class="social-icon text-dark">
                             <ul class="list-inline">
+
+
+                                @php
+                                $debug=true;
+                                @endphp
+
+                                @if (config('default.website_social_twitter')=="#" || $debug)
+                                        <li class="list-inline-item mr-5">
+                                            <a target="_blank" title="Twitter" href="{{config('default.website_social_twitter')}}">
+                                                <i class="fab fa-twitter">
+                                                </i>
+                                                <span>Twitter</span>
+                                            </a>
+                                        </li>
+                                @endif
+                                @if (config('default.website_social_facebook')=="#" || $debug)
                                 <li class="list-inline-item mr-5">
-                                    <a target="_blank" title="Twitter" href="#">
-                                        <i class="fab fa-twitter">
-                                        </i>
-                                        <span>Twitter</span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item mr-5">
-                                    <a target="_blank" title="Facebook" href="#">
+                                    <a target="_blank" title="Facebook" href="{{config('default.website_social_facebook')}}">
                                         <i class="fab fa-facebook-f">
                                         </i>
                                         <span>Facebook</span>
                                     </a>
                                 </li>
+                                @endif
+                                @if (config('default.website_social_google_plus')=="#" || $debug)
                                 <li class="list-inline-item mr-5">
-                                    <a target="_blank" title="Google plus" href="#">
+                                    <a target="_blank" title="Google plus" href="{{config('default.website_social_google_plus')}}">
                                         <svg class="icon icon-google-plus-symbol">
                                             <use xlink:href="#icon-google-plus-symbol"></use>
                                         </svg>
                                         <span>Google plus</span>
                                     </a>
                                 </li>
+                                @endif
+                                @if (config('default.website_social_instagram')=="#" || $debug)
                                 <li class="list-inline-item mr-5">
-                                    <a target="_blank" title="Instagram" href="#">
+                                    <a target="_blank" title="Instagram" href="{{config('default.website_social_instagram')}}">
                                         <svg class="icon icon-instagram">
                                             <use xlink:href="#icon-instagram"></use>
                                         </svg>
                                         <span>Instagram</span>
                                     </a>
                                 </li>
+                                @endif
+                                @if (config('default.website_social_rss')=="#" || $debug)
                                 <li class="list-inline-item mr-5">
-                                    <a target="_blank" title="Rss" href="#">
+                                    <a target="_blank" title="Rss" href="{{config('default.website_social_rss')}}">
                                         <i class="fas fa-rss"></i>
                                         <span>Rss</span>
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-5 mb-3 mb-lg-0">
                         <div>
-                            &copy; 2020 <a href="{{route('home')}}" class="link-hover-dark-primary font-weight-semibold">The Dir.</a> All
+                            &copy; 2020 <a href="{{route('home')}}" class="link-hover-dark-primary font-weight-semibold">{{config('default_var.website_company_name')}}.</a> All
                             Rights Resevered. <br>
                             <small class="text-center text-muted">Design
                                 by <a href="http://millionsllp.com/" class="link-hover-dark-primary font-weight-semibold">Million Solutions LLP</a></small>

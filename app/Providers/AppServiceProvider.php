@@ -24,20 +24,48 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        //
+
+    private function setupSetiings(){
+
 
         if(Schema::hasTable('website_settings')) {
-            $max_file_size = WebsiteSetting::where('name', 'website_max_file_upload_size')->first();
-            $max_file_size = $max_file_size ?? 10;
+            $allSettings=WebsiteSetting::all();
+
+            $defaultD=[];
+            foreach ($allSettings as $s){
+
+                switch ($s->display_type){
+                    case '0':
+                        $defaultD[$s->name]=$s->value;
+                        break;
+                    case '8':
+                        $defaultD[$s->name]=(bool)$s->value;
+                        break;
+                }
+
+
+            }
+
+
+            config()->set('default_var',$defaultD);
+
+            $max_file_size = config('default_var.website_max_file_upload_size') ?? 10;
             $max_file_size = (1024 * 1024) * (is_array($max_file_size))?$max_file_size['value']:$max_file_size;
             config('media-library.max_file_size', $max_file_size);
+
+
+
         }
         define('USER_ROLE', 2);
         define('ADMIN_ROLE', 1);
         define('MODERATOR_ROLE', 3);
         define('VENDOR_ROLE', 4);
 
+    }
+    public function boot()
+    {
+        //
+
+        $this->setupSetiings();
     }
 }

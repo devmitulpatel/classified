@@ -72,6 +72,7 @@ class ProductForVendor extends Model implements HasMedia
         return $this->belongsTo(SubCategoryForAdmin::class, 'sub_category_id');
     }
 
+
     public function getImagaesAttribute()
     {
         $files = $this->getMedia('imagaes');

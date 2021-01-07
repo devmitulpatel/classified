@@ -4,7 +4,7 @@
     <div class="col-md-6">
         <div class="card mx-4">
             <div class="card-body p-4">
-                <h1>Company Name </h1>
+                <h1>{{config('default_var.website_company_name')}}</h1>
 
                 <p class="text-muted">login with {{$type??"admin"}} account...</p>
 
