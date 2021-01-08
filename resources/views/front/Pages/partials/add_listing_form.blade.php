@@ -1,5 +1,5 @@
 <div id="page-title" class="page-title pt-11 text-center">
-    <div class="container-fluid">
+    <div class="container">
         <div>
             <h1 class="mb-0 letter-spacing-50" data-animate="fadeInDown">
                 Submit Your Products or Services
@@ -9,18 +9,20 @@
                 <li class="breadcrumb-item"><span>Submit Your Listing</span></li>
             </ul>
         </div>
-    </div>
-</div>
 
-
-<div id="wrapper-content" class="wrapper-content pb-13 pt-8">
-    <div class="container-fluid ">
-        <div class="page-description text-center font-size-md py-3 lh-15 mb-9">
+        <div class="page-description text-center font-size-md py-3 lh-15 mt-2 mb-2">
             <span class="font-weight-semibold text-dark">Returning User? Please </span>
             <span  class="text-link font-weight-semibold" href="#login-popup" data-gtf-mfp="true" data-mfp-options='{"type":"inline"}' >Sign In</span> and if you
             are a <span class="font-weight-semibold text-dark">New User, Continue Below</span> and register along with
             this submission.
         </div>
+
+    </div>
+</div>
+
+
+<div id="wrapper-content" class="wrapper-content pb-13 pt-8">
+    <div class="container ">
 
         <div id="submit-listing" class="section-submit-listing pb-2">
             <add-listing inline-template>

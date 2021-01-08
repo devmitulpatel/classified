@@ -1,35 +1,141 @@
 
-
+import { v4 as uuidv4 } from 'uuid';
 Vue.component('file-uploader', {
-    props:['collection','model','maxFile','perFileLimit','allowedFiles'],
+    props:['collection','model','maxFile','perFileLimit','allowedFiles','url'],
     data() {
         return {
 
-            files_array:{},
-            files_processed_array:[],
-            files_added:[],
-            multiple:true,
-            file_type_allowed:['*'],
-            file_limit:2,
-            per_file_limit:1,
-            chunk_size:1024 * 1024 * 1,
-            listViewOn:false
+            files_array: {},
+            files_processed_array: [],
+            files_added: [],
+            multiple: true,
+            file_type_allowed: ['*'],
+            file_limit: 2,
+            per_file_limit: 1,
+            chunk_size: 1024 * 1024 * 0.1,
+            listViewOn: false,
+            uploading: false,
+            findished_upload: [],
+        }
 
-        };
+
     },
     mounted() {
         this.file_limit=this.maxFile??1;
         this.file_type_allowed=this.allowedFiles??['*'];
         this.per_file_limit=(this.perFileLimit ??5)*1024*1024;
-
+        this.chunk_size=1024 *10;
+    },
+    computed:{
+        alluploadFinish(){
+            return this.files_processed_array.length == this.findished_upload.length;
+        },
     },
     methods:{
+
+        async uploadStart(){
+            this.uploading=true;
+            this.listViewOn=true;
+
+            for (var x in this.files_processed_array){
+
+                await this.uploadFile(x,this.files_processed_array[x]);
+            }
+            this.updateProcessFilesArray();
+        },
+        getWidth(p){
+            return [p,"%"].join('');
+        },
+        async uploadFile(k,f){
+            var url= this.url.uploadUrl;
+            this.files_processed_array[k].uploading=true;
+            this.files_processed_array[k].uploading_status=1;
+            this.files_processed_array[k].uploaded_chunk=[];
+            this.files_processed_array[k].failed_chunk=[];
+            var totalPart=f.file_chunk_data.length;
+            var th=this;
+            var fileId='new';
+            for (var x in f.file_chunk_data){
+                var DataToUpload={
+                    collection:this.collection,
+                    model:this.model,
+                    file_name:f.file_name,
+                    file_ext:f.file_ext,
+                    file_size:f.file_size,
+                    current_part:x,
+                    current_part_data:f.file_chunk_data[x],
+                    total_part:totalPart
+                };
+
+                DataToUpload.file_id=fileId;
+                await  axios.post(url,DataToUpload).then(res=>{
+                    console.log('respons:',x);
+                    th.files_processed_array[k].uploaded_chunk.push(res.data.ResponseData);
+                    th.files_processed_array[k].uploading_status= (th.files_processed_array[k].uploaded_chunk.length *100 )/totalPart;
+                    th.files_processed_array[k].file_id= res.data.ResponseData.file_id;
+                    fileId=res.data.ResponseData.file_id;
+                    if(res.data.ResponseData.hasOwnProperty('upload_finish')) {
+                        th. findished_upload.push( res.data.ResponseData);
+                        th.files_processed_array[k].upload_finish = res.data.ResponseData.upload_finish;
+                    }
+                }).catch(er=>{
+                    console.log('respons:',x);
+                    th.files_processed_array[k].failed_chunk.push(DataToUpload);
+                }).finally(()=>{
+
+                    if(th.files_processed_array[k].failed_chunk.length<1){
+                        th.updateProcessFilesArray();
+                    }else{
+                        for (var i in th.files_processed_array[k].failed_chunk){
+                            var DataToUpload={
+                                collection:this.collection,
+                                model:this.model,
+                                file_name:f.file_name,
+                                file_ext:f.file_ext,
+                                file_size:f.file_size,
+                                current_part:i,
+                                current_part_data:f.failed_chunk[i],
+                                total_part:totalPart
+                            };
+                            axios.post(url,DataToUpload).then(res=>{
+                                th.files_processed_array[k].uploaded_chunk.push(res.data.ResponseData);
+                                th.files_processed_array[k].uploading_status= (th.files_processed_array[k].uploaded_chunk.length *100 )/totalPart;
+                                th.files_processed_array[k].file_id= res.data.ResponseData.file_id;
+                                if(res.data.ResponseData.hasOwnProperty('upload_finish')) {
+                                    th. findished_upload.push( res.data.ResponseData);
+                                    th.files_processed_array[k].upload_finish = res.data.ResponseData.upload_finish;
+                                }
+                            }).catch(er=>{
+                                th.files_processed_array[k].failed_chunk.push(DataToUpload);
+                            }).finally(()=>{ th.updateProcessFilesArray();    })
+                        }
+                    }
+
+
+                });
+              //  console.log( th.files_processed_array[k].failed_chunk.length);
+
+            }
+           // console.log(url);
+        },
+
+
+
+        updateProcessFilesArray(){
+            var old=this.files_processed_array;
+            this.files_processed_array=null;
+            this.files_processed_array=old;
+        },
+        uploadAbort(){
+            this.uploading=false;
+            this.findished_upload={};
+        },
         toggleListView(){
             this.listViewOn=(this.listViewOn)?false:true;
         },
 
         getSizeToDisplay(v){
-            unit="MB";
+            var unit="MB";
             v=(v/(1024*1024)).toFixed(2);
             if(v<1){
                 v=(v *(1024)).toFixed(2);
@@ -210,7 +316,7 @@ Vue.component('file-uploader', {
                     break;
             }
 
-            console.log(typeof text);
+          //  console.log(typeof text);
 
             this.$notify({
                 group: 'ms-notfy',
