@@ -45220,8 +45220,8 @@ Vue.component('profile-section', {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\mitul\projects\classified\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\mitul\projects\classified\resources\sass\vendor.scss */"./resources/sass/vendor.scss");
+__webpack_require__(/*! E:\Pojects\Github\classified\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\Pojects\Github\classified\resources\sass\vendor.scss */"./resources/sass/vendor.scss");
 
 
 /***/ })
