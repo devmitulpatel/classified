@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/resources/js/app.js.bak" />
+    <file url="file://$PROJECT_DIR$/resources/js/bootstrap.js.bak" />
+    <file url="file://$PROJECT_DIR$/resources/views/layouts/root.blade.php.bak" />
+    <file url="file://$PROJECT_DIR$/routes/web.php.bak" />
+  </component>
+</project>

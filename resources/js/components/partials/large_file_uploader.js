@@ -1,7 +1,7 @@
 
 import { v4 as uuidv4 } from 'uuid';
 Vue.component('file-uploader', {
-    props:['collection','model','maxFile','perFileLimit','allowedFiles','url'],
+    props:['collection','model','maxFile','perFileLimit','allowedFiles','url','updateModelMethod','updateModelName'],
     data() {
         return {
 
@@ -24,15 +24,34 @@ Vue.component('file-uploader', {
         this.file_limit=this.maxFile??1;
         this.file_type_allowed=this.allowedFiles??['*'];
         this.per_file_limit=(this.perFileLimit ??5)*1024*1024;
-        this.chunk_size=1024 *10;
+        this.chunk_size=1024 *20;
     },
     computed:{
         alluploadFinish(){
-            return this.files_processed_array.length == this.findished_upload.length;
+            var result=this.files_processed_array.length == this.findished_upload.length;
+            if(result)  this.updateToRoot();
+            return result;
         },
     },
     methods:{
-
+        updateToRoot(){
+            var method=this.updateModelMethod??'updateFromOther';
+            var k=this.updateModelName??"uplodbox";
+            var data =this.findished_upload.map(x=>{
+                var dt={
+                        collection:x.collection,
+                        file_ext:x.file_ext,
+                        file_id:x.file_id,
+                        file_name:x.file_name,
+                        file_size:x.file_size,
+                        final_path:x.final_path,
+                        model:x.model,
+                        upload_finish:x.upload_finish
+                };
+                return dt;
+            })
+            this.$parent[method](k,data);
+        },
         async uploadStart(){
             this.uploading=true;
             this.listViewOn=true;
@@ -63,13 +82,20 @@ Vue.component('file-uploader', {
                     file_ext:f.file_ext,
                     file_size:f.file_size,
                     current_part:x,
-                    current_part_data:f.file_chunk_data[x],
+                    //current_part_data:f.file_chunk_data[x],
                     total_part:totalPart
                 };
 
                 DataToUpload.file_id=fileId;
-                await  axios.post(url,DataToUpload).then(res=>{
-                    console.log('respons:',x);
+
+                var dataFinal = new FormData();
+                for( var dt in DataToUpload){
+                    dataFinal.append(dt,DataToUpload[dt]);
+                }
+                dataFinal.append('current_part_data',f.file_chunk_data[x]);
+
+                await  axios.post(url,dataFinal).then(res=>{
+
                     th.files_processed_array[k].uploaded_chunk.push(res.data.ResponseData);
                     th.files_processed_array[k].uploading_status= (th.files_processed_array[k].uploaded_chunk.length *100 )/totalPart;
                     th.files_processed_array[k].file_id= res.data.ResponseData.file_id;
@@ -79,7 +105,7 @@ Vue.component('file-uploader', {
                         th.files_processed_array[k].upload_finish = res.data.ResponseData.upload_finish;
                     }
                 }).catch(er=>{
-                    console.log('respons:',x);
+
                     th.files_processed_array[k].failed_chunk.push(DataToUpload);
                 }).finally(()=>{
 
@@ -240,7 +266,7 @@ Vue.component('file-uploader', {
         },
         deleteImage(k){
             this.files_added.splice(k,1);
-
+            this.files_processed_array.splice(k,1);
             this.notify('Selected File is removed from upload queue','success');
         },
         file_changed(e){
@@ -252,10 +278,10 @@ Vue.component('file-uploader', {
 
 
             if(typeof this.files_array == "object"){
-                var currentCount=0;
+
                 for (var x in [...this.files_array]){
-                    currentCount=currentCount+1;
-                    if(this.maxFile>=(this.files_added.length+currentCount)) {
+
+                    if(this.maxFile>=(this.files_added.length+1)) {
                         let file = this.files_array[x];
                         if (typeof file == "object" && x != "item" && file.size < this.per_file_limit) {
 
@@ -264,15 +290,17 @@ Vue.component('file-uploader', {
                             let k = x;
                             let fileData = file;
 
-                            reader.addEventListener('load', (event) => {
-                                th.handleFileRawDataFeed(event, k, 'files_processed_array', fileData)
-                            });
-                            reader.addEventListener('loadend', th.fileReadSuccefully(k, 'files_processed_array'));
-                            reader.readAsBinaryString(file);
-                            th.$notify({
-                                group: 'ms-notfy',
-                                clean: true
-                            });
+                            th.handleFileRawDataFeed(null, k, 'files_processed_array', fileData)
+
+                            // reader.addEventListener('load', (event) => {
+                            //     th.handleFileRawDataFeed(event, k, 'files_processed_array', fileData)
+                            // });
+                            // reader.addEventListener('loadend', th.fileReadSuccefully(k, 'files_processed_array'));
+                            // reader.readAsText(file);
+                            // th.$notify({
+                            //     group: 'ms-notfy',
+                            //     clean: true
+                            // });
                             th.notify('Selected Files are added in upload queue', 'success')
 
                         } else {
@@ -334,7 +362,8 @@ Vue.component('file-uploader', {
             if(this[varName][k] === undefined)this[varName][k]={};
             this[varName][k].file_size=file.size;
 
-            var rawData=e.target.result;
+            //var rawData=e.target.result;
+            var rawData=file;
             this[varName][k].file_raw_data=rawData;
 
             var fileSize   = this[varName][k].file_size-1;
@@ -364,6 +393,7 @@ Vue.component('file-uploader', {
 
             for (var i in this.files_processed_array[k])objetaD[i]=this.files_processed_array[k][i];
             this.files_added.push(objetaD);
+
             ///console.log(objetaD);
         },
         fileReadSuccefully(k,varName,updateName="files_processed_array"){

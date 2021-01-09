@@ -48,6 +48,8 @@ Route::post('test/largeFileUpload',function (Request $r){
 
    $input=$r->only(['file_id','collection', 'model', 'current_part', 'current_part_data', 'file_ext','file_name','file_size','current_part_data','total_part']);
 
+
+
    if($input['current_part']<1 &&  !array_key_exists('file_id', $input) )$input['file_id']=\Illuminate\Support\Str::uuid()->toString();
 
    if(array_key_exists('file_id', $input) &&  $input['file_id']==='new')$input['file_id']=\Illuminate\Support\Str::uuid()->toString();
@@ -66,51 +68,74 @@ Route::post('test/largeFileUpload',function (Request $r){
    $dbData['raw_data']=$input['current_part_data'];
     $dbData['part']=$dbData['current_part'];
 
-   \App\Models\LargeFileMediaLibrary::create($dbData);
-   $allPart=\App\Models\LargeFileMediaLibrary::where('file_id',$input['file_id'])->get()->toArray();
+    \App\Models\LargeFileMediaLibrary::create($dbData);
+    $pathToStoreRaw=['large-media-library',$input['file_id']];
+    Storage::disk('root')->putFileAs(implode('/',$pathToStoreRaw), $r->file('current_part_data'),implode('.', [$input['current_part'],'p']));
+    $allPartRaw=\App\Models\LargeFileMediaLibrary::where('file_id',$input['file_id'])->get();
+    $allPart=\App\Models\LargeFileMediaLibrary::where('file_id',$input['file_id'])->get()->toArray();
 
    $totalPart=reset($allPart)['total_part'];
    if($totalPart==count($allPart)) {
        $data['upload_finish'] = true;
+       if(true){
+           $id = $input['file_id'];
+
+           $first = $allPartRaw->first();
+           $allId = $allPartRaw->pluck('id')->toArray();
+           $total = $first->total_part;
+
+           if ($allPartRaw->count() == $total) {
 
 
+               $file = [
+                   'name' => $first->file_id,
+                   'total_part' => $total,
+                   'model' => $first->model,
+                   'collection' => $first->model,
+                   'final_path' => null,
+                   'chunk_to_join' => [],
+                   'file_store_name' => $first->file_name,
+                   'file_store_ext' => $first->file_ext,
+               ];
+
+               //  dd($allPart);
+
+               foreach ($allPart as $k => $filePart) {
+                   $fileSrc=implode('.',[$filePart['part'],'p']);
+                   $getFileContent=Storage::disk('root')->get(implode('/',array_merge($pathToStoreRaw,[$fileSrc])));
+                   Storage::disk('root')->delete(implode('/',array_merge($pathToStoreRaw,[$fileSrc])));
+
+                   $pathToStorecurrent = array_merge($pathToStoreRaw, ['part', implode('.', [$file['name'], 'p'])]);
+                   $pathToStoreFinal = array_merge($pathToStoreRaw, ['final', implode('.', [$file['file_store_name'], $file['file_store_ext']])]);
+                   $f = Storage::disk('root')->append(implode('/', $pathToStorecurrent),$getFileContent);
+                   if ($filePart['id'] == last($allId)) {
+                       $f = Storage::disk('root')->move(implode('/', $pathToStorecurrent), implode('/', $pathToStoreFinal));
+                       \App\Models\LargeFileMediaLibrary::where('file_id',$file['name'])->delete();
+                       $data=[
+                           'file_id'=>$input['file_id'],
+                           'collection'=>$input['collection'],
+                           'model'=>$input['model'],
+                           'current_part'=>$input['current_part'],
+                           'file_ext'=>$input['file_ext'],
+                           'file_name'=>$input['file_name'],
+                           'file_size'=>$input['file_size'],
+                           'total_part'=>$input['total_part'],
+                           'final_path'=>implode('/', $pathToStoreFinal),
+                           'part'=>0,
+                       ];
+                       \App\Models\LargeFileMediaLibrary::create($data);
+                       $data['upload_finish'] = true;
+                   }
 
 
-   }
+               }
 
-   if(false){
-       $id='8d979edc-081b-437a-a9f7-f5e31dec3488';
 
-       $allPart=\App\Models\LargeFileMediaLibrary::where('file_id',$id)->get();
-       $first=$allPart->first();
-       $allId=$allPart->pluck('id')->toArray();
-       $total=$first->total_part;
-
-       if($allPart->count()==$total){
-
-           $allPart=$allPart->toArray();
-           $file=[
-               'name'=>$first->file_id,
-               'total_part'=>$total,
-               'model'=>$first->model,
-               'collection'=>$first->model,
-               'final_path'=>null,
-               'chunk_to_join'=>[]
-           ];
-
-           dd($allPart);
-           foreach ($allPart as $filePart){
-               $file['chunk_to_join'][]=$filePart['raw_data'];
            }
-
-
-
-
-           dd(count($file['chunk_to_join']));
-
-
        }
+
    }
+
 
    return JsonResponse::data(['data'=>$data]);
 

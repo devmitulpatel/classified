@@ -7,7 +7,7 @@ $url=collect(
 )->toJson();
     @endphp
 
-<file-uploader inline-template collection="{{$collection}}" model="{{$model}}" max-file="2" :per-file-limit="5"
+<file-uploader :update-model-method="'updateFromOther'" :update-model-name="'images'" inline-template collection="{{$collection}}" model="{{$model}}" max-file="2" :per-file-limit="5"
                :allowed-files="['jpg']" :url="{{$url}}">
     <div v-cloak class="border">
         <input type="file" name="largeFile" ref="file_input" v-on:change="file_changed " :multiple="multiple"

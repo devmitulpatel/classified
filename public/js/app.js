@@ -44345,33 +44345,43 @@ window.validate = __webpack_require__(/*! validate.js */ "./node_modules/validat
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tinymce_tinymce_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tinymce/tinymce-vue */ "./node_modules/@tinymce/tinymce-vue/lib/es2015/main/ts/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 Vue.component('add-listing', {
   components: {
     'editor': _tinymce_tinymce_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  props: ['subCategory'],
   data: function data() {
     return {
       current_input_for_open_timing: {
-        day: 'Monday',
+        day: null,
         open: '09:00',
         close: '22:00',
-        hr_24: false
+        hr_24: false,
+        closed: false
       },
-      current_open_timing: [{
-        day: 'Monday',
-        open: '09:00',
-        close: '22:00',
-        hr_24: false
-      }, {
-        day: 'Tuesday',
-        open: '09:00',
-        close: '22:00',
-        hr_24: true
-      }],
+      form: {
+        images: []
+      },
+      current_open_timing: [],
       openTimings: [],
       closeTimings: [],
-      days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      sub_cat: []
     };
   },
   created: function created() {
@@ -44392,6 +44402,23 @@ Vue.component('add-listing', {
     }
   },
   methods: {
+    updateSubCat: function updateSubCat() {
+      this.form.sub_category = null;
+      var parent_category_id_toSearch = this.form.category.id;
+      var sub = this.subCategory;
+      this.sub_cat = sub.filter(function (x) {
+        return x.parent_category_id == parent_category_id_toSearch;
+      });
+    },
+    removeDay: function removeDay(t) {
+      var index = this.current_open_timing.findIndex(function (x) {
+        return x.day == t.day;
+      });
+      this.current_open_timing.splice(index, 1);
+    },
+    updateFromOther: function updateFromOther(k, value) {
+      this.form[k] = value;
+    },
     click: function click(url) {
       window.MainViewApp.click(url);
     },
@@ -44399,14 +44426,61 @@ Vue.component('add-listing', {
       console.log(field_name);
     },
     add_timings: function add_timings() {
-      var data = this.current_input_for_open_timing;
-      this.current_input_for_open_timing = {
-        day: null,
-        open: '09:00',
-        close: '22:00',
-        hr_24: false
-      };
-      this.current_open_timing.push(data);
+      if (this.current_input_for_open_timing.day != null) {
+        var data = this.current_input_for_open_timing;
+        this.current_open_timing.push(data);
+        this.current_input_for_open_timing = {
+          day: null,
+          open: '09:00',
+          close: '22:00',
+          hr_24: false,
+          closed: false
+        };
+        var sorter = {
+          // "sunday": 0, // << if sunday is first day of week
+          "monday": 1,
+          "tuesday": 2,
+          "wednesday": 3,
+          "thursday": 4,
+          "friday": 5,
+          "saturday": 6,
+          "sunday": 7
+        };
+        this.current_open_timing.sort(function sortByDay(a, b) {
+          var day1 = a.day.toLowerCase();
+          var day2 = b.day.toLowerCase();
+          return sorter[day1] - sorter[day2];
+        });
+      } else {
+        this.notify('Please Select day', 'error');
+      }
+    },
+    notify: function notify(text, type) {
+      var icon = "";
+
+      switch (type) {
+        case "success":
+          icon = "fas fa-check-circle";
+          break;
+
+        case "warn":
+          icon = "fas fa-info-circle";
+          break;
+
+        case "error":
+          icon = "fas fa-exclamation-circle";
+          break;
+      } //  console.log(typeof text);
+
+
+      this.$notify({
+        group: 'ms-notfy',
+        title: " <i class='" + icon + "'></i>",
+        text: _typeof(text) == 'object' ? _toConsumableArray(text).join(' ') : text,
+        type: type,
+        duration: 3000 //  position:"bottom"
+
+      });
     }
   }
 });
@@ -44480,7 +44554,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 Vue.component('file-uploader', {
-  props: ['collection', 'model', 'maxFile', 'perFileLimit', 'allowedFiles', 'url'],
+  props: ['collection', 'model', 'maxFile', 'perFileLimit', 'allowedFiles', 'url', 'updateModelMethod', 'updateModelName'],
   data: function data() {
     return {
       files_array: {},
@@ -44502,14 +44576,36 @@ Vue.component('file-uploader', {
     this.file_limit = (_this$maxFile = this.maxFile) !== null && _this$maxFile !== void 0 ? _this$maxFile : 1;
     this.file_type_allowed = (_this$allowedFiles = this.allowedFiles) !== null && _this$allowedFiles !== void 0 ? _this$allowedFiles : ['*'];
     this.per_file_limit = ((_this$perFileLimit = this.perFileLimit) !== null && _this$perFileLimit !== void 0 ? _this$perFileLimit : 5) * 1024 * 1024;
-    this.chunk_size = 1024 * 10;
+    this.chunk_size = 1024 * 20;
   },
   computed: {
     alluploadFinish: function alluploadFinish() {
-      return this.files_processed_array.length == this.findished_upload.length;
+      var result = this.files_processed_array.length == this.findished_upload.length;
+      if (result) this.updateToRoot();
+      return result;
     }
   },
   methods: {
+    updateToRoot: function updateToRoot() {
+      var _this$updateModelMeth, _this$updateModelName;
+
+      var method = (_this$updateModelMeth = this.updateModelMethod) !== null && _this$updateModelMeth !== void 0 ? _this$updateModelMeth : 'updateFromOther';
+      var k = (_this$updateModelName = this.updateModelName) !== null && _this$updateModelName !== void 0 ? _this$updateModelName : "uplodbox";
+      var data = this.findished_upload.map(function (x) {
+        var dt = {
+          collection: x.collection,
+          file_ext: x.file_ext,
+          file_id: x.file_id,
+          file_name: x.file_name,
+          file_size: x.file_size,
+          final_path: x.final_path,
+          model: x.model,
+          upload_finish: x.upload_finish
+        };
+        return dt;
+      });
+      this.$parent[method](k, data);
+    },
     uploadStart: function uploadStart() {
       var _this = this;
 
@@ -44555,7 +44651,7 @@ Vue.component('file-uploader', {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var url, totalPart, th, fileId, x, DataToUpload;
+        var url, totalPart, th, fileId, x, DataToUpload, dataFinal, dt;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -44572,7 +44668,7 @@ Vue.component('file-uploader', {
 
               case 9:
                 if ((_context2.t1 = _context2.t0()).done) {
-                  _context2.next = 17;
+                  _context2.next = 20;
                   break;
                 }
 
@@ -44584,13 +44680,19 @@ Vue.component('file-uploader', {
                   file_ext: f.file_ext,
                   file_size: f.file_size,
                   current_part: x,
-                  current_part_data: f.file_chunk_data[x],
+                  //current_part_data:f.file_chunk_data[x],
                   total_part: totalPart
                 };
                 DataToUpload.file_id = fileId;
-                _context2.next = 15;
-                return axios.post(url, DataToUpload).then(function (res) {
-                  console.log('respons:', x);
+                dataFinal = new FormData();
+
+                for (dt in DataToUpload) {
+                  dataFinal.append(dt, DataToUpload[dt]);
+                }
+
+                dataFinal.append('current_part_data', f.file_chunk_data[x]);
+                _context2.next = 18;
+                return axios.post(url, dataFinal).then(function (res) {
                   th.files_processed_array[k].uploaded_chunk.push(res.data.ResponseData);
                   th.files_processed_array[k].uploading_status = th.files_processed_array[k].uploaded_chunk.length * 100 / totalPart;
                   th.files_processed_array[k].file_id = res.data.ResponseData.file_id;
@@ -44601,7 +44703,6 @@ Vue.component('file-uploader', {
                     th.files_processed_array[k].upload_finish = res.data.ResponseData.upload_finish;
                   }
                 })["catch"](function (er) {
-                  console.log('respons:', x);
                   th.files_processed_array[k].failed_chunk.push(DataToUpload);
                 })["finally"](function () {
                   if (th.files_processed_array[k].failed_chunk.length < 1) {
@@ -44636,11 +44737,11 @@ Vue.component('file-uploader', {
                   }
                 });
 
-              case 15:
+              case 18:
                 _context2.next = 9;
                 break;
 
-              case 17:
+              case 20:
               case "end":
                 return _context2.stop();
             }
@@ -44773,6 +44874,7 @@ Vue.component('file-uploader', {
     },
     deleteImage: function deleteImage(k) {
       this.files_added.splice(k, 1);
+      this.files_processed_array.splice(k, 1);
       this.notify('Selected File is removed from upload queue', 'success');
     },
     file_changed: function file_changed(e) {
@@ -44782,32 +44884,25 @@ Vue.component('file-uploader', {
       this.files_array = (_e$target$files = e.target.files) !== null && _e$target$files !== void 0 ? _e$target$files : e.dataTransfer.files;
 
       if (_typeof(this.files_array) == "object") {
-        var currentCount = 0;
-
         for (var x in _toConsumableArray(this.files_array)) {
-          currentCount = currentCount + 1;
-
-          if (this.maxFile >= this.files_added.length + currentCount) {
+          if (this.maxFile >= this.files_added.length + 1) {
             var file = this.files_array[x];
 
             if (_typeof(file) == "object" && x != "item" && file.size < this.per_file_limit) {
-              var reader;
+              var reader = new FileReader();
+              var k = x;
+              var fileData = file;
+              th.handleFileRawDataFeed(null, k, 'files_processed_array', fileData); // reader.addEventListener('load', (event) => {
+              //     th.handleFileRawDataFeed(event, k, 'files_processed_array', fileData)
+              // });
+              // reader.addEventListener('loadend', th.fileReadSuccefully(k, 'files_processed_array'));
+              // reader.readAsText(file);
+              // th.$notify({
+              //     group: 'ms-notfy',
+              //     clean: true
+              // });
 
-              (function () {
-                reader = new FileReader();
-                var k = x;
-                var fileData = file;
-                reader.addEventListener('load', function (event) {
-                  th.handleFileRawDataFeed(event, k, 'files_processed_array', fileData);
-                });
-                reader.addEventListener('loadend', th.fileReadSuccefully(k, 'files_processed_array'));
-                reader.readAsBinaryString(file);
-                th.$notify({
-                  group: 'ms-notfy',
-                  clean: true
-                });
-                th.notify('Selected Files are added in upload queue', 'success');
-              })();
+              th.notify('Selected Files are added in upload queue', 'success');
             } else {
               var file_processed = {
                 file_name: file.name.split('\\').pop().split('.')[0],
@@ -44851,8 +44946,9 @@ Vue.component('file-uploader', {
     },
     handleFileRawDataFeed: function handleFileRawDataFeed(e, k, varName, file) {
       if (this[varName][k] === undefined) this[varName][k] = {};
-      this[varName][k].file_size = file.size;
-      var rawData = e.target.result;
+      this[varName][k].file_size = file.size; //var rawData=e.target.result;
+
+      var rawData = file;
       this[varName][k].file_raw_data = rawData;
       var fileSize = this[varName][k].file_size - 1;
       var chunkSize = this.chunk_size;
@@ -45220,8 +45316,8 @@ Vue.component('profile-section', {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Pojects\Github\classified\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Pojects\Github\classified\resources\sass\vendor.scss */"./resources/sass/vendor.scss");
+__webpack_require__(/*! F:\mitul\projects\classified\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\mitul\projects\classified\resources\sass\vendor.scss */"./resources/sass/vendor.scss");
 
 
 /***/ })
